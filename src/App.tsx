@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import { MobileAppShell, NavTab } from './components/MobileAppShell';
-import { ModuleOneOverview } from './components/ModuleOneOverview';
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<NavTab>('pulse');
-
   return (
-    <MobileAppShell activeTab={activeTab} setActiveTab={setActiveTab}>
-      <ModuleOneOverview />
-    </MobileAppShell>
+    <div className="app-container">
+      <div className="clean-card">
+        <h1 className="brand-heading">GigPulse</h1>
+        <p className="brand-sub">
+          Clean slate ready. Waiting for your step-by-step design & feature instructions.
+        </p>
+      </div>
+    </div>
   );
 }
 
