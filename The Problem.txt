@@ -1,0 +1,48 @@
+The Problem
+
+Great startup ideas die every day, not because they're bad, but because turning an idea into a real product is hard. Aspiring founders run into technical barriers, lack of resources, and no clear path from "I have an idea" to "I built something real." The tools and mentorship needed to build a startup are often only available to people who already have access, connections, or money.
+
+The Challenge
+
+Create a product, platform, or tool that solves a real problem, the same way a startup would. It should have genuine market potential, a clear user base, and the basic structure of a business you could actually grow. Your solution should feel like the first version of a company you'd want to launch.
+
+Focus Areas
+
+Problem Solvers: Tools that address a clear pain point in an everyday industry like retail, food, transportation, or housing.
+Consumer Apps: Products built for everyday people to use, save time, or make better decisions.
+B2B Tools: Software that helps small businesses, creators, or other startups run more efficiently.
+Underserved Markets: Ideas built for communities or user groups that existing products often overlook.
+What is a Hackathon?
+
+A hackathon is a technical sprint. You will build a functional project, like an app, website, or software tool, that solves a real world problem through code.
+
+Project Submission
+
+Submit a 5 minute video demonstration covering:
+
+The Problem: What specific technical or social challenge are you tackling?
+The Build: A walkthrough of your codebase, architecture, and the stack used.
+The Demo: A screen share recording of the project working in real time.
+Scalability: How is this project built to handle more data or more users?
+Prizes: Cash prizes for the top 3 teams.
+
+ 
+
+Who Can Participate? Any middle school, high school, or college student. Teams of 1 to 5.
+
+Requirements
+Project Submission
+
+Submit a 5 minute video of your product. Make sure to hit all key points on this rubric:
+
+Technical Execution (25%)
+Does the project actually work, and did the team show a strong grasp of their tech stack?
+
+Innovation & UX (25%)
+Did the team come up with an original or clever idea? Is the interface intuitive and the user flow easy to follow for the end user?
+
+Business & Finance (25%)
+Does the submission include a realistic business model, revenue streams, and a clear path to financial sustainability?
+
+Communication (25%)
+Does the video show a deep understanding of the product, its technical architecture, and its target consumers? 
