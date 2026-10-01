@@ -5,9 +5,15 @@
 
 ---
 
-## 🚀 Overview
+## 🚀 Live Demo & Repository
+- **GitHub Organization:** [GigPulse01](https://github.com/GigPulse01)
+- **Repository:** [Gig_Pulse](https://github.com/GigPulse01/Gig_Pulse)
+- **Specification Blueprint:** [GIGPULSE_BLUEPRINT.md](./GIGPULSE_BLUEPRINT.md)
 
-Freelancers and independent creators lose billions every year to delayed and forgotten client payments. **GigPulse** solves the "feast-or-famine" cycle with three core features:
+---
+
+## 🎯 The Problem
+Freelancers and independent creators lose billions every year to delayed and forgotten client payments. They are great at creative and technical craft, but terrible at awkward accounting follow-ups. **GigPulse** solves the "feast-or-famine" cycle with three core capabilities:
 
 1. **Automated Smart Chaser:** Auto-schedules polite, escalating payment reminders via email before and after invoice due dates.
 2. **Predictive Cash Flow & Runway Pulse:** Visualizes cash-in-hand, pending invoices, and monthly living expenses to calculate exact runway in days.
@@ -17,11 +23,23 @@ Freelancers and independent creators lose billions every year to delayed and for
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React 18 + Vite + TypeScript
-- **Styling:** Modern Tailwind CSS + Custom Dark-Mode FinTech Tokens
-- **Icons & UI:** Lucide React
-- **Analytics:** Interactive Recharts / Chart visualizations
-- **Document Export:** PDF invoice generation
+- **Framework:** React 18 + Vite + TypeScript
+- **Styling:** Custom FinTech Dark Mode & Responsive Layout
+- **Visuals & Charts:** Interactive Cash-Flow Curve & Financial Ratios
+- **Icons:** Lucide Icons
+- **Data Layer:** LocalStorage with dynamic mock data seeder & live invoice generator
+
+---
+
+## 🏃 Getting Started Locally
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+```
 
 ---
 
