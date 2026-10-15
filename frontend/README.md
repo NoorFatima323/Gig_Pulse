@@ -24,5 +24,4 @@ This folder contains all screens, assets, and design system templates fetched di
 | 8 | [07_client_reliability_scorecard.html](07_client_reliability_scorecard.html) | 2560x3704 | Client Reliability & Underwriting Scorecard |
 | 9 | [assets/gigpulse_logo.svg](assets/gigpulse_logo.svg) | 160x48 | GigPulse Official Brand Vector Logo |
 | 10 | [assets/alex_m_founder_headshot.png](assets/alex_m_founder_headshot.png) | 1024x1024 | Founder Alex M. Studio Headshot Image |
-| 11 | [STITCH_GROWTHSPHERE_PROMPTS.md](STITCH_GROWTHSPHERE_PROMPTS.md) | Markdown | GrowthSphere Design Prompts Architecture Guide |
 

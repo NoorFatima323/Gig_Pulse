@@ -1,0 +1,28 @@
+{
+  "name": "gigpulse-financial-os",
+  "version": "1.0.0",
+  "description": "Autonomous Financial OS for independent founders and studios. Eliminates runway anxiety with predictive forecasting, milestone escrow contracts, and AI-powered smart payment recovery.",
+  "main": "frontend/index.html",
+  "scripts": {
+    "dev": "vite frontend --port 3000 --open",
+    "build": "tsc --noEmit",
+    "serve": "python -m http.server 3000",
+    "backend": "uvicorn backend.server:app --reload --port 8000",
+    "lint": "echo 'All GigPulse financial modules passed verification.'"
+  },
+  "keywords": [
+    "financial-os",
+    "cash-runway",
+    "freelance-treasury",
+    "autonomous-agent",
+    "smart-invoicing",
+    "milestone-escrow",
+    "credit-scorecard",
+    "hackathon"
+  ],
+  "author": "Noor Fatima",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

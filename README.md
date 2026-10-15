@@ -42,6 +42,42 @@ Independent creators, engineering consultants, and boutique digital studios do n
 
 ---
 
+## 📁 Repository Architecture
+
+```text
+Gig_Pulse/
+├── index.html                     # Root entry point & Sovereign Landing Page Router
+├── frontend/                      # Web App Interface (Screens 00 to 08 & Assets)
+│   ├── index.html                 # Interactive Screen Hub Navigator
+│   ├── 00_auth_login_signup.html  # Sovereign Authentication & Biometric Portal
+│   ├── 01_landing_page_full.html  # Marketing Landing Page with Dual Holographic Lens
+│   ├── 02_pulse_cockpit_dashboard.html # Executive Financial Cockpit & Runway Gauge
+│   ├── 03_cash_flow_runway_forecaster.html # Monte-Carlo Cash Runway Simulator
+│   ├── 04_invoice_receivables_manager.html # AR Aging Buckets & Payment Ledger
+│   ├── 05_dynamic_milestone_invoice_builder.html # Smart Escrow Milestone Builder
+│   ├── 06_autonomous_smart_payment_chaser.html # Autopilot AI Multi-Stage Recovery Sentinel
+│   ├── 07_client_reliability_scorecard.html # Counterparty Credit Underwriting
+│   ├── 08_studio_account_settings.html # Studio Treasury & Platform Integration Hub
+│   └── assets/                    # Glassmorphism Styles, Custom Fonts, Vector Logos
+├── backend/                       # Python Autonomous AI & ML Intelligence
+│   ├── agents/
+│   │   └── chaser_autopilot.py    # Autonomous Multi-Channel AR Payment Recovery Agent
+│   ├── ml/
+│   │   └── credit_underwriting.py # Predictive Counterparty Credit Risk & Default Probability ML
+│   └── server.py                  # FastAPI High-Performance Treasury & REST API Service
+├── src/                           # TypeScript Core Financial Computation Engine
+│   ├── engine/
+│   │   └── runway_simulator.ts    # Monte-Carlo 1,000-Iteration Runway Simulation Engine
+│   └── types/
+│       └── treasury.ts            # Enterprise Financial Telemetry Type Schemas
+├── Dockerfile                     # Multi-Stage Production Containerization
+├── package.json                   # Node Tooling, TypeScript Schemas & Scripts
+├── requirements.txt               # Python Dependencies (FastAPI, LangChain, Scikit-Learn)
+└── README.md                      # Executive Architectural Documentation
+```
+
+---
+
 ## ⚡ 60-Second Judge Quickstart Tour
 
 Follow these steps to evaluate the full GigPulse experience in under 1 minute:
@@ -51,16 +87,16 @@ Follow these steps to evaluate the full GigPulse experience in under 1 minute:
    python -m http.server 3000
    ```
 2. **Open the Screen Hub:**
-   Navigate to [http://localhost:3000/gig_pulse_web_app_screens/](http://localhost:3000/gig_pulse_web_app_screens/) to toggle between mobile, tablet, and desktop viewports.
+   Navigate to [http://localhost:3000/frontend/](http://localhost:3000/frontend/) to toggle between mobile, tablet, and desktop viewports.
 3. **Experience the Landing Page:**
-   Visit [http://localhost:3000/gig_pulse_web_app_screens/01_landing_page_full.html](http://localhost:3000/gig_pulse_web_app_screens/01_landing_page_full.html). Hover over the hero image to reveal the Human Founder inside the AI Sentinel.
+   Visit [http://localhost:3000/frontend/01_landing_page_full.html](http://localhost:3000/frontend/01_landing_page_full.html). Hover over the hero image to reveal the Human Founder inside the AI Sentinel.
 4. **Use the 1-Click Judge Pass:**
-   Click **"LOG IN"** or visit [http://localhost:3000/gig_pulse_web_app_screens/00_auth_login_signup.html](http://localhost:3000/gig_pulse_web_app_screens/00_auth_login_signup.html). Click the amber **"Enter as Alex Mercer ➔"** button.
+   Click **"LOG IN"** or visit [http://localhost:3000/frontend/00_auth_login_signup.html](http://localhost:3000/frontend/00_auth_login_signup.html). Click the amber **"Enter as Alex Mercer ➔"** button.
 5. **Test the Autonomous Cockpit:**
-   In [02_pulse_cockpit_dashboard.html](http://localhost:3000/gig_pulse_web_app_screens/02_pulse_cockpit_dashboard.html):
+   In [02_pulse_cockpit_dashboard.html](http://localhost:3000/frontend/02_pulse_cockpit_dashboard.html):
    - Click **"Test What-If Scenarios"** in the top action bar to open the top-floating simulation popover.
    - Toggle **"Acme Corp delays $8.5k payment by 30 days"** and watch the runway gauge dynamically contract from 98 days to 54 days!
-   - Navigate through the sidebar to explore the Chaser, Scorecard, and Forecaster.
+   - Navigate through the sidebar to explore the Chaser Sentinel, Scorecard, and Forecaster.
 
 ---
 
@@ -77,20 +113,20 @@ GigPulse is built upon our signature **GrowthSphere Luxury Fintech** design lang
 
 ## 🛠️ Technology Stack
 
-- **Core:** Semantic HTML5, Vanilla ES6+ JavaScript, Responsive CSS3
-- **Utility Styling:** Tailwind CSS with custom dark mode tokens
-- **Icons & Visuals:** Google Material Symbols, custom SVG telemetry gauges, curated luxury photography
-- **Zero Heavy Dependencies:** Instant load times, no complex build steps, 100% portable and accessible from any modern browser.
+- **Frontend Interface:** Semantic HTML5, Vanilla ES6+ JavaScript, Responsive CSS3, Tailwind custom tokens, Glassmorphic UI
+- **Backend AI & ML Engine:** Python 3.11, FastAPI, Pydantic, Scikit-Learn, LangChain/Gemini Agent architecture
+- **Core Financial Engine:** TypeScript 5.3+ (Runway Monte-Carlo stochastic distribution algorithms & domain types)
+- **Containerization & Tooling:** Docker Multi-stage, npm, Python virtual environments
 
 ---
 
 ## 🏆 Hackathon Submission Checklist (Devpost)
 
-- [x] **Working Prototype:** Complete 9-screen fully operational web app suite.
+- [x] **Working Full-Stack Suite:** Complete 9-screen operational UI with Python AI services and TypeScript financial engine.
 - [x] **Interactive State Machines:** Every button, modal, filter, and calculator is 100% functional.
 - [x] **Authentication Flow:** Dual-mode login/signup with 1-click evaluator bypass.
-- [x] **Comprehensive Documentation:** Complete architecture breakdown and setup instructions.
-- [x] **Submission Ready:** Assets prepared for video demo recording and Devpost story writeup.
+- [x] **Comprehensive Documentation:** Full architectural breakdown, directory tree, and setup instructions.
+- [x] **Submission Ready:** Clean production repository free of private credentials or internal scratchpads.
 
 ---
 
