@@ -155,3 +155,24 @@ def trigger_chaser_dispatch(req: DispatchRequest):
 def evaluate_client_credit(profile: ClientCreditProfile):
     """Predicts counterparty credit grade and required escrow structure."""
     return credit_model.evaluate_credit(profile)
+
+
+# -----------------------------------------------------------------------------
+# Static Frontend UI Serving
+# -----------------------------------------------------------------------------
+import os
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+frontend_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+if os.path.exists(frontend_path):
+    app.mount("/frontend", StaticFiles(directory=frontend_path, html=True), name="frontend")
+    app.mount("/assets", StaticFiles(directory=os.path.join(frontend_path, "assets")), name="assets")
+
+    @app.get("/")
+    def serve_frontend_root():
+        index_file = os.path.join(frontend_path, "index.html")
+        if os.path.exists(index_file):
+            return FileResponse(index_file)
+        return {"status": "online", "message": "GigPulse Autonomous Financial Engine"}
+
