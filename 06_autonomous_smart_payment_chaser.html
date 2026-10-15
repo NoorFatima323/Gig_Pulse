@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="assets/fonts.css" rel="stylesheet"/><link href="assets/dark_theme.css?v=20261014_3" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-charcoal": "#FFFFFF", "mint-glow": "rgba(5, 150, 105, 0.12)", "inverse-on-surface": "#F8FAFC", "surface-container-high": "#F1F5F9", "on-primary-fixed-variant": "#4338CA", "error": "#DC2626", "primary-container": "#4F46E5", "outline-variant": "#E2E8F0", "surface-container-lowest": "#FFFFFF", "primary": "#4F46E5", "iris-deep": "#3730A3", "outline": "#94A3B8", "error-container": "#FEE2E2", "on-secondary-container": "#065F46", "secondary-container": "#D1FAE5", "on-tertiary-fixed-variant": "#991B1B", "text-muted": "#64748B", "text-secondary": "#475569", "on-tertiary-fixed": "#7F1D1D", "border-iris-active": "rgba(79, 70, 229, 0.35)", "surface": "#FFFFFF", "on-tertiary": "#FFFFFF", "secondary": "#059669", "primary-fixed": "#EEF2FF", "surface-container": "#F8FAFC", "canvas-void": "#F8FAFC", "on-tertiary-container": "#991B1B", "surface-dim": "#F1F5F9", "tertiary-container": "#FEE2E2", "on-primary-fixed": "#1E1B4B", "on-error": "#FFFFFF", "iris-soft": "#6366F1", "background": "#F8FAFC", "tertiary-fixed-dim": "#FECDD3", "surface-hover": "#F1F5F9", "on-secondary-fixed-variant": "#064E3B", "mint-subtle": "rgba(5, 150, 105, 0.08)", "surface-tint": "#4F46E5", "on-error-container": "#7F1D1D", "inverse-surface": "#0F172A", "border-illuminated": "#CBD5E1", "on-primary": "#FFFFFF", "on-secondary": "#FFFFFF", "on-surface-variant": "#475569", "tertiary": "#E11D48", "crimson-subtle": "rgba(225, 29, 72, 0.06)", "secondary-fixed-dim": "#A7F3D0", "tertiary-fixed": "#FFE4E6", "on-surface": "#0F172A", "on-primary-container": "#FFFFFF", "crimson-glow": "rgba(225, 29, 72, 0.12)", "primary-fixed-dim": "#C7D2FE", "border-slate": "#E2E8F0", "secondary-fixed": "#D1FAE5", "surface-elevated": "#F1F5F9", "on-secondary-fixed": "#064E3B", "on-background": "#0F172A", "inverse-primary": "#EEF2FF", "surface-bright": "#FFFFFF", "text-primary": "#0F172A", "surface-container-low": "#F8FAFC", "surface-variant": "#F1F5F9", "surface-container-highest": "#E2E8F0" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-sm": "0.5rem", "space-xl": "2.5rem", "margin": "2.5rem", "gutter-mobile": "0.75rem", "gutter": "1.5rem", "margin-mobile": "1rem", "space-lg": "1.5rem", "space-md": "1rem" }, "fontFamily": { "telemetry-hero": [ "Plus Jakarta Sans", "Inter", "sans-serif" ], "headline-lg": [ "Plus Jakarta Sans" ], "body-lg": [ "Plus Jakarta Sans" ], "telemetry-lg": [ "Plus Jakarta Sans", "Inter", "sans-serif" ], "body-sm": [ "Plus Jakarta Sans" ], "title-card": [ "Plus Jakarta Sans" ], "body-md": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "eyebrow-caps": [ "Plus Jakarta Sans", "Inter", "sans-serif" ], "telemetry-sm": [ "Plus Jakarta Sans", "Inter", "sans-serif" ], "display-hero-mobile": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "display-hero": [ "Plus Jakarta Sans" ], "telemetry-md": [ "Plus Jakarta Sans", "Inter", "sans-serif" ] }, "fontSize": { "telemetry-hero": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "headline-lg": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-lg": [ "16px", { "lineHeight": "26px", "letterSpacing": "0.00em", "fontWeight": "400" } ], "telemetry-lg": [ "26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-sm": [ "12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "title-card": [ "16px", { "lineHeight": "24px", "letterSpacing": "0.00em", "fontWeight": "600" } ], "body-md": [ "14px", { "lineHeight": "22px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "eyebrow-caps": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" } ], "telemetry-sm": [ "13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" } ], "display-hero-mobile": [ "34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "headline-lg-mobile": [ "26px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "display-hero": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "telemetry-md": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "600" } ] } } } };</script></head><body class="bg-canvas-void font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen relative overflow-x-hidden"><div class="pointer-events-none fixed inset-0 z-0 flex items-start justify-center overflow-hidden"><div class="w-[60vw] h-[400px] bg-primary-container/10 blur-[140px] rounded-full mt-[-100px]"></div></div>  <!-- ==========================================================================
+       SIDEBAR BACKDROP (Mobile Drawer Overlay)
+       ========================================================================== -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-40 hidden md:hidden transition-opacity"></div>
+
+  <!-- ==========================================================================
+       LEFT EXECUTIVE SIDEPANEL (CLEAN FINTECH / LINEAR STYLE)
+       ========================================================================== -->
+  <aside id="app-sidebar" class="fixed inset-y-0 left-0 w-64 xl:w-72 bg-white border-r border-slate-200 flex flex-col justify-between z-50 transition-transform duration-300 -translate-x-full md:translate-x-0 shadow-sm font-sans select-none">
+    
+    <!-- Top Brand, Search & Navigation Block -->
+    <div class="no-scrollbar flex flex-col flex-1 overflow-y-auto px-3.5 py-4">
+      
+      <!-- Workspace Switcher Header -->
+      <div class="pb-3 border-b border-slate-100 shrink-0">
+        <div class="flex items-center justify-between">
+          <div class="sidebar-workspace-btn flex items-center justify-between w-full p-1.5 rounded-xl group cursor-pointer">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center p-0.5 shadow-xs shrink-0">
+                <img src="assets/gigpulse_mark.svg" alt="GigPulse" class="w-full h-full object-contain">
+              </div>
+              <div class="flex flex-col min-w-0 text-left">
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold tracking-tight text-slate-900 text-[13px] truncate">GigPulse Studio</span>
+                  <span class="text-[9px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/60 px-1 py-0.2 rounded shrink-0">PRO</span>
+                </div>
+                <span class="text-[11px] text-slate-500 font-normal truncate">Autonomous Financial OS</span>
+              </div>
+            </div>
+          </div>
+          <button id="close-sidebar-btn" class="md:hidden text-slate-400 hover:text-slate-700 p-1.5 rounded-lg focus:outline-none ml-1">
+            <span class="material-symbols-outlined text-lg">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Nav Section 1: Overview -->
+      <div class="pt-3">
+        <div class="sidebar-section-title px-2 pb-1.5">
+          Overview
+        </div>
+        <nav class="space-y-1">
+          <!-- 02: Pulse Dashboard -->
+          <a href="02_pulse_cockpit_dashboard.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">space_dashboard</span>
+              <span>Cockpit Dashboard</span>
+            </div>
+          </a>
+
+          <!-- 03: Cash Runway Forecaster -->
+          <a href="03_cash_flow_runway_forecaster.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">trending_up</span>
+              <span>Runway Radar</span>
+            </div>
+            <span class="text-[10px] font-medium text-slate-500">8.4m</span>
+          </a>
+
+          <!-- 04: Invoices & Receivables -->
+          <a href="04_invoice_receivables_manager.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+              <span>Receivables Ledger</span>
+            </div>
+            <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200/50 px-1.5 py-0.5 rounded">1 Overdue</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Nav Section 2: Tools & Automation -->
+      <div class="pt-4">
+        <div class="sidebar-section-title px-2 pb-1.5">
+          Tools &amp; Automation
+        </div>
+        <nav class="space-y-1">
+          <!-- 05: Invoice Builder -->
+          <a href="05_dynamic_milestone_invoice_builder.html" class="sidebar-nav-item flex items-center gap-2.5 px-3 py-2 rounded-lg">
+            <span class="material-symbols-outlined text-[18px]">post_add</span>
+            <span>Invoice Builder</span>
+          </a>
+
+          <!-- 06: Smart Chaser (ACTIVE) -->
+          <a href="06_autonomous_smart_payment_chaser.html" class="sidebar-nav-item active flex items-center justify-between px-3 py-2 rounded-lg" aria-current="page">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">schedule_send</span>
+              <span>Payment Chaser</span>
+            </div>
+          </a>
+
+          <!-- 07: Client Scorecard -->
+          <a href="07_client_reliability_scorecard.html" class="sidebar-nav-item flex items-center gap-2.5 px-3 py-2 rounded-lg">
+            <span class="material-symbols-outlined text-[18px]">verified_user</span>
+            <span>Client Reliability</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Nav Section 3: Studio Settings -->
+      <div class="pt-4">
+        <div class="sidebar-section-title px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+          Settings &amp; Accounts
+        </div>
+        <nav class="space-y-1">
+          <!-- 08: Studio Account & Settings -->
+          <a href="08_studio_account_settings.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+              <span>My Studio Account</span>
+            </div>
+            <span class="text-[9px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/60 px-1.5 py-0.2 rounded">SETUP</span>
+          </a>
+        </nav>
+      </div>
+
+    </div>
+
+    <!-- Bottom User Profile Footer -->
+    <div class="p-3 border-t border-slate-100 shrink-0 bg-white">
+      <div class="sidebar-profile-card flex items-center justify-between p-2 cursor-pointer group rounded-lg hover:bg-slate-50 transition-colors">
+        <a href="08_studio_account_settings.html" class="flex items-center gap-2.5 min-w-0 flex-1" title="Open Studio Account Settings">
+          <div class="relative shrink-0">
+            <img src="assets/alex_m_founder_headshot.png" alt="Alex Mercer" class="w-8 h-8 rounded-full object-cover ring-1 ring-slate-200">
+            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="profile-name text-xs truncate font-semibold">Alex Mercer</span>
+            <span class="profile-role text-[11px] truncate text-slate-500">Studio Founder</span>
+          </div>
+        </a>
+        <div class="flex items-center gap-1 shrink-0 text-slate-400">
+          <a href="08_studio_account_settings.html" title="Studio Account Settings" class="p-1.5 rounded-md hover:bg-slate-100 text-slate-400 hover:text-indigo-600 transition-colors flex items-center">
+            <span class="material-symbols-outlined text-[18px]">settings</span>
+          </a>
+          <a href="00_auth_login_signup.html" title="Log Out / Switch Studio" class="p-1.5 rounded-md hover:bg-rose-500/10 text-slate-400 hover:text-rose-400 transition-colors flex items-center">
+            <span class="material-symbols-outlined text-[18px]">logout</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ==========================================================================
+       TOP STREAMLINED HEADER BAR
+       ========================================================================== -->
+  <header class="fixed top-0 inset-x-0 md:left-64 xl:left-72 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200">
+    <div class="h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      
+      <!-- Mobile Toggle & Page Title -->
+      <div class="flex items-center gap-3">
+        <button id="mobile-sidebar-toggle" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900 transition-colors focus:outline-none cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">menu</span>
+        </button>
+        <div class="flex items-center gap-2 font-sans text-xs">
+          <span class="text-slate-900 font-semibold text-sm">Smart Payment Chaser</span>
+        </div>
+      </div>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="showToast('Chaser settings opened')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-sans text-xs font-semibold transition-all shadow-2xs">
+          <span class="material-symbols-outlined text-sm text-slate-500">tune</span>
+          <span>Automation Settings</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN CONTENT VIEWPORT
+       ========================================================================== -->
+  <main class="relative z-10 md:pl-64 xl:pl-72 pt-16 pb-20 bg-slate-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      
+      <!-- Back Navigation & Page Header -->
+      <div class="mb-6">
+        <a href="04_invoice_receivables_manager.html" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 transition-colors mb-3">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>Back to Invoices &amp; Receivables</span>
+        </a>
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-200">
+          <div>
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-xs font-semibold">
+                <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
+                <span>Automated Follow-ups Active</span>
+              </span>
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-medium">
+                <span class="material-symbols-outlined text-sm text-indigo-600">security</span>
+                <span>Escrow Protected</span>
+              </span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+              Smart Payment Follow-ups
+            </h1>
+            <p class="text-sm text-slate-500 mt-1 max-w-2xl">
+              Diplomatic, automated payment reminders calibrated to client payment velocity — recover overdue balances without burning client relationships.
+            </p>
+          </div>
+
+          <!-- Quick KPI Cards -->
+          <div class="grid grid-cols-3 gap-3 sm:flex sm:items-center shrink-0">
+            <div class="px-4 py-3 rounded-xl bg-white border border-slate-200 shadow-2xs flex flex-col min-w-[120px]">
+              <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Recovery Rate</span>
+              <span class="text-lg font-bold text-emerald-600 mt-0.5">98.2%</span>
+            </div>
+            <div class="px-4 py-3 rounded-xl bg-white border border-slate-200 shadow-2xs flex flex-col min-w-[120px]">
+              <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Active Sequence</span>
+              <span class="text-lg font-bold text-indigo-600 mt-0.5">1 Overdue</span>
+            </div>
+            <div class="px-4 py-3 rounded-xl bg-white border border-slate-200 shadow-2xs flex flex-col min-w-[120px]">
+              <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider">Avg. Response</span>
+              <span class="text-lg font-bold text-slate-900 mt-0.5">2.1 Days</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Workspace Split: 5 Cols Left, 7 Cols Right -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- ==================================================================
+             LEFT COLUMN: Configuration & Tone Calibration (5 Columns)
+             ================================================================== -->
+        <div class="lg:col-span-5 space-y-6">
+
+          <!-- 1. Target Overdue Client Tile & Selector -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs">
+            <div class="mb-3">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Select Debtor Invoice</label>
+              <div class="relative">
+                <select id="target-invoice-select" onchange="switchTargetInvoice(this.value)" class="w-full h-10 px-3 pr-8 rounded-lg bg-slate-50 border border-slate-300 text-xs font-semibold text-slate-900 focus:outline-none focus:border-indigo-600 cursor-pointer">
+                  <option value="veloce" selected>Veloce Motors Inc. · INV-2026-085 ($3,200 · 16d Overdue)</option>
+                  <option value="apex">Apex Digital Labs · INV-2026-089 ($3,000 · Due in 2d)</option>
+                  <option value="hypergrowth">HyperGrowth Media · INV-2026-091 ($2,400 · Due in 10d)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <div class="flex items-center gap-3">
+                <div id="target-avatar" class="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center font-bold text-sm text-rose-700 shrink-0">
+                  VM
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 id="target-client-name" class="font-bold text-sm text-slate-900">Veloce Motors Inc.</h3>
+                    <span id="target-risk-badge" class="px-2 py-0.2 rounded text-[10px] font-bold bg-rose-100 text-rose-800">
+                      HIGH RISK
+                    </span>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-0.5">Invoice: <span id="target-inv-display" class="font-semibold text-slate-800">#INV-2026-085</span></p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span id="target-amount-display" class="text-base font-bold text-slate-900">$3,200.00</span>
+                <span id="target-status-display" class="block text-[11px] font-bold text-rose-600">16 Days Overdue</span>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div id="target-lock-badge" class="flex items-center gap-1.5 text-amber-700 bg-amber-50 px-2 py-1 rounded-md font-medium">
+                <span class="material-symbols-outlined text-sm text-amber-600">lock</span>
+                <span id="target-lock-text">Deliverable IP Lock Triggered</span>
+              </div>
+              <span id="target-due-date" class="text-slate-400">Due Sep 15, 2026</span>
+            </div>
+          </div>
+
+          <!-- 2. Tone Calibration Selector -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-sm font-bold text-slate-900">Follow-up Tone &amp; Strategy</h2>
+                <p class="text-xs text-slate-500 mt-0.5">Auto-calibrated based on client relationship and invoice aging</p>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-[11px] font-semibold">
+                AI Assistant
+              </span>
+            </div>
+
+            <div class="space-y-2.5" id="tone-selector">
+              
+              <!-- Tone 1: Gentle -->
+              <label class="tone-card group relative flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50/80 cursor-pointer transition-all">
+                <input type="radio" name="chaser-tone" value="gentle" class="mt-1 accent-indigo-600 cursor-pointer" />
+                <div class="space-y-0.5 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Gentle &amp; Polite Reminder</span>
+                    <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded">COURTESY</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 leading-tight">For invoices due soon or 1-2 days overdue. Warm, friendly check-in with zero pressure.</p>
+                </div>
+              </label>
+
+              <!-- Tone 2: Professional -->
+              <label class="tone-card group relative flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50/80 cursor-pointer transition-all">
+                <input type="radio" name="chaser-tone" value="professional" class="mt-1 accent-indigo-600 cursor-pointer" />
+                <div class="space-y-0.5 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Professional Statement</span>
+                    <span class="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-1.5 py-0.2 rounded">STANDARD</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 leading-tight">Clear, formal milestone statement for invoices 3-7 days overdue with payment breakdown.</p>
+                </div>
+              </label>
+
+              <!-- Tone 3: Firm (Active Default for 16d overdue) -->
+              <label class="tone-card liquid-glass-rose group relative flex items-start gap-3 p-3.5 rounded-xl border-2 border-indigo-600 bg-indigo-50/40 cursor-pointer transition-all shadow-2xs">
+                <input type="radio" name="chaser-tone" value="firm" checked class="mt-1 accent-indigo-600 cursor-pointer" />
+                <div class="space-y-0.5 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-900">Firm Notice &amp; Late Fee</span>
+                    <span class="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-1.5 py-0.2 rounded">RECOMMENDED (16D OVER)</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 leading-tight">For accounts overdue past 14 days. Invokes contractual 1.5% late fee and escrow hold reminder.</p>
+                </div>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- 3. Delivery Channels -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-2xs space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-slate-900">Delivery Channels</h3>
+              <span class="text-[11px] font-semibold text-emerald-700 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span>Channels Verified</span>
+              </span>
+            </div>
+
+            <div class="space-y-2.5">
+              
+              <!-- Channel 1: Email -->
+              <div class="flex items-center justify-between p-3 rounded-lg border border-slate-200 bg-slate-50/60">
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-indigo-600 text-base">mail</span>
+                      <span class="text-xs font-bold text-slate-900">Direct Executive Email</span>
+                    </div>
+                    <span id="channel-email-display" class="text-[11px] text-slate-500">marcus.t@velocemotors.com</span>
+                  </div>
+                </label>
+                <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100/60 px-2 py-0.5 rounded">VERIFIED</span>
+              </div>
+
+              <!-- Channel 2: WhatsApp / SMS -->
+              <div class="flex items-center justify-between p-3 rounded-lg border border-slate-200 bg-slate-50/60">
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" checked class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-emerald-600 text-base">chat</span>
+                      <span class="text-xs font-bold text-slate-900">SMS &amp; WhatsApp Direct</span>
+                    </div>
+                    <span id="channel-phone-display" class="text-[11px] text-slate-500">+1 (313) 555-0192 · Read Receipts Enabled</span>
+                  </div>
+                </label>
+                <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100/60 px-2 py-0.5 rounded">ACTIVE</span>
+              </div>
+
+              <!-- Channel 3: Slack Connect -->
+              <div class="flex items-center justify-between p-3 rounded-lg border border-slate-200 bg-white opacity-60">
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-slate-400 text-base">forum</span>
+                      <span class="text-xs font-bold text-slate-700">Slack Shared Channel</span>
+                    </div>
+                    <span class="text-[11px] text-slate-400">#ext-veloce-finance (Muted)</span>
+                  </div>
+                </label>
+                <span class="text-[10px] font-semibold text-slate-400">MUTED</span>
+              </div>
+
+            </div>
+
+            <!-- Schedule & Protection Rules -->
+            <div class="pt-3 border-t border-slate-100 space-y-3">
+              
+              <div class="flex items-center justify-between p-3 rounded-lg bg-indigo-50/50 border border-indigo-100">
+                <div class="flex items-center gap-2.5">
+                  <span class="material-symbols-outlined text-indigo-600 text-lg">event_upcoming</span>
+                  <div>
+                    <div class="text-xs font-bold text-slate-900">Optimal Send Window</div>
+                    <div class="text-[11px] text-slate-500">Friday at 9:00 AM EST (Highest client response rate)</div>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">SCHEDULED</span>
+              </div>
+
+              <!-- Late Fee Toggle -->
+              <div class="flex items-center justify-between px-1">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-rose-600 text-base">percent</span>
+                  <span class="text-xs text-slate-700 font-medium">Auto-apply 1.5% compounding fee on Day 15+</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer" />
+                  <div class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:bg-indigo-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all after:shadow-sm peer-checked:after:translate-x-full"></div>
+                </label>
+              </div>
+
+              <!-- Installment Bridge Toggle -->
+              <div class="flex items-center justify-between px-1">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-emerald-600 text-base">account_balance</span>
+                  <span class="text-xs text-slate-700 font-medium">Offer 2-part installment bridge to client</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer" />
+                  <div class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:bg-indigo-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all after:shadow-sm peer-checked:after:translate-x-full"></div>
+                </label>
+              </div>
+
+            </div>
+
+            <!-- Left Actions -->
+            <div class="pt-2 flex items-center gap-2.5">
+              <button type="button" onclick="scheduleAutoChase()" class="flex-1 py-2.5 px-4 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition-colors shadow-2xs">
+                Schedule Auto-Followup
+              </button>
+              <button type="button" onclick="runTestSimulation()" class="py-2.5 px-3 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer">
+                <span class="material-symbols-outlined text-sm text-slate-500">science</span>
+                <span>Test Run</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==================================================================
+             RIGHT COLUMN: Live Email & Message Preview (7 Columns — Sticky)
+             ================================================================== -->
+        <div class="lg:col-span-7 space-y-4">
+          
+          <!-- Outer Mail Card -->
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            
+            <!-- Window Tab Bar -->
+            <div class="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between gap-4">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-rose-400"></div>
+                <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+                <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
+                <span class="ml-2 text-xs font-semibold text-slate-700">Follow-up Step 3: Overdue Statement Draft</span>
+              </div>
+              <div class="flex items-center p-1 rounded-lg bg-white border border-slate-200 text-xs" id="channel-tabs">
+                <button type="button" id="tab-btn-email" onclick="switchPreviewChannel('email')" class="px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 font-bold border border-indigo-200/60 shadow-2xs transition-all cursor-pointer">Email Preview</button>
+                <button type="button" id="tab-btn-whatsapp" onclick="switchPreviewChannel('whatsapp')" class="px-2.5 py-1 rounded text-slate-500 hover:text-slate-800 transition-all cursor-pointer">WhatsApp Preview</button>
+              </div>
+            </div>
+
+            <!-- EMAIL PREVIEW PANE -->
+            <div id="email-preview-pane">
+              <!-- Email Meta Headers -->
+              <div class="px-6 py-4 bg-white border-b border-slate-100 space-y-2 text-xs">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2 text-slate-600">
+                    <span class="text-slate-400 font-medium">To:</span>
+                    <span class="font-bold text-slate-900">Marcus Thorne</span>
+                    <span class="text-slate-500">&lt;marcus.t@velocemotors.com&gt;</span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-rose-50 border border-rose-200 text-rose-700 text-[10px] font-bold">
+                    16D OVERDUE
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 text-slate-500">
+                  <span class="text-slate-400 font-medium">CC:</span>
+                  <span>accounting@velocemotors.com, alex@gigpulse.io</span>
+                </div>
+                <div class="flex items-start gap-2 pt-1 text-slate-900">
+                  <span class="text-slate-400 font-medium">Subject:</span>
+                  <span id="email-subject-display" class="font-bold text-slate-900">Payment Reminder: Invoice #INV-2026-085 ($3,200.00) is 16 days overdue</span>
+                </div>
+              </div>
+
+              <!-- Email Body Presentation (Clean White Paper Aesthetic) -->
+              <div class="p-6 md:p-8 space-y-6 text-sm text-slate-700 leading-relaxed bg-white">
+                
+                <!-- Email Brand Bar -->
+                <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center p-1">
+                      <img src="assets/gigpulse_mark.svg" alt="GigPulse" class="w-full h-full object-contain">
+                    </div>
+                    <span class="font-bold text-xs text-slate-900">GigPulse Studio · Secure Billing</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400">Powered by Stripe &amp; Mercury</span>
+                </div>
+
+                <!-- Dynamic Email Body Copy -->
+                <div id="email-body-copy" class="space-y-3 text-slate-700 text-xs sm:text-sm">
+                  <p>Dear Marcus,</p>
+                  <p>
+                    This is a formal reminder regarding outstanding invoice <strong class="text-slate-900">#INV-2026-085</strong> for <strong class="text-slate-900">$3,200.00</strong>, which reached its maturity on September 15, 2026 and is currently <strong class="text-rose-600">16 days past due</strong>.
+                  </p>
+                  <p>
+                    We value our partnership with Veloce Motors Inc. To prevent further contractual late fees from accruing, please settle the outstanding balance using the direct payment button below.
+                  </p>
+                </div>
+
+                <!-- Clean Invoice Summary Table -->
+                <div class="rounded-xl bg-slate-50 border border-slate-200 p-4 space-y-2.5 text-xs">
+                  <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                    <span class="text-slate-500 font-medium">Project Deliverable</span>
+                    <span class="font-bold text-slate-900">Telemetry Design Sprint Phase II</span>
+                  </div>
+                  <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                    <span class="text-slate-500 font-medium">Invoice Number</span>
+                    <span class="font-bold text-slate-900">#INV-2026-085</span>
+                  </div>
+                  <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                    <span class="text-slate-500 font-medium">Original Due Date</span>
+                    <span class="font-semibold text-slate-800">Sep 15, 2026</span>
+                  </div>
+                  <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                    <span class="text-slate-500 font-medium">Overdue Status</span>
+                    <span class="font-bold text-rose-600">16 Days Overdue</span>
+                  </div>
+                  <div class="flex justify-between items-center pb-2 border-b border-slate-200">
+                    <span class="text-slate-500 font-medium">Base Amount</span>
+                    <span class="font-bold text-slate-900">$3,200.00 USD</span>
+                  </div>
+                  <div class="flex justify-between items-center pt-0.5">
+                    <span class="text-slate-500 font-medium">Accrued Late Fee (1.5%)</span>
+                    <span class="font-bold text-rose-600">+$48.00</span>
+                  </div>
+                </div>
+
+                <!-- IP Escrow Notice Box -->
+                <div class="p-3.5 rounded-xl bg-amber-500/15 border border-amber-500/35 shadow-[0_0_20px_rgba(245,158,11,0.08)] flex items-start gap-3">
+                  <span class="material-symbols-outlined text-amber-400 text-lg shrink-0 mt-0.5">lock</span>
+                  <div class="text-xs text-amber-100 leading-relaxed font-normal">
+                    <strong class="text-amber-300 font-bold">Notice of IP Escrow Hold:</strong> Under Section 4.2 of our Master Services Agreement, final production code repository licenses and Figma source assets remain held in escrow until this milestone is cleared.
+                  </div>
+                </div>
+
+                <!-- Primary Payment Button Inside Email -->
+                <div class="py-2 text-center space-y-2.5">
+                  <a href="#" onclick="showToast('Redirecting to secure payment checkout...'); return false;" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-sm transition-all">
+                    <span>Pay $3,200.00 via Stripe / Bank Transfer</span>
+                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+                  </a>
+                  <div class="flex items-center justify-center gap-3 text-slate-400 text-[11px]">
+                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-emerald-600">check_circle</span> Instant ACH</span>
+                    <span>•</span>
+                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-emerald-600">check_circle</span> Apple Pay</span>
+                    <span>•</span>
+                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-emerald-600">check_circle</span> Zero Fee Transfer</span>
+                  </div>
+                </div>
+
+                <!-- Installment Flexibility Banner -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shrink-0">
+                      <span class="material-symbols-outlined text-lg">calendar_month</span>
+                    </div>
+                    <div>
+                      <p class="text-xs font-bold text-slate-900">Need 30-Day Payment Flexibility?</p>
+                      <p class="text-[11px] text-slate-500">Split this balance across 2 monthly installments via GigPulse Payment Bridge.</p>
+                    </div>
+                  </div>
+                  <button type="button" onclick="generateInstallmentLink()" class="shrink-0 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-200 transition-colors cursor-pointer">
+                    Split Invoice →
+                  </button>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 text-slate-400 text-xs">
+                  Alex Mercer · Alex Mercer LLC · San Francisco, CA<br/>
+                  Dispatched automatically via GigPulse Autonomous Financial OS
+                </div>
+
+              </div>
+
+              <!-- Preview Action Footer Bar (Email) -->
+              <div class="p-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                  <button type="button" onclick="copyEmailCopy()" class="flex-1 sm:flex-none px-3.5 py-2 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-2xs cursor-pointer">
+                    <span class="material-symbols-outlined text-sm text-slate-500">content_copy</span>
+                    <span>Copy Message</span>
+                  </button>
+                  <button type="button" id="edit-draft-btn" onclick="toggleDraftEditor()" class="flex-1 sm:flex-none px-3.5 py-2 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-2xs cursor-pointer">
+                    <span class="material-symbols-outlined text-sm text-slate-500">edit</span>
+                    <span id="edit-draft-label">Edit Draft</span>
+                  </button>
+                </div>
+
+                <!-- Primary Dispatch Button -->
+                <button type="button" onclick="dispatchChaser('email')" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99] cursor-pointer">
+                  <span>Send Email Reminder Now</span>
+                  <span class="material-symbols-outlined text-sm">send</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- WHATSAPP / SMS PREVIEW PANE (CLEAN MESSENGER VIEW) -->
+            <div id="whatsapp-preview-pane" class="hidden">
+              <!-- Messenger Header -->
+              <div class="px-5 py-3.5 bg-emerald-700 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-full bg-emerald-800 border border-emerald-600 flex items-center justify-center font-bold text-xs text-white">
+                    MT
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="font-bold text-xs">Marcus Thorne</span>
+                      <span class="material-symbols-outlined text-emerald-300 text-sm">verified</span>
+                    </div>
+                    <span class="text-[11px] text-emerald-200">+1 (313) 555-0192 · Online</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 text-emerald-200 text-sm">
+                  <span class="material-symbols-outlined">call</span>
+                  <span class="material-symbols-outlined ml-2">more_vert</span>
+                </div>
+              </div>
+
+              <!-- Messenger Conversation Body -->
+              <div class="p-6 bg-slate-100 min-h-[380px] space-y-4 font-sans text-xs flex flex-col justify-between">
+                
+                <div class="space-y-4">
+                  <!-- Encryption pill -->
+                  <div class="text-center">
+                    <span class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-100/70 border border-amber-200 text-[10px] text-amber-800 font-medium">
+                      <span class="material-symbols-outlined text-xs">lock</span>
+                      <span>Messages are end-to-end encrypted · GigPulse Business API</span>
+                    </span>
+                  </div>
+
+                  <!-- Date Pill -->
+                  <div class="text-center">
+                    <span class="px-2.5 py-0.5 rounded-full bg-white shadow-2xs border border-slate-200 text-[10px] text-slate-500 font-semibold">
+                      Today · 09:00 AM
+                    </span>
+                  </div>
+
+                  <!-- Outgoing WhatsApp Chat Bubble -->
+                  <div class="flex justify-end">
+                    <div class="max-w-[85%] rounded-2xl rounded-tr-xs bg-emerald-50 border border-emerald-200/80 p-4 space-y-3 shadow-2xs text-slate-800">
+                      
+                      <div id="whatsapp-message-body" class="leading-relaxed">
+                        Hi Marcus, this is Alex regarding outstanding invoice <strong>#INV-2026-085</strong> for <strong>$3,200.00</strong> (Telemetry Design Sprint). The milestone is currently <strong>16 days overdue</strong>.
+                      </div>
+
+                      <!-- Rich Link Preview Inside Chat -->
+                      <div class="rounded-xl bg-white border border-emerald-200/60 p-3 space-y-2 shadow-2xs">
+                        <div class="flex items-center justify-between text-[11px] text-slate-500">
+                          <span class="font-bold text-slate-900">GigPulse Secure Checkout</span>
+                          <span class="font-bold text-rose-600">$3,200.00 DUE</span>
+                        </div>
+                        <p class="text-[11px] text-slate-600">Click to clear milestone via instant ACH, Stripe, or Apple Pay and unlock release assets.</p>
+                        <a href="#" onclick="showToast('Testing WhatsApp payment link...'); return false;" class="block w-full py-2 text-center rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-colors">
+                          Pay Milestone Invoice →
+                        </a>
+                      </div>
+
+                      <div class="flex items-center justify-end gap-1 text-[10px] text-slate-400">
+                        <span>09:00 AM</span>
+                        <span class="text-indigo-600 font-bold">✓✓</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center text-[11px] text-slate-400">
+                  Ready to dispatch via GigPulse WhatsApp Cloud API Gateway
+                </div>
+
+              </div>
+
+              <!-- Preview Action Footer Bar (WhatsApp) -->
+              <div class="p-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <button type="button" onclick="copyWhatsAppCopy()" class="px-3.5 py-2 rounded-lg bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-2xs">
+                  <span class="material-symbols-outlined text-sm text-slate-500">content_copy</span>
+                  <span>Copy WhatsApp Text</span>
+                </button>
+
+                <button type="button" onclick="dispatchChaser('whatsapp')" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-xs transition-all active:scale-[0.99] cursor-pointer">
+                  <span>Send WhatsApp Notice Now</span>
+                  <span class="material-symbols-outlined text-sm">send</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================================================
+           BOTTOM SECTION: Automated Reminder Timeline (4 Steps Progression)
+           ====================================================================== -->
+      <div class="mt-8 p-6 md:p-8 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+          <div>
+            <h2 class="text-base font-bold text-slate-900">Automated Follow-up Sequence</h2>
+            <p class="text-xs text-slate-500 mt-0.5">A timed series of diplomatic reminders, calibrated automatically based on invoice aging</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-600 font-semibold">
+              Current Stage: <span class="text-rose-600 font-bold">Step 3 Active (16 Days Overdue)</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- The 4 Steps Timeline Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+          
+          <!-- Step 1: Completed -->
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">STEP 01 · COMPLETED</span>
+              <span class="material-symbols-outlined text-emerald-600 text-base">check_circle</span>
+            </div>
+            <h3 class="font-bold text-xs text-slate-900">Day -3: Courtesy Reminder</h3>
+            <p class="text-[11px] text-slate-500 leading-tight">Light, polite courtesy ping with instant payment link sent before milestone due date.</p>
+            <div class="pt-2 border-t border-slate-200 text-[10px] text-slate-400 flex items-center justify-between">
+              <span>Sent Sep 12</span>
+              <span class="text-emerald-700 font-semibold">Opened 2x</span>
+            </div>
+          </div>
+
+          <!-- Step 2: Delivered / Overdue -->
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">STEP 02 · DELIVERED</span>
+              <span class="material-symbols-outlined text-emerald-600 text-base">check_circle</span>
+            </div>
+            <h3 class="font-bold text-xs text-slate-900">Day 0: Invoice Maturity</h3>
+            <p class="text-[11px] text-slate-500 leading-tight">Official milestone delivery receipt with one-click payment checkout.</p>
+            <div class="pt-2 border-t border-slate-200 text-[10px] text-slate-400 flex items-center justify-between">
+              <span>Sent Sep 15</span>
+              <span class="text-amber-600 font-semibold">Unpaid</span>
+            </div>
+          </div>
+
+          <!-- Step 3: Armed / Active Today -->
+          <div class="p-4 rounded-xl bg-indigo-50/50 border-2 border-indigo-600 space-y-2 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-rose-700 uppercase tracking-wider">STEP 03 · ACTIVE TODAY</span>
+              <span class="material-symbols-outlined text-indigo-600 text-base animate-pulse">schedule</span>
+            </div>
+            <h3 class="font-bold text-xs text-slate-900">Day 15+: Firm Overdue Notice</h3>
+            <p class="text-[11px] text-slate-500 leading-tight">Applies 1.5% late fee clause and reminds client of intellectual property escrow terms.</p>
+            <div class="pt-2 border-t border-indigo-100 text-[10px] text-slate-500 flex items-center justify-between">
+              <span class="text-indigo-700 font-bold">Scheduled for Friday</span>
+              <span class="font-semibold text-slate-700">Email &amp; SMS</span>
+            </div>
+          </div>
+
+          <!-- Step 4: Scheduled Future -->
+          <div class="p-4 rounded-xl bg-slate-50/60 border border-slate-200 opacity-70 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">STEP 04 · SCHEDULED</span>
+              <span class="material-symbols-outlined text-slate-400 text-base">hourglass_empty</span>
+            </div>
+            <h3 class="font-bold text-xs text-slate-700">Day 30+: Legal Notice Safeguard</h3>
+            <p class="text-[11px] text-slate-400 leading-tight">Final formal demand letter and option to transfer invoice to non-recourse factoring buyout.</p>
+            <div class="pt-2 border-t border-slate-200 text-[10px] text-slate-400 flex items-center justify-between">
+              <span>Oct 15, 2026</span>
+              <span>Automated</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Toast Notification (Frosted Glassmorphism) -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-2xl border border-white/20 dark:border-white/10 shadow-2xl backdrop-blur-xl bg-slate-900/90 text-white flex items-center gap-3 text-xs font-semibold hidden transition-all duration-300 transform translate-y-3 opacity-0">
+      <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/30">
+        <span id="toast-icon" class="material-symbols-outlined text-base">check_circle</span>
+      </div>
+      <span id="toast-message">Action completed successfully!</span>
+    </div>
+
+    <script>
+      let toastTimer = null;
+      function showToast(msg, icon = 'check_circle') {
+        const toast = document.getElementById('toast-notification');
+        const text = document.getElementById('toast-message');
+        const iconEl = document.getElementById('toast-icon');
+        if (!toast || !text) return;
+        text.textContent = msg;
+        if (iconEl) iconEl.textContent = icon;
+        clearTimeout(toastTimer);
+        toast.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-3', 'opacity-0');
+        });
+        toastTimer = setTimeout(() => {
+          toast.classList.add('translate-y-3', 'opacity-0');
+          setTimeout(() => toast.classList.add('hidden'), 300);
+        }, 3200);
+      }
+
+      function switchPreviewChannel(channel) {
+        const emailPane = document.getElementById('email-preview-pane');
+        const whatsappPane = document.getElementById('whatsapp-preview-pane');
+        const tabEmail = document.getElementById('tab-btn-email');
+        const tabWhatsApp = document.getElementById('tab-btn-whatsapp');
+
+        if (channel === 'whatsapp') {
+          emailPane?.classList.add('hidden');
+          whatsappPane?.classList.remove('hidden');
+
+          tabEmail?.classList.remove('bg-indigo-50', 'text-indigo-700', 'font-bold', 'border', 'border-indigo-200/60', 'shadow-2xs');
+          tabEmail?.classList.add('text-slate-500');
+
+          tabWhatsApp?.classList.remove('text-slate-500');
+          tabWhatsApp?.classList.add('bg-emerald-50', 'text-emerald-700', 'font-bold', 'border', 'border-emerald-200/60', 'shadow-2xs');
+          showToast('Switched to WhatsApp & SMS preview');
+        } else {
+          whatsappPane?.classList.add('hidden');
+          emailPane?.classList.remove('hidden');
+
+          tabWhatsApp?.classList.remove('bg-emerald-50', 'text-emerald-700', 'font-bold', 'border', 'border-emerald-200/60', 'shadow-2xs');
+          tabWhatsApp?.classList.add('text-slate-500');
+
+          tabEmail?.classList.remove('text-slate-500');
+          tabEmail?.classList.add('bg-indigo-50', 'text-indigo-700', 'font-bold', 'border', 'border-indigo-200/60', 'shadow-2xs');
+          showToast('Switched to Email statement preview');
+        }
+      }
+
+      function copyEmailCopy() {
+        const text = document.getElementById('email-body-copy')?.innerText || '';
+        navigator.clipboard?.writeText(text);
+        showToast('Email message copied to clipboard!');
+      }
+
+      function copyWhatsAppCopy() {
+        const text = document.getElementById('whatsapp-message-body')?.innerText || '';
+        navigator.clipboard?.writeText(text);
+        showToast('WhatsApp message copied to clipboard!');
+      }
+
+      function runTestSimulation() {
+        showToast('Running sandbox delivery simulation...', 'science');
+        setTimeout(() => {
+          showToast('✓ Simulation passed! Latency: 142ms · Email & SMS endpoints 200 OK', 'verified');
+        }, 800);
+      }
+
+      function generateInstallmentLink() {
+        const profile = debtorProfiles[currentDebtorKey];
+        const halfAmount = '$' + (parseFloat(profile.amount.replace(/[^0-9.-]+/g, '')) / 2).toLocaleString('en-US', { minimumFractionDigits: 2 });
+        navigator.clipboard?.writeText(`https://pay.gigpulse.fi/split/${profile.invNum.replace('#', '')}?split=2x&mo=${halfAmount}`);
+        showToast(`2-Part Installment link (${halfAmount}/mo) copied to clipboard!`, 'link');
+      }
+
+      let isEditingDraft = false;
+      function toggleDraftEditor() {
+        const emailBody = document.getElementById('email-body-copy');
+        const waBody = document.getElementById('whatsapp-message-body');
+        const editBtn = document.getElementById('edit-draft-btn');
+        const editLabel = document.getElementById('edit-draft-label');
+
+        isEditingDraft = !isEditingDraft;
+        if (emailBody) emailBody.contentEditable = isEditingDraft;
+        if (waBody) waBody.contentEditable = isEditingDraft;
+
+        if (isEditingDraft) {
+          if (emailBody) emailBody.classList.add('ring-2', 'ring-indigo-400', 'p-2', 'rounded-lg');
+          if (waBody) waBody.classList.add('ring-2', 'ring-emerald-400', 'p-2', 'rounded-lg');
+          if (editLabel) editLabel.textContent = 'Save Draft';
+          if (editBtn) {
+            editBtn.classList.add('bg-indigo-50', 'text-indigo-700', 'border-indigo-300');
+          }
+          showToast('Draft is now editable! Click text to modify copy.', 'edit');
+        } else {
+          if (emailBody) emailBody.classList.remove('ring-2', 'ring-indigo-400', 'p-2', 'rounded-lg');
+          if (waBody) waBody.classList.remove('ring-2', 'ring-emerald-400', 'p-2', 'rounded-lg');
+          if (editLabel) editLabel.textContent = 'Edit Draft';
+          if (editBtn) {
+            editBtn.classList.remove('bg-indigo-50', 'text-indigo-700', 'border-indigo-300');
+          }
+          showToast('Custom draft edits saved successfully!', 'check_circle');
+        }
+      }
+
+      const debtorProfiles = {
+        veloce: {
+          name: 'Veloce Motors Inc.',
+          contact: 'Marcus Thorne',
+          email: 'marcus.t@velocemotors.com',
+          phone: '+1 (313) 555-0192',
+          invNum: '#INV-2026-085',
+          amount: '$3,200.00',
+          overdueText: '16 Days Overdue',
+          overdueColor: 'text-rose-600',
+          dueDate: 'Due Sep 15, 2026',
+          lockBadge: 'Deliverable IP Lock Triggered',
+          lockBadgeColor: 'bg-amber-50 text-amber-700',
+          lockIcon: 'lock',
+          recommendedTone: 'firm',
+          subject: 'Payment Reminder: Invoice #INV-2026-085 ($3,200.00) is 16 days overdue',
+          emailBody: `<p>Dear Marcus,</p><p>This is a formal reminder regarding outstanding invoice <strong class="text-slate-900">#INV-2026-085</strong> for <strong class="text-slate-900">$3,200.00</strong>, which reached its maturity on September 15, 2026 and is currently <strong class="text-rose-600">16 days past due</strong>.</p><p>We value our partnership with Veloce Motors Inc. To prevent further contractual late fees from accruing, please settle the outstanding balance using the direct payment button below.</p>`,
+          waBody: `Hi Marcus, formal reminder regarding invoice <strong>#INV-2026-085</strong> for <strong>$3,200.00</strong>. It is currently <strong>16 days overdue</strong>. Please settle via the link below to avoid further late fees:`
+        },
+        apex: {
+          name: 'Apex Digital Labs',
+          contact: 'Sarah Chen',
+          email: 'sarah@apexdigital.io',
+          phone: '+1 (415) 890-2341',
+          invNum: '#INV-2026-086',
+          amount: '$3,000.00',
+          overdueText: '4 Days Overdue',
+          overdueColor: 'text-amber-600',
+          dueDate: 'Due Sep 27, 2026',
+          lockBadge: 'Milestone Notice Active',
+          lockBadgeColor: 'bg-indigo-50 text-indigo-700',
+          lockIcon: 'hourglass_top',
+          recommendedTone: 'professional',
+          subject: 'Invoice Statement: #INV-2026-086 ($3,000.00) — Payment Due',
+          emailBody: `<p>Dear Sarah,</p><p>Please find attached your updated statement for invoice <strong class="text-slate-900">#INV-2026-086</strong> covering React Native Architecture Phase I, totaling <strong class="text-slate-900">$3,000.00</strong>.</p><p>According to our records, this invoice reached maturity on September 27. We kindly request that your finance team process this payment via the direct link below.</p>`,
+          waBody: `Dear Sarah, sharing an updated statement for invoice <strong>#INV-2026-086</strong> ($3,000.00 for React Native Architecture). Please have finance review and clear the statement below:`
+        },
+        hypergrowth: {
+          name: 'HyperGrowth Media',
+          contact: 'Alex Rivera',
+          email: 'alex@hypergrowth.co',
+          phone: '+1 (212) 441-9870',
+          invNum: '#INV-2026-088',
+          amount: '$2,400.00',
+          overdueText: '1 Day Overdue',
+          overdueColor: 'text-amber-500',
+          dueDate: 'Due Sep 30, 2026',
+          lockBadge: 'Courtesy Window Active',
+          lockBadgeColor: 'bg-emerald-50 text-emerald-700',
+          lockIcon: 'verified',
+          recommendedTone: 'gentle',
+          subject: 'Friendly Check-in: Invoice #INV-2026-088 ($2,400.00)',
+          emailBody: `<p>Hi Alex,</p><p>Hope you are having a productive week! Just sending a quick courtesy note regarding invoice <strong class="text-slate-900">#INV-2026-088</strong> for <strong class="text-slate-900">$2,400.00</strong> for Growth Campaign Assets.</p><p>Whenever you have a moment, you can review and settle it securely using the link below. Let me know if you need any additional invoice copies!</p>`,
+          waBody: `Hi Alex, hope you're having a great week! Just a quick courtesy note regarding invoice <strong>#INV-2026-088</strong> ($2,400.00). Whenever convenient, please take a quick look via the link below:`
+        }
+      };
+
+      let currentDebtorKey = 'veloce';
+
+      function switchTargetInvoice(key) {
+        const profile = debtorProfiles[key];
+        if (!profile) return;
+        currentDebtorKey = key;
+
+        // Update Client Header Card
+        const clientNameEl = document.getElementById('target-client-name');
+        const amountEl = document.getElementById('target-amount-display');
+        const statusEl = document.getElementById('target-status-display');
+        const lockTextEl = document.getElementById('target-lock-text');
+        const dueDateEl = document.getElementById('target-due-date');
+        const emailContactEl = document.getElementById('channel-email-display');
+        const phoneContactEl = document.getElementById('channel-phone-display');
+
+        if (clientNameEl) clientNameEl.innerHTML = `${profile.name} <span class="text-slate-400 font-normal">(${profile.invNum})</span>`;
+        if (amountEl) amountEl.textContent = profile.amount;
+        if (statusEl) {
+          statusEl.textContent = profile.overdueText;
+          statusEl.className = `block text-[11px] font-bold ${profile.overdueColor}`;
+        }
+        if (lockTextEl) lockTextEl.textContent = profile.lockBadge;
+        if (dueDateEl) dueDateEl.textContent = profile.dueDate;
+        if (emailContactEl) emailContactEl.textContent = profile.email;
+        if (phoneContactEl) phoneContactEl.textContent = `${profile.phone} · Read Receipts Enabled`;
+
+        // Update active tone radio
+        const targetRadio = document.querySelector(`input[name="chaser-tone"][value="${profile.recommendedTone}"]`);
+        if (targetRadio) {
+          targetRadio.checked = true;
+          targetRadio.dispatchEvent(new Event('change'));
+        }
+
+        showToast(`Loaded invoice dossier for ${profile.name} (${profile.amount})`);
+      }
+
+      function dispatchChaser(channel = 'email') {
+        const profile = debtorProfiles[currentDebtorKey];
+        const btn = event?.currentTarget;
+        const originalText = btn ? btn.innerHTML : '';
+        
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = `<span class="material-symbols-outlined text-sm animate-spin">refresh</span> Dispatching via Gateway...`;
+        }
+
+        setTimeout(() => {
+          if (btn) {
+            btn.innerHTML = `<span class="material-symbols-outlined text-sm text-white">done_all</span> Dispatched Successfully!`;
+            setTimeout(() => {
+              btn.innerHTML = originalText;
+              btn.disabled = false;
+            }, 3000);
+          }
+
+          // Update timeline step 3 to Completed with current timestamp
+          const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const timelineStep3 = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-4 > div:nth-child(3)');
+          if (timelineStep3) {
+            timelineStep3.className = 'p-4 rounded-xl bg-emerald-50/60 border-2 border-emerald-600 space-y-2 shadow-2xs';
+            timelineStep3.innerHTML = `
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">STEP 03 · DISPATCHED</span>
+                <span class="material-symbols-outlined text-emerald-600 text-base">check_circle</span>
+              </div>
+              <h3 class="font-bold text-xs text-slate-900">Day 15+: Firm Overdue Notice</h3>
+              <p class="text-[11px] text-slate-500 leading-tight">Notice sent with direct FedNow one-click settlement link & late fee notice.</p>
+              <div class="pt-2 border-t border-emerald-100 text-[10px] text-slate-500 flex items-center justify-between">
+                <span class="text-emerald-700 font-bold">Delivered ${nowStr}</span>
+                <span class="font-semibold text-emerald-700">Tracking Hook Active</span>
+              </div>
+            `;
+          }
+
+          if (channel === 'whatsapp') {
+            showToast(`WhatsApp notice dispatched to ${profile.phone} with Read Receipts hook!`);
+          } else {
+            showToast(`Statement emailed to ${profile.email} (${profile.amount}) with 256-bit tracking!`);
+          }
+        }, 850);
+      }
+
+      function scheduleAutoChase() {
+        const btn = event?.currentTarget;
+        if (btn) {
+          btn.innerHTML = `<span class="material-symbols-outlined text-xs text-emerald-500">lock_clock</span> Autonomous Schedule Armed`;
+          btn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+          btn.classList.add('bg-slate-900', 'text-emerald-400');
+        }
+        showToast('Autonomous Follow-up scheduled for Friday at 9:00 AM EST!');
+      }
+
+      // Interactive Tone Calibration Switcher
+      const toneRadios = document.querySelectorAll('input[name="chaser-tone"]');
+      const subjectEl = document.getElementById('email-subject-display');
+      const bodyEl = document.getElementById('email-body-copy');
+      const waBodyEl = document.getElementById('whatsapp-message-body');
+
+      toneRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          document.querySelectorAll('.tone-card').forEach(card => {
+            card.classList.remove('border-2', 'border-indigo-600', 'bg-indigo-50/40', 'shadow-2xs', 'liquid-glass-emerald', 'liquid-glass-indigo', 'liquid-glass-rose');
+            card.classList.add('border', 'border-slate-200', 'bg-white');
+          });
+
+          const activeCard = e.target.closest('.tone-card');
+          const tone = e.target.value;
+          const profile = debtorProfiles[currentDebtorKey];
+
+          if (activeCard) {
+            activeCard.classList.remove('border', 'border-slate-200', 'bg-white');
+            if (tone === 'gentle') {
+              activeCard.classList.add('liquid-glass-emerald');
+            } else if (tone === 'professional') {
+              activeCard.classList.add('liquid-glass-indigo');
+            } else {
+              activeCard.classList.add('liquid-glass-rose');
+            }
+          }
+
+          if (tone === 'gentle') {
+            if (subjectEl) subjectEl.textContent = `Friendly Check-in: Invoice ${profile.invNum} (${profile.amount})`;
+            if (bodyEl) {
+              bodyEl.innerHTML = `
+                <p>Hi ${profile.contact.split(' ')[0]},</p>
+                <p>Hope you are having a productive week! Just sending a quick, friendly courtesy note regarding invoice <strong class="text-slate-900">${profile.invNum}</strong> for <strong class="text-slate-900">${profile.amount}</strong>.</p>
+                <p>Whenever you have a moment, you can review and settle it securely using the link below. Please let me know if you need any additional invoice copies or details from our side!</p>
+              `;
+            }
+            if (waBodyEl) {
+              waBodyEl.innerHTML = `
+                Hi ${profile.contact.split(' ')[0]}, hope you're having a great week! Just a quick courtesy note regarding invoice <strong>${profile.invNum}</strong> (${profile.amount}). Whenever convenient, please take a quick look via the link below:
+              `;
+            }
+            showToast('Preview calibrated to Gentle Courtesy tone');
+          } else if (tone === 'professional') {
+            if (subjectEl) subjectEl.textContent = `Invoice Statement: ${profile.invNum} (${profile.amount}) — Payment Due`;
+            if (bodyEl) {
+              bodyEl.innerHTML = `
+                <p>Dear ${profile.contact.split(' ')[0]},</p>
+                <p>Please find attached your updated statement for invoice <strong class="text-slate-900">${profile.invNum}</strong> covering recent design milestones, totaling <strong class="text-slate-900">${profile.amount}</strong>.</p>
+                <p>According to our records, this invoice reached maturity on ${profile.dueDate.replace('Due ', '')}. We kindly request that your finance team process this payment via the direct link below.</p>
+              `;
+            }
+            if (waBodyEl) {
+              waBodyEl.innerHTML = `
+                Dear ${profile.contact.split(' ')[0]}, sharing an updated statement for invoice <strong>${profile.invNum}</strong> (${profile.amount}). Please have finance review and clear the statement below:
+              `;
+            }
+            showToast('Preview calibrated to Professional Statement tone');
+          } else if (tone === 'firm') {
+            if (subjectEl) subjectEl.textContent = `Payment Reminder: Invoice ${profile.invNum} (${profile.amount}) is ${profile.overdueText.toLowerCase()}`;
+            if (bodyEl) {
+              bodyEl.innerHTML = `
+                <p>Dear ${profile.contact.split(' ')[0]},</p>
+                <p>This is a formal reminder regarding outstanding invoice <strong class="text-slate-900">${profile.invNum}</strong> for <strong class="text-slate-900">${profile.amount}</strong>, which reached its maturity on ${profile.dueDate.replace('Due ', '')} and is currently <strong class="text-rose-600">${profile.overdueText}</strong>.</p>
+                <p>We value our partnership with ${profile.name}. To prevent further contractual late fees from accruing, please settle the outstanding balance using the direct payment button below.</p>
+              `;
+            }
+            if (waBodyEl) {
+              waBodyEl.innerHTML = `
+                Hi ${profile.contact.split(' ')[0]}, formal reminder regarding invoice <strong>${profile.invNum}</strong> for <strong>${profile.amount}</strong>. It is currently <strong>${profile.overdueText}</strong>. Please settle via the link below to avoid further late fees:
+              `;
+            }
+            showToast('Preview calibrated to Firm Notice tone');
+          }
+        });
+      });
+
+      // Mobile Sidebar Drawer Toggle
+      const mobileToggle = document.getElementById('mobile-sidebar-toggle');
+      const appSidebar = document.getElementById('app-sidebar');
+      const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+      const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+
+      function toggleMobileSidebar() {
+        if (!appSidebar) return;
+        const isClosed = appSidebar.classList.contains('-translate-x-full');
+        if (isClosed) {
+          appSidebar.classList.remove('-translate-x-full');
+          sidebarBackdrop?.classList.remove('hidden');
+        } else {
+          appSidebar.classList.add('-translate-x-full');
+          sidebarBackdrop?.classList.add('hidden');
+        }
+      }
+
+      if (mobileToggle) mobileToggle.addEventListener('click', toggleMobileSidebar);
+      if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleMobileSidebar);
+      if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', toggleMobileSidebar);
+    </script>
+  </main>
+
+  <!-- Clean Executive Footer -->
+  <footer class="w-full border-t border-slate-200 bg-white py-6 hidden md:block relative z-10 md:pl-64 xl:pl-72">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-xs">
+      <div>© 2026 GigPulse OS · Autonomous Financial Intelligence for Independent Studios</div>
+      <div class="flex items-center gap-6">
+        <span class="flex items-center gap-1.5 text-slate-600">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Auto-Chaser Engine Active
+        </span>
+        <span class="text-slate-300">|</span>
+        <span>256-bit Bank Grade Encryption</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Dynamic Active User & Studio Profile Synchronizer -->
+  <script src="assets/gigpulse_session_sync.js"></script>
+
+</body>
+</html>

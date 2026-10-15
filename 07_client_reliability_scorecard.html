@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="assets/fonts.css" rel="stylesheet"/><link href="assets/dark_theme.css?v=20261014_3" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-charcoal": "#FFFFFF", "mint-glow": "rgba(5, 150, 105, 0.12)", "inverse-on-surface": "#F8FAFC", "surface-container-high": "#F1F5F9", "on-primary-fixed-variant": "#4338CA", "error": "#DC2626", "primary-container": "#4F46E5", "outline-variant": "#E2E8F0", "surface-container-lowest": "#FFFFFF", "primary": "#4F46E5", "iris-deep": "#3730A3", "outline": "#94A3B8", "error-container": "#FEE2E2", "on-secondary-container": "#065F46", "secondary-container": "#D1FAE5", "on-tertiary-fixed-variant": "#991B1B", "text-muted": "#64748B", "text-secondary": "#475569", "on-tertiary-fixed": "#7F1D1D", "border-iris-active": "rgba(79, 70, 229, 0.35)", "surface": "#FFFFFF", "on-tertiary": "#FFFFFF", "secondary": "#059669", "primary-fixed": "#EEF2FF", "surface-container": "#F8FAFC", "canvas-void": "#F8FAFC", "on-tertiary-container": "#991B1B", "surface-dim": "#F1F5F9", "tertiary-container": "#FEE2E2", "on-primary-fixed": "#1E1B4B", "on-error": "#FFFFFF", "iris-soft": "#6366F1", "background": "#F8FAFC", "tertiary-fixed-dim": "#FECDD3", "surface-hover": "#F1F5F9", "on-secondary-fixed-variant": "#064E3B", "mint-subtle": "rgba(5, 150, 105, 0.08)", "surface-tint": "#4F46E5", "on-error-container": "#7F1D1D", "inverse-surface": "#0F172A", "border-illuminated": "#CBD5E1", "on-primary": "#FFFFFF", "on-secondary": "#FFFFFF", "on-surface-variant": "#475569", "tertiary": "#E11D48", "crimson-subtle": "rgba(225, 29, 72, 0.06)", "secondary-fixed-dim": "#A7F3D0", "tertiary-fixed": "#FFE4E6", "on-surface": "#0F172A", "on-primary-container": "#FFFFFF", "crimson-glow": "rgba(225, 29, 72, 0.12)", "primary-fixed-dim": "#C7D2FE", "border-slate": "#E2E8F0", "secondary-fixed": "#D1FAE5", "surface-elevated": "#F1F5F9", "on-secondary-fixed": "#064E3B", "on-background": "#0F172A", "inverse-primary": "#EEF2FF", "surface-bright": "#FFFFFF", "text-primary": "#0F172A", "surface-container-low": "#F8FAFC", "surface-variant": "#F1F5F9", "surface-container-highest": "#E2E8F0" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-sm": "0.5rem", "space-xl": "2.5rem", "margin": "2.5rem", "gutter-mobile": "0.75rem", "gutter": "1.5rem", "margin-mobile": "1rem", "space-lg": "1.5rem", "space-md": "1rem" }, "fontFamily": { "telemetry-hero": [ "Plus Jakarta Sans", "Inter", "sans-serif" ], "headline-lg": [ "Plus Jakarta Sans" ], "body-lg": [ "Plus Jakarta Sans" ], "telemetry-lg": [ "Plus Jakarta Sans", "Inter", "sans-serif" ], "body-sm": [ "Plus Jakarta Sans" ], "title-card": [ "Plus Jakarta Sans" ], "body-md": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "eyebrow-caps": [ "Plus Jakarta Sans", "Inter", "sans-serif" ], "telemetry-sm": [ "Plus Jakarta Sans", "Inter", "sans-serif" ], "display-hero-mobile": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "display-hero": [ "Plus Jakarta Sans" ], "telemetry-md": [ "Plus Jakarta Sans", "Inter", "sans-serif" ] }, "fontSize": { "telemetry-hero": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "headline-lg": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-lg": [ "16px", { "lineHeight": "26px", "letterSpacing": "0.00em", "fontWeight": "400" } ], "telemetry-lg": [ "26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-sm": [ "12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "title-card": [ "16px", { "lineHeight": "24px", "letterSpacing": "0.00em", "fontWeight": "600" } ], "body-md": [ "14px", { "lineHeight": "22px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "eyebrow-caps": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" } ], "telemetry-sm": [ "13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" } ], "display-hero-mobile": [ "34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "headline-lg-mobile": [ "26px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "display-hero": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "telemetry-md": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "600" } ] } } } };</script></head><body class="bg-canvas-void font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen relative overflow-x-hidden"><div class="pointer-events-none fixed inset-0 z-0 flex items-start justify-center overflow-hidden"><div class="w-[60vw] h-[400px] bg-primary-container/10 blur-[140px] rounded-full mt-[-100px]"></div></div>  <!-- ==========================================================================
+       SIDEBAR BACKDROP (Mobile Drawer Overlay)
+       ========================================================================== -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-40 hidden md:hidden transition-opacity"></div>
+
+  <!-- ==========================================================================
+       LEFT EXECUTIVE SIDEPANEL (CLEAN FINTECH / LINEAR STYLE)
+       ========================================================================== -->
+  <aside id="app-sidebar" class="fixed inset-y-0 left-0 w-64 xl:w-72 bg-white border-r border-slate-200 flex flex-col justify-between z-50 transition-transform duration-300 -translate-x-full md:translate-x-0 shadow-sm font-sans select-none">
+    
+    <!-- Top Brand, Search & Navigation Block -->
+    <div class="no-scrollbar flex flex-col flex-1 overflow-y-auto px-3.5 py-4">
+      
+      <!-- Workspace Switcher Header -->
+      <div class="pb-3 border-b border-slate-100 shrink-0">
+        <div class="flex items-center justify-between">
+          <div class="sidebar-workspace-btn flex items-center justify-between w-full p-1.5 rounded-xl group cursor-pointer">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center p-0.5 shadow-xs shrink-0">
+                <img src="assets/gigpulse_mark.svg" alt="GigPulse" class="w-full h-full object-contain">
+              </div>
+              <div class="flex flex-col min-w-0 text-left">
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold tracking-tight text-slate-900 text-[13px] truncate">GigPulse Studio</span>
+                  <span class="text-[9px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/60 px-1 py-0.2 rounded shrink-0">PRO</span>
+                </div>
+                <span class="text-[11px] text-slate-500 font-normal truncate">Autonomous Financial OS</span>
+              </div>
+            </div>
+          </div>
+          <button id="close-sidebar-btn" class="md:hidden text-slate-400 hover:text-slate-700 p-1.5 rounded-lg focus:outline-none ml-1">
+            <span class="material-symbols-outlined text-lg">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Nav Section 1: Overview -->
+      <div class="pt-3">
+        <div class="sidebar-section-title px-2 pb-1.5">
+          Overview
+        </div>
+        <nav class="space-y-1">
+          <!-- 02: Pulse Dashboard -->
+          <a href="02_pulse_cockpit_dashboard.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">space_dashboard</span>
+              <span>Cockpit Dashboard</span>
+            </div>
+          </a>
+
+          <!-- 03: Cash Runway Forecaster -->
+          <a href="03_cash_flow_runway_forecaster.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">trending_up</span>
+              <span>Runway Radar</span>
+            </div>
+            <span class="text-[10px] font-medium text-slate-500">8.4m</span>
+          </a>
+
+          <!-- 04: Invoices & Receivables -->
+          <a href="04_invoice_receivables_manager.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+              <span>Receivables Ledger</span>
+            </div>
+            <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200/50 px-1.5 py-0.5 rounded">1 Overdue</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Nav Section 2: Tools & Automation -->
+      <div class="pt-4">
+        <div class="sidebar-section-title px-2 pb-1.5">
+          Tools &amp; Automation
+        </div>
+        <nav class="space-y-1">
+          <!-- 05: Invoice Builder -->
+          <a href="05_dynamic_milestone_invoice_builder.html" class="sidebar-nav-item flex items-center gap-2.5 px-3 py-2 rounded-lg">
+            <span class="material-symbols-outlined text-[18px]">post_add</span>
+            <span>Invoice Builder</span>
+          </a>
+
+          <!-- 06: Smart Chaser -->
+          <a href="06_autonomous_smart_payment_chaser.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">schedule_send</span>
+              <span>Payment Chaser</span>
+            </div>
+          </a>
+
+          <!-- 07: Client Scorecard (ACTIVE) -->
+          <a href="07_client_reliability_scorecard.html" class="sidebar-nav-item active flex items-center gap-2.5 px-3 py-2 rounded-lg" aria-current="page">
+            <span class="material-symbols-outlined text-[18px]">verified_user</span>
+            <span>Client Reliability</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Nav Section 3: Studio Settings -->
+      <div class="pt-4">
+        <div class="sidebar-section-title px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+          Settings &amp; Accounts
+        </div>
+        <nav class="space-y-1">
+          <!-- 08: Studio Account & Settings -->
+          <a href="08_studio_account_settings.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+              <span>My Studio Account</span>
+            </div>
+            <span class="text-[9px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/60 px-1.5 py-0.2 rounded">SETUP</span>
+          </a>
+        </nav>
+      </div>
+
+    </div>
+
+    <!-- Bottom User Profile Footer -->
+    <div class="p-3 border-t border-slate-100 shrink-0 bg-white">
+      <div class="sidebar-profile-card flex items-center justify-between p-2 cursor-pointer group rounded-lg hover:bg-slate-50 transition-colors">
+        <a href="08_studio_account_settings.html" class="flex items-center gap-2.5 min-w-0 flex-1" title="Open Studio Account Settings">
+          <div class="relative shrink-0">
+            <img src="assets/alex_m_founder_headshot.png" alt="Alex Mercer" class="w-8 h-8 rounded-full object-cover ring-1 ring-slate-200">
+            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="profile-name text-xs truncate font-semibold">Alex Mercer</span>
+            <span class="profile-role text-[11px] truncate text-slate-500">Studio Founder</span>
+          </div>
+        </a>
+        <div class="flex items-center gap-1 shrink-0 text-slate-400">
+          <a href="08_studio_account_settings.html" title="Studio Account Settings" class="p-1.5 rounded-md hover:bg-slate-100 text-slate-400 hover:text-indigo-600 transition-colors flex items-center">
+            <span class="material-symbols-outlined text-[18px]">settings</span>
+          </a>
+          <a href="00_auth_login_signup.html" title="Log Out / Switch Studio" class="p-1.5 rounded-md hover:bg-rose-500/10 text-slate-400 hover:text-rose-400 transition-colors flex items-center">
+            <span class="material-symbols-outlined text-[18px]">logout</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ==========================================================================
+       TOP STREAMLINED HEADER BAR
+       ========================================================================== -->
+  <header class="fixed top-0 inset-x-0 md:left-64 xl:left-72 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200">
+    <div class="h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      
+      <!-- Mobile Toggle & Page Title -->
+      <div class="flex items-center gap-3">
+        <button id="mobile-sidebar-toggle" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900 transition-colors focus:outline-none cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">menu</span>
+        </button>
+        <div class="flex items-center gap-2 font-sans text-xs">
+          <span class="text-slate-900 font-semibold text-sm">Client Reliability Scorecards</span>
+        </div>
+      </div>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="showToast('Exporting client risk report...')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-sans text-xs font-semibold transition-all shadow-2xs">
+          <span class="material-symbols-outlined text-sm text-slate-500">download</span>
+          <span>Export Report</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN CONTENT VIEWPORT
+       ========================================================================== -->
+  <main class="relative z-10 md:pl-64 xl:pl-72 pt-16 pb-20 bg-slate-50 min-h-screen font-sans">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      
+      <!-- ======================================================================
+           SECTION 1: PAGE HEADER & ACTION BAR
+           ====================================================================== -->
+      <div>
+        <a href="02_pulse_cockpit_dashboard.html" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 transition-colors mb-3">
+          <span class="material-symbols-outlined text-sm">arrow_back</span>
+          <span>Back to Cockpit Dashboard</span>
+        </a>
+
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-200">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold">
+                <span class="material-symbols-outlined text-xs">analytics</span>
+                <span>Counterparty Risk Intelligence</span>
+              </span>
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span>Active Protection</span>
+              </span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+              Client Reliability &amp; Credit Scorecards
+            </h1>
+            <p class="text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
+              Automated payment velocity scoring and credit tier assessment. Calibrate contract terms, deposit ratios, and escrow locks before project kickoff.
+            </p>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="flex items-center gap-3 shrink-0">
+            <button type="button" onclick="document.getElementById('calculator-console').scrollIntoView({ behavior: 'smooth' });" class="inline-flex items-center gap-2 h-10 px-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold transition-all shadow-2xs">
+              <span class="material-symbols-outlined text-indigo-600 text-base">calculate</span>
+              <span>Retainer Calculator</span>
+            </button>
+            <button type="button" onclick="openAuditModal()" class="inline-flex items-center gap-2 h-10 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-all shadow-xs cursor-pointer">
+              <span class="material-symbols-outlined text-sm">person_add</span>
+              <span>Audit New Client</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SECTION 2: PORTFOLIO PAYMENT HEALTH OVERVIEW BANNER
+           ====================================================================== -->
+      <div class="rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 shadow-2xs">
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left: Distribution Telemetry (7 Columns) -->
+          <div class="xl:col-span-7 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Portfolio Payment Health</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-700">
+                  Healthy (88/100)
+                </span>
+              </div>
+              <span id="accounts-monitored-count" class="text-xs text-slate-500 font-medium">3 Active Accounts Monitored</span>
+            </div>
+
+            <!-- Grade Distribution Segmented Progress Bar -->
+            <div class="space-y-2">
+              <div class="h-3.5 w-full bg-slate-100 rounded-full overflow-hidden flex p-0.5 gap-1 border border-slate-200">
+                <div id="bar-grade-a" class="h-full rounded-full bg-emerald-500 transition-all duration-500" style="width: 60%;" title="60% Grade A (Safe)"></div>
+                <div id="bar-grade-b" class="h-full rounded-full bg-indigo-500 transition-all duration-500" style="width: 25%;" title="25% Grade B (Standard)"></div>
+                <div id="bar-grade-d" class="h-full rounded-full bg-rose-500 transition-all duration-500" style="width: 15%;" title="15% Grade D (High Risk)"></div>
+              </div>
+
+              <!-- Bar Legends -->
+              <div class="flex flex-wrap items-center gap-5 text-xs text-slate-600 pt-1">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                  <span><strong id="legend-pct-a" class="font-bold text-slate-900">60%</strong> Grade A · Safe (Net 30)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+                  <span><strong id="legend-pct-b" class="font-bold text-slate-900">25%</strong> Grade B · Standard (Net 14)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                  <span><strong id="legend-pct-d" class="font-bold text-slate-900">15%</strong> Grade D · High Risk (Escrow Mandated)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Recommended Terms Directive Card (5 Columns) -->
+          <div class="xl:col-span-5 xl:border-l xl:border-slate-200/20 xl:pl-8">
+            <div class="policy-recommendation-card p-4 rounded-xl flex items-start gap-3.5 shadow-sm" style="background: #111424 !important; border: 1px solid rgba(99, 102, 241, 0.35) !important; box-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.18) !important;">
+              <div class="policy-icon-box w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm" style="background: rgba(99, 102, 241, 0.22) !important; border: 1px solid rgba(99, 102, 241, 0.45) !important;">
+                <span class="material-symbols-outlined text-xl" style="color: #A5B4FC !important;">verified_user</span>
+              </div>
+              <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] uppercase tracking-wider font-bold" style="color: #A5B4FC !important;">Policy Recommendation</span>
+                  <span class="w-2 h-2 rounded-full animate-pulse" style="background: #10B981 !important;"></span>
+                </div>
+                <p class="text-xs sm:text-sm font-bold leading-snug" style="color: #FFFFFF !important;">
+                  Require 50% upfront deposits on Grade C &amp; D clients before delivering source files.
+                </p>
+                <p class="text-xs mt-1" style="color: #94A3B8 !important;">
+                  Estimated risk mitigation: <span class="font-extrabold" style="color: #34D399 !important;">+$4,800.00</span> in protected receivables.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SECTION 3: CLIENT SCORECARDS BENTO GRID (3 COLUMNS)
+           ====================================================================== -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <h2 class="text-base font-bold text-slate-900">Audited Client Scorecards</h2>
+            <span id="active-counterparties-count" class="text-xs text-slate-500 font-medium">(3 Active Counterparties)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-400">Sort by:</span>
+            <select id="sort-scorecards-select" onchange="sortScorecards(this.value)" class="px-2.5 py-1 rounded-lg text-xs font-medium text-slate-700 bg-white border border-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer">
+              <option value="risk">Risk Tier (Highest Risk First)</option>
+              <option value="score">Payment Score (High to Low)</option>
+              <option value="volume">Total Volume Billed</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="scorecards-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          
+          <!-- CARD 1: Apex Digital Labs (Grade A - Safe) -->
+          <div class="rounded-2xl bg-white border border-slate-200 p-6 flex flex-col justify-between transition-all hover:shadow-md hover:border-slate-300">
+            <div class="space-y-5">
+              <!-- Card Header -->
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center font-bold text-emerald-800 text-sm shrink-0">
+                    AD
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-sm text-slate-900">Apex Digital Labs</h3>
+                    <p class="text-xs text-slate-500">Enterprise SaaS · San Francisco</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold">
+                    GRADE A
+                  </span>
+                  <span class="block text-[11px] font-semibold text-slate-400 mt-0.5">96 / 100</span>
+                </div>
+              </div>
+
+              <!-- Speed & Dispute Telemetry -->
+              <div class="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                <div>
+                  <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Avg Settlement</span>
+                  <div class="flex items-baseline gap-1 mt-0.5">
+                    <span class="text-lg font-bold text-emerald-600">2.4</span>
+                    <span class="text-xs text-slate-500 font-medium">Days</span>
+                  </div>
+                  <span class="text-[11px] text-emerald-700 font-medium flex items-center gap-0.5 mt-0.5">
+                    <span class="material-symbols-outlined text-xs">bolt</span> Super Fast
+                  </span>
+                </div>
+                <div>
+                  <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Dispute Rate</span>
+                  <div class="flex items-baseline gap-1 mt-0.5">
+                    <span class="text-lg font-bold text-slate-900">0.0%</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 mt-0.5 block">0 of 6 contested</span>
+                </div>
+              </div>
+
+              <!-- Lifetime Billed -->
+              <div class="flex items-center justify-between text-xs px-1">
+                <span class="text-slate-500">Total Settled B2B</span>
+                <span class="font-bold text-slate-900">$18,500 across 6 projects</span>
+              </div>
+
+              <!-- Recommended Terms Callout -->
+              <div class="p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300">
+                <span class="text-[10px] text-emerald-300 uppercase tracking-wider block font-bold">Recommended Terms</span>
+                <p class="text-xs text-emerald-100 mt-1 leading-relaxed font-medium">
+                  "Approved for Net 30 terms. Low risk counterparty. Eligible for milestone waivers."
+                </p>
+              </div>
+
+              <!-- Historical Velocity -->
+              <div class="space-y-1.5 px-1">
+                <div class="flex items-center justify-between text-[11px] text-slate-500">
+                  <span>Payment History</span>
+                  <span class="text-emerald-700 font-semibold">6/6 within 72 hrs</span>
+                </div>
+                <div class="flex gap-1.5 h-1.5">
+                  <span class="flex-1 bg-emerald-500 rounded-full" title="Inv 01: 24h"></span>
+                  <span class="flex-1 bg-emerald-500 rounded-full" title="Inv 02: 48h"></span>
+                  <span class="flex-1 bg-emerald-500 rounded-full" title="Inv 03: 18h"></span>
+                  <span class="flex-1 bg-emerald-500 rounded-full" title="Inv 04: 36h"></span>
+                  <span class="flex-1 bg-emerald-500 rounded-full" title="Inv 05: 70h"></span>
+                  <span class="flex-1 bg-emerald-500 rounded-full" title="Inv 06: 22h"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Bottom Action -->
+            <div class="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-[11px] font-semibold text-slate-500">Terms: Net 30 Safe</span>
+              <a href="05_dynamic_milestone_invoice_builder.html" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs transition-colors">
+                Draft Invoice →
+              </a>
+            </div>
+          </div>
+
+          <!-- CARD 2: HyperGrowth Media (Grade B - Standard) -->
+          <div class="rounded-2xl bg-white border border-slate-200 p-6 flex flex-col justify-between transition-all hover:shadow-md hover:border-slate-300">
+            <div class="space-y-5">
+              <!-- Card Header -->
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center font-bold text-indigo-800 text-sm shrink-0">
+                    HM
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-sm text-slate-900">HyperGrowth Media</h3>
+                    <p class="text-xs text-slate-500">Performance Agency · Austin</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold">
+                    GRADE B
+                  </span>
+                  <span class="block text-[11px] font-semibold text-slate-400 mt-0.5">82 / 100</span>
+                </div>
+              </div>
+
+              <!-- Speed & Dispute Telemetry -->
+              <div class="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                <div>
+                  <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Avg Settlement</span>
+                  <div class="flex items-baseline gap-1 mt-0.5">
+                    <span class="text-lg font-bold text-slate-900">9.1</span>
+                    <span class="text-xs text-slate-500 font-medium">Days</span>
+                  </div>
+                  <span class="text-[11px] text-slate-600 font-medium flex items-center gap-0.5 mt-0.5">
+                    <span class="material-symbols-outlined text-xs text-indigo-600">schedule</span> Within Range
+                  </span>
+                </div>
+                <div>
+                  <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Dispute Rate</span>
+                  <div class="flex items-baseline gap-1 mt-0.5">
+                    <span class="text-lg font-bold text-slate-900">0.0%</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 mt-0.5 block">0 of 4 contested</span>
+                </div>
+              </div>
+
+              <!-- Lifetime Billed -->
+              <div class="flex items-center justify-between text-xs px-1">
+                <span class="text-slate-500">Total Settled B2B</span>
+                <span class="font-bold text-slate-900">$12,400 across 4 projects</span>
+              </div>
+
+              <!-- Recommended Terms Callout -->
+              <div class="p-3 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-indigo-300">
+                <span class="text-[10px] text-indigo-300 uppercase tracking-wider block font-bold">Recommended Terms</span>
+                <p class="text-xs text-indigo-100 mt-1 leading-relaxed font-medium">
+                  "Standard Net 14 terms. Schedule courtesy reminder 2 days before due date to prevent delay."
+                </p>
+              </div>
+
+              <!-- Historical Velocity -->
+              <div class="space-y-1.5 px-1">
+                <div class="flex items-center justify-between text-[11px] text-slate-500">
+                  <span>Payment History</span>
+                  <span class="text-indigo-700 font-semibold">4/4 within 14 days</span>
+                </div>
+                <div class="flex gap-1.5 h-1.5">
+                  <span class="flex-1 bg-indigo-500 rounded-full" title="Inv 01: 8d"></span>
+                  <span class="flex-1 bg-indigo-500 rounded-full" title="Inv 02: 12d"></span>
+                  <span class="flex-1 bg-indigo-500 rounded-full" title="Inv 03: 7d"></span>
+                  <span class="flex-1 bg-indigo-500 rounded-full" title="Inv 04: 9.5d"></span>
+                  <span class="flex-1 bg-slate-200 rounded-full"></span>
+                  <span class="flex-1 bg-slate-200 rounded-full"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Bottom Action -->
+            <div class="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-[11px] font-semibold text-slate-500">Terms: Net 14 Cap</span>
+              <a href="05_dynamic_milestone_invoice_builder.html" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs transition-colors">
+                Draft Invoice →
+              </a>
+            </div>
+          </div>
+
+          <!-- CARD 3: Veloce Motors Inc. (Grade D - High Risk Alert) -->
+          <div class="rounded-2xl bg-white border-2 border-rose-200 p-6 flex flex-col justify-between transition-all hover:shadow-md">
+            <div class="space-y-5">
+              <!-- Card Header -->
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center font-bold text-rose-800 text-sm shrink-0">
+                    VM
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-sm text-slate-900">Veloce Motors Inc.</h3>
+                    <p class="text-xs text-slate-500">Automotive OEM · Detroit</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full bg-rose-100 border border-rose-200 text-rose-700 text-xs font-bold">
+                    GRADE D
+                  </span>
+                  <span class="block text-[11px] font-bold text-rose-600 mt-0.5">42 / 100</span>
+                </div>
+              </div>
+
+              <!-- Speed & Dispute Telemetry -->
+              <div class="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-rose-50/50 border border-rose-100">
+                <div>
+                  <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Avg Settlement</span>
+                  <div class="flex items-baseline gap-1 mt-0.5">
+                    <span class="text-lg font-bold text-rose-600">24.8</span>
+                    <span class="text-xs text-slate-500 font-medium">Days</span>
+                  </div>
+                  <span class="text-[11px] text-rose-700 font-medium flex items-center gap-0.5 mt-0.5">
+                    <span class="material-symbols-outlined text-xs">warning</span> 2 Late Invoices
+                  </span>
+                </div>
+                <div>
+                  <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Dispute Rate</span>
+                  <div class="flex items-baseline gap-1 mt-0.5">
+                    <span class="text-lg font-bold text-rose-600">25.0%</span>
+                  </div>
+                  <span class="text-[11px] text-rose-600 mt-0.5 block font-medium">1 Dispute on record</span>
+                </div>
+              </div>
+
+              <!-- Lifetime Billed -->
+              <div class="flex items-center justify-between text-xs px-1">
+                <span class="text-slate-500">Overdue Balance</span>
+                <span class="font-bold text-rose-600">$3,200.00 Overdue (16d)</span>
+              </div>
+
+              <!-- Recommended Terms Callout -->
+              <div class="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300">
+                <span class="text-[10px] text-rose-300 uppercase tracking-wider block font-bold">High Risk Warning</span>
+                <p class="text-xs text-rose-100 mt-1 leading-relaxed font-medium">
+                  "Require 50% upfront deposit before work starts. Automated payment chaser active."
+                </p>
+              </div>
+
+              <!-- Historical Velocity -->
+              <div class="space-y-1.5 px-1">
+                <div class="flex items-center justify-between text-[11px] text-slate-500">
+                  <span>Payment History</span>
+                  <span class="text-rose-600 font-semibold">2/3 overdue incidents</span>
+                </div>
+                <div class="flex gap-1.5 h-1.5">
+                  <span class="flex-1 bg-rose-400 rounded-full" title="Inv 01: 32d overdue"></span>
+                  <span class="flex-1 bg-indigo-400 rounded-full" title="Inv 02: 14d"></span>
+                  <span class="flex-1 bg-rose-600 rounded-full animate-pulse" title="Inv 03: 16d overdue currently"></span>
+                  <span class="flex-1 bg-slate-200 rounded-full"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Bottom Action -->
+            <div class="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between gap-2">
+              <span class="text-[11px] font-bold text-rose-700">50% Deposit Mandated</span>
+              <a href="06_autonomous_smart_payment_chaser.html" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-semibold text-xs transition-colors flex items-center gap-1 shadow-2xs">
+                <span>Open Chaser</span>
+                <span class="material-symbols-outlined text-sm">schedule_send</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SECTION 4: SMART RETAINER & MILESTONE CALCULATOR CONSOLE
+           ====================================================================== -->
+      <div class="rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-2xs space-y-6" id="calculator-console">
+        
+        <!-- Calculator Header -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="material-symbols-outlined text-indigo-600 text-lg">tune</span>
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Smart Contract Engine</span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-slate-900">
+              Contract Terms &amp; Retainer Calculator
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+              Adjust contract scope to compute risk-calibrated milestone splits and auto-generate enforceable contract clauses.
+            </p>
+          </div>
+
+          <!-- Presets -->
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="text-xs text-slate-400 font-medium mr-1">Presets:</span>
+            <button type="button" id="preset-5k" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-colors" onclick="setContractValue(5000)">$5,000</button>
+            <button type="button" id="preset-10k" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 transition-colors liquid-glass-indigo" onclick="setContractValue(10000)">$10,000 (Std)</button>
+            <button type="button" id="preset-25k" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-colors" onclick="setContractValue(25000)">$25,000</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Input Controls (5 Cols) -->
+          <div class="lg:col-span-5 space-y-5">
+            <div>
+              <label for="contract-input" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Total Contract Value (USD)</label>
+              <div class="relative flex items-center">
+                <span class="absolute left-4 text-slate-400 font-bold text-base">$</span>
+                <input id="contract-input" type="number" step="500" value="10000" oninput="recalculateSchedule(this.value)" class="w-full h-11 bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white rounded-xl pl-9 pr-4 text-slate-900 font-bold text-base focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all" />
+              </div>
+            </div>
+
+            <!-- Risk Policy Mode Selector -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Client Credit Tier Policy</label>
+              <div class="grid grid-cols-3 gap-2.5">
+                <button type="button" id="btn-safe" onclick="setPolicyMode('safe')" class="p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-600 flex flex-col items-center gap-1 transition-all cursor-pointer">
+                  <span class="text-xs font-bold text-emerald-700">Grade A</span>
+                  <span class="text-[11px] text-slate-500">Net 30 · 30%</span>
+                </button>
+                <button type="button" id="btn-standard" onclick="setPolicyMode('standard')" class="p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/50 text-xs font-medium text-indigo-700 flex flex-col items-center gap-1 transition-all shadow-2xs cursor-pointer liquid-glass-indigo">
+                  <span class="text-xs font-bold text-indigo-700">Grade B</span>
+                  <span class="text-[11px] text-slate-600 font-semibold">Net 14 · 50%</span>
+                </button>
+                <button type="button" id="btn-high" onclick="setPolicyMode('high')" class="p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-600 flex flex-col items-center gap-1 transition-all cursor-pointer">
+                  <span class="text-xs font-bold text-rose-700">Grade D</span>
+                  <span class="text-[11px] text-slate-500">Escrow · 60%</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Guarantee Callout -->
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+              <span class="material-symbols-outlined text-indigo-600 text-lg shrink-0 mt-0.5">verified_user</span>
+              <div class="space-y-0.5">
+                <h4 class="text-xs font-bold text-slate-900">Milestone Protection Guarantee</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Protects 100% of custom engineering labor. Commercial licenses and source assets remain in escrow until final milestone clearance.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Schedule Breakdown & Snippet Output (7 Cols) -->
+          <div class="lg:col-span-7 space-y-5">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-700">Recommended Milestone Schedule</span>
+                <span id="schedule-ratio-label" class="text-xs font-semibold text-indigo-600">50% Upfront • 25% Sprint 1 • 25% Delivery</span>
+              </div>
+
+              <!-- Milestones Card Deck -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <!-- Milestone 1: Upfront -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-indigo-200">
+                  <span class="text-[10px] uppercase font-bold text-indigo-600 block">Phase 01: Retainer</span>
+                  <span id="m1-title" class="text-xs text-slate-500 block mt-0.5">50% Upfront Deposit</span>
+                  <div id="m1-val" class="mt-2 text-xl font-bold text-slate-900">$5,000</div>
+                  <span class="text-[11px] font-semibold text-emerald-700 flex items-center gap-1 mt-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Pre-commencement
+                  </span>
+                </div>
+
+                <!-- Milestone 2: Sprint 1 -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-[10px] uppercase font-bold text-slate-400 block">Phase 02: Sprint Mid</span>
+                  <span id="m2-title" class="text-xs text-slate-500 block mt-0.5">25% Sprint 1 Milestone</span>
+                  <div id="m2-val" class="mt-2 text-xl font-bold text-slate-900">$2,500</div>
+                  <span class="text-[11px] text-slate-500 mt-1 block">Prototype Approval</span>
+                </div>
+
+                <!-- Milestone 3: Delivery -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <span class="text-[10px] uppercase font-bold text-slate-400 block">Phase 03: Sign-Off</span>
+                  <span id="m3-title" class="text-xs text-slate-500 block mt-0.5">25% Final Delivery</span>
+                  <div id="m3-val" class="mt-2 text-xl font-bold text-slate-900">$2,500</div>
+                  <span class="text-[11px] text-slate-500 mt-1 block">Before Source Handover</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Late Fee Clause Snippet Container -->
+            <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-slate-400 text-sm">gavel</span>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-slate-700">Contract Protection Clause Snippet</span>
+                </div>
+                <button type="button" id="copy-btn" onclick="copySnippet()" class="flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors focus:outline-none cursor-pointer">
+                  <span class="material-symbols-outlined text-xs">content_copy</span>
+                  <span id="copy-label">Copy Clause</span>
+                </button>
+              </div>
+              <p id="clause-code" class="text-xs text-slate-700 bg-white border border-slate-200 rounded-lg p-3 font-mono leading-relaxed select-all">
+"Late payments shall incur a compounding financing penalty of 1.5% per 14-day delay cycle, accrued daily until full settlement. Commercial production licenses and source assets remain withheld until final milestone clearance."
+              </p>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+              <div class="flex items-center gap-2 text-slate-500 text-xs">
+                <span class="material-symbols-outlined text-emerald-600 text-base">check_circle</span>
+                <span>Enforceable under standard Master Services Agreements (MSA).</span>
+              </div>
+              <button type="button" onclick="applyTermsToInvoice()" class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer">
+                <span>Apply Terms to Invoice</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================================================================
+         MODAL: AUDIT NEW CLIENT
+         ====================================================================== -->
+    <div id="audit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xl max-w-md w-full p-6 space-y-5 animate-in fade-in duration-200">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600">
+              <span class="material-symbols-outlined text-base">person_add</span>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900">Audit New Client Counterparty</h3>
+          </div>
+          <button type="button" onclick="closeAuditModal()" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
+            <span class="material-symbols-outlined text-base">close</span>
+          </button>
+        </div>
+
+        <form id="audit-form" onsubmit="handleAuditSubmit(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Company Name</label>
+            <input type="text" id="audit-company-name" placeholder="e.g. Acme Corporation" required class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Company Website or Domain</label>
+            <input type="text" id="audit-company-domain" placeholder="e.g. acmecorp.com" required class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Estimated Contract Value ($ USD)</label>
+            <input type="number" id="audit-contract-size" placeholder="15000" required class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600" />
+          </div>
+
+          <div class="pt-2 flex items-center justify-end gap-2">
+            <button type="button" onclick="closeAuditModal()" class="px-3.5 py-2 rounded-lg border border-slate-200 text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors">
+              Cancel
+            </button>
+            <button type="submit" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-xs transition-colors flex items-center gap-1.5">
+              <span>Run Credit Audit</span>
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast Notification (Frosted Glassmorphism) -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-2xl border border-white/20 dark:border-white/10 shadow-2xl backdrop-blur-xl bg-slate-900/90 text-white flex items-center gap-3 text-xs font-semibold hidden transition-all duration-300 transform translate-y-3 opacity-0">
+      <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/30">
+        <span id="toast-icon" class="material-symbols-outlined text-base">check_circle</span>
+      </div>
+      <span id="toast-message">Action completed successfully!</span>
+    </div>
+
+    <!-- JavaScript Interactive Logic -->
+    <script>
+      let currentPolicy = 'standard';
+      let toastTimer = null;
+
+      function showToast(msg, icon = 'check_circle') {
+        const toast = document.getElementById('toast-notification');
+        const text = document.getElementById('toast-message');
+        const iconEl = document.getElementById('toast-icon');
+        if (!toast || !text) return;
+        text.textContent = msg;
+        if (iconEl) iconEl.textContent = icon;
+        clearTimeout(toastTimer);
+        toast.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-3', 'opacity-0');
+        });
+        toastTimer = setTimeout(() => {
+          toast.classList.add('translate-y-3', 'opacity-0');
+          setTimeout(() => toast.classList.add('hidden'), 300);
+        }, 3200);
+      }
+
+      // Initial Client Data Registry
+      let clientsData = [
+        {
+          id: 'apex',
+          name: 'Apex Digital Labs',
+          domain: 'apexdigital.io',
+          industry: 'Enterprise SaaS · San Francisco',
+          initials: 'AD',
+          color: 'emerald',
+          grade: 'GRADE A',
+          gradeBadge: 'bg-emerald-50 border-emerald-200 text-emerald-700',
+          score: 96,
+          scoreColor: 'text-slate-400',
+          avgDays: '2.4',
+          avgSpeedColor: 'text-emerald-600',
+          speedTag: 'Super Fast',
+          speedIcon: 'bolt',
+          disputeRate: '0.0%',
+          disputeText: '0 of 6 contested',
+          totalSettled: '$18,500',
+          settledSub: 'across 6 projects',
+          termsBadge: 'Approved for Net 30 terms. Low risk counterparty. Eligible for milestone waivers.',
+          termsCardStyle: 'bg-emerald-500/15 border border-emerald-500/30 text-emerald-300',
+          historyText: '6/6 within 72 hrs',
+          historyColor: 'text-emerald-700',
+          bars: ['bg-emerald-500', 'bg-emerald-500', 'bg-emerald-500', 'bg-emerald-500', 'bg-emerald-500', 'bg-emerald-500'],
+          termsLabel: 'Terms: Net 30 Safe',
+          actionUrl: '05_dynamic_milestone_invoice_builder.html?client=apex',
+          actionLabel: 'Draft Invoice →',
+          actionStyle: 'bg-slate-100 hover:bg-slate-200 text-slate-800',
+          riskTier: 1,
+          contractDefault: 18500,
+          policyMode: 'safe'
+        },
+        {
+          id: 'hypergrowth',
+          name: 'HyperGrowth Media',
+          domain: 'hypergrowth.co',
+          industry: 'Performance Agency · Austin',
+          initials: 'HM',
+          color: 'indigo',
+          grade: 'GRADE B',
+          gradeBadge: 'bg-indigo-50 border-indigo-200 text-indigo-700',
+          score: 82,
+          scoreColor: 'text-slate-400',
+          avgDays: '9.1',
+          avgSpeedColor: 'text-slate-900',
+          speedTag: 'Within Range',
+          speedIcon: 'schedule',
+          disputeRate: '0.0%',
+          disputeText: '0 of 4 contested',
+          totalSettled: '$12,400',
+          settledSub: 'across 4 projects',
+          termsBadge: 'Standard Net 14 terms. Schedule courtesy reminder 2 days before due date to prevent delay.',
+          termsCardStyle: 'bg-indigo-500/15 border border-indigo-500/30 text-indigo-300',
+          historyText: '4/4 within 14 days',
+          historyColor: 'text-indigo-700',
+          bars: ['bg-indigo-500', 'bg-indigo-500', 'bg-indigo-500', 'bg-indigo-500', 'bg-slate-200', 'bg-slate-200'],
+          termsLabel: 'Terms: Net 14 Cap',
+          actionUrl: '05_dynamic_milestone_invoice_builder.html?client=hypergrowth',
+          actionLabel: 'Draft Invoice →',
+          actionStyle: 'bg-slate-100 hover:bg-slate-200 text-slate-800',
+          riskTier: 2,
+          contractDefault: 12400,
+          policyMode: 'standard'
+        },
+        {
+          id: 'veloce',
+          name: 'Veloce Motors Inc.',
+          domain: 'velocemotors.com',
+          industry: 'Automotive OEM · Detroit',
+          initials: 'VM',
+          color: 'rose',
+          grade: 'GRADE D',
+          gradeBadge: 'bg-rose-100 border-rose-200 text-rose-700',
+          score: 42,
+          scoreColor: 'text-rose-600',
+          avgDays: '24.8',
+          avgSpeedColor: 'text-rose-600',
+          speedTag: '2 Late Invoices',
+          speedIcon: 'warning',
+          disputeRate: '25.0%',
+          disputeText: '1 Dispute on record',
+          totalSettled: '$3,200 Overdue (16d)',
+          settledSub: 'Past maturity date',
+          termsBadge: 'Require 50% upfront deposit before work starts. Automated payment chaser active.',
+          termsCardStyle: 'bg-rose-500/15 border border-rose-500/30 text-rose-300',
+          historyText: '2/3 overdue incidents',
+          historyColor: 'text-rose-600',
+          bars: ['bg-rose-400', 'bg-indigo-400', 'bg-rose-600 animate-pulse', 'bg-slate-200'],
+          termsLabel: '50% Deposit Mandated',
+          actionUrl: '06_autonomous_smart_payment_chaser.html',
+          actionLabel: 'Open Chaser →',
+          actionStyle: 'bg-rose-600 hover:bg-rose-700 text-white shadow-2xs',
+          riskTier: 3,
+          contractDefault: 3200,
+          policyMode: 'high'
+        }
+      ];
+
+      let selectedClientId = null;
+
+      function renderScorecards(items = clientsData) {
+        const grid = document.getElementById('scorecards-grid');
+        if (!grid) return;
+
+        grid.innerHTML = items.map(c => `
+          <div id="card-${c.id}" class="scorecard-card rounded-2xl bg-white border ${c.id === 'veloce' ? 'border-2 border-rose-200' : 'border-slate-200'} p-6 flex flex-col justify-between transition-all hover:shadow-md cursor-pointer ${selectedClientId === c.id ? 'ring-2 ring-indigo-500 liquid-glass-indigo' : ''}" onclick="loadClientInCalculator('${c.id}')">
+            <div class="space-y-5">
+              <!-- Card Header -->
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-${c.color}-50 border border-${c.color}-200 flex items-center justify-center font-bold text-${c.color}-800 text-sm shrink-0">
+                    ${c.initials}
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-sm text-slate-900">${c.name}</h3>
+                    <p class="text-xs text-slate-500">${c.industry}</p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="inline-block px-2.5 py-0.5 rounded-full border text-xs font-bold ${c.gradeBadge}">
+                    ${c.grade}
+                  </span>
+                  <span class="block text-[11px] font-semibold ${c.scoreColor} mt-0.5">${c.score} / 100</span>
+                </div>
+              </div>
+
+              <!-- Speed & Dispute Telemetry -->
+              <div class="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/80">
+                <div>
+                  <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Avg Settlement</span>
+                  <div class="flex items-baseline gap-1 mt-0.5">
+                    <span class="text-lg font-bold ${c.avgSpeedColor}">${c.avgDays}</span>
+                    <span class="text-xs text-slate-500 font-medium">Days</span>
+                  </div>
+                  <span class="text-[11px] text-${c.color}-700 font-medium flex items-center gap-0.5 mt-0.5">
+                    <span class="material-symbols-outlined text-xs">${c.speedIcon}</span> ${c.speedTag}
+                  </span>
+                </div>
+                <div>
+                  <span class="text-[10px] font-bold uppercase text-slate-400 tracking-wider block">Dispute Rate</span>
+                  <div class="flex items-baseline gap-1 mt-0.5">
+                    <span class="text-lg font-bold text-slate-900">${c.disputeRate}</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 mt-0.5 block">${c.disputeText}</span>
+                </div>
+              </div>
+
+              <!-- Lifetime Billed -->
+              <div class="flex items-center justify-between text-xs px-1">
+                <span class="text-slate-500">Total Settled B2B</span>
+                <span class="font-bold text-slate-900">${c.totalSettled} <span class="text-slate-400 font-normal">(${c.settledSub})</span></span>
+              </div>
+
+              <!-- Recommended Terms Callout -->
+              <div class="p-3 rounded-xl ${c.termsCardStyle}">
+                <span class="text-[10px] uppercase tracking-wider block font-bold opacity-90">${c.id === 'veloce' ? 'High Risk Warning' : 'Recommended Terms'}</span>
+                <p class="text-xs mt-1 leading-relaxed font-medium text-white/95">
+                  "${c.termsBadge}"
+                </p>
+              </div>
+
+              <!-- Historical Velocity -->
+              <div class="space-y-1.5 px-1">
+                <div class="flex items-center justify-between text-[11px] text-slate-500">
+                  <span>Payment History</span>
+                  <span class="${c.historyColor} font-semibold">${c.historyText}</span>
+                </div>
+                <div class="flex gap-1.5 h-1.5">
+                  ${c.bars.map(bar => `<span class="flex-1 ${bar} rounded-full"></span>`).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Bottom Action -->
+            <div class="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between gap-2">
+              <span class="text-[11px] font-semibold text-slate-600">${c.termsLabel}</span>
+              <a href="${c.actionUrl}" onclick="event.stopPropagation()" class="px-3 py-1.5 rounded-lg ${c.actionStyle} font-semibold text-xs transition-colors flex items-center gap-1">
+                <span>${c.actionLabel}</span>
+              </a>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function sortScorecards(criteria) {
+        let sorted = [...clientsData];
+        if (criteria === 'risk') {
+          sorted.sort((a, b) => b.riskTier - a.riskTier);
+          showToast('Sorted by Risk Tier (Highest Risk First)', 'sort');
+        } else if (criteria === 'score') {
+          sorted.sort((a, b) => b.score - a.score);
+          showToast('Sorted by Payment Score (High to Low)', 'grade');
+        } else if (criteria === 'volume') {
+          sorted.sort((a, b) => b.contractDefault - a.contractDefault);
+          showToast('Sorted by Total Volume Billed', 'payments');
+        }
+        renderScorecards(sorted);
+      }
+
+      function loadClientInCalculator(clientId) {
+        const client = clientsData.find(c => c.id === clientId);
+        if (!client) return;
+
+        selectedClientId = clientId;
+        renderScorecards();
+
+        // Update calculator inputs
+        setContractValue(client.contractDefault);
+        setPolicyMode(client.policyMode);
+
+        const calcSection = document.getElementById('calculator-console');
+        if (calcSection) {
+          calcSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        showToast(`Loaded ${client.name} into Retainer Engine ($${client.contractDefault.toLocaleString()} · ${client.grade})`, 'calculate');
+      }
+
+      function setContractValue(val) {
+        const input = document.getElementById('contract-input');
+        if (input) input.value = val;
+        
+        // Highlight active preset button
+        const p5 = document.getElementById('preset-5k');
+        const p10 = document.getElementById('preset-10k');
+        const p25 = document.getElementById('preset-25k');
+        
+        [p5, p10, p25].forEach(btn => {
+          if (btn) {
+            btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-colors";
+            btn.classList.remove('liquid-glass-indigo');
+          }
+        });
+
+        if (val === 5000 && p5) {
+          p5.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 transition-colors liquid-glass-indigo";
+        } else if (val === 10000 && p10) {
+          p10.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 transition-colors liquid-glass-indigo";
+        } else if (val === 25000 && p25) {
+          p25.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 transition-colors liquid-glass-indigo";
+        }
+
+        recalculateSchedule(val);
+      }
+
+      function setPolicyMode(mode) {
+        currentPolicy = mode;
+        
+        const btnSafe = document.getElementById('btn-safe');
+        const btnStandard = document.getElementById('btn-standard');
+        const btnHigh = document.getElementById('btn-high');
+
+        [btnSafe, btnStandard, btnHigh].forEach(b => {
+          if (b) {
+            b.className = "p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-600 flex flex-col items-center gap-1 transition-all cursor-pointer";
+            b.classList.remove('liquid-glass-emerald', 'liquid-glass-indigo', 'liquid-glass-rose');
+          }
+        });
+
+        if (mode === 'safe' && btnSafe) {
+          btnSafe.className = "p-3 rounded-xl border-2 border-emerald-600 bg-emerald-50/50 text-xs font-medium text-emerald-800 flex flex-col items-center gap-1 transition-all shadow-2xs cursor-pointer liquid-glass-emerald";
+        } else if (mode === 'standard' && btnStandard) {
+          btnStandard.className = "p-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/50 text-xs font-medium text-indigo-800 flex flex-col items-center gap-1 transition-all shadow-2xs cursor-pointer liquid-glass-indigo";
+        } else if (mode === 'high' && btnHigh) {
+          btnHigh.className = "p-3 rounded-xl border-2 border-rose-600 bg-rose-50/50 text-xs font-medium text-rose-800 flex flex-col items-center gap-1 transition-all shadow-2xs cursor-pointer liquid-glass-rose";
+        }
+
+        const val = parseFloat(document.getElementById('contract-input')?.value) || 0;
+        recalculateSchedule(val);
+      }
+
+      function recalculateSchedule(totalVal) {
+        const val = Math.max(0, parseFloat(totalVal) || 0);
+        const m1Val = document.getElementById('m1-val');
+        const m2Val = document.getElementById('m2-val');
+        const m3Val = document.getElementById('m3-val');
+
+        const m1Title = document.getElementById('m1-title');
+        const m2Title = document.getElementById('m2-title');
+        const m3Title = document.getElementById('m3-title');
+        const ratioLabel = document.getElementById('schedule-ratio-label');
+        const clauseCode = document.getElementById('clause-code');
+
+        if (currentPolicy === 'safe') {
+          if (m1Title) m1Title.innerText = "30% Upfront Retainer";
+          if (m2Title) m2Title.innerText = "35% Sprint 1 Milestone";
+          if (m3Title) m3Title.innerText = "35% Final Delivery";
+          if (ratioLabel) ratioLabel.innerText = "30% Upfront • 35% Sprint 1 • 35% Delivery";
+
+          if (m1Val) m1Val.innerText = '$' + Math.round(val * 0.30).toLocaleString();
+          if (m2Val) m2Val.innerText = '$' + Math.round(val * 0.35).toLocaleString();
+          if (m3Val) m3Val.innerText = '$' + Math.round(val * 0.35).toLocaleString();
+
+          if (clauseCode) clauseCode.innerText = `"Standard Net 30 terms. Late invoices accrue simple 1.0% interest monthly after a 5-day grace period. Work commences upon clearance of the 30% retainer."`;
+        } else if (currentPolicy === 'standard') {
+          if (m1Title) m1Title.innerText = "50% Upfront Retainer";
+          if (m2Title) m2Title.innerText = "25% Sprint 1 Milestone";
+          if (m3Title) m3Title.innerText = "25% Final Delivery";
+          if (ratioLabel) ratioLabel.innerText = "50% Upfront • 25% Sprint 1 • 25% Delivery";
+
+          if (m1Val) m1Val.innerText = '$' + Math.round(val * 0.50).toLocaleString();
+          if (m2Val) m2Val.innerText = '$' + Math.round(val * 0.25).toLocaleString();
+          if (m3Val) m3Val.innerText = '$' + Math.round(val * 0.25).toLocaleString();
+
+          if (clauseCode) clauseCode.innerText = `"Late payments shall incur a compounding financing penalty of 1.5% per 14-day delay cycle, accrued daily until full settlement. Commercial production licenses and source assets remain withheld until final milestone clearance."`;
+        } else if (currentPolicy === 'high') {
+          if (m1Title) m1Title.innerText = "60% Escrow Retainer";
+          if (m2Title) m2Title.innerText = "25% Alpha Release";
+          if (m3Title) m3Title.innerText = "15% Handover";
+          if (ratioLabel) ratioLabel.innerText = "60% Escrow • 25% Alpha • 15% Handover";
+
+          if (m1Val) m1Val.innerText = '$' + Math.round(val * 0.60).toLocaleString();
+          if (m2Val) m2Val.innerText = '$' + Math.round(val * 0.25).toLocaleString();
+          if (m3Val) m3Val.innerText = '$' + Math.round(val * 0.15).toLocaleString();
+
+          if (clauseCode) clauseCode.innerText = `"HIGH RISK SCHEDULE: Work pauses automatically if any milestone invoice exceeds 48 hours past issuance. A 2.5% weekly delinquency surcharge applies immediately upon default."`;
+        }
+      }
+
+      function copySnippet() {
+        const code = document.getElementById('clause-code')?.innerText || '';
+        navigator.clipboard?.writeText(code).then(() => {
+          const label = document.getElementById('copy-label');
+          if (label) label.innerText = 'Copied!';
+          showToast('Clause snippet copied to clipboard!', 'content_copy');
+          setTimeout(() => { if (label) label.innerText = 'Copy Clause'; }, 2000);
+        });
+      }
+
+      function openAuditModal() {
+        const modal = document.getElementById('audit-modal');
+        if (modal) modal.classList.remove('hidden');
+      }
+
+      function closeAuditModal() {
+        const modal = document.getElementById('audit-modal');
+        if (modal) modal.classList.add('hidden');
+      }
+
+      function handleAuditSubmit(e) {
+        e.preventDefault();
+        const company = document.getElementById('audit-company-name')?.value.trim() || 'New Client Inc.';
+        const domain = document.getElementById('audit-company-domain')?.value.trim() || 'client.com';
+        const contractSize = parseFloat(document.getElementById('audit-contract-size')?.value) || 15000;
+
+        // Generate initials
+        const parts = company.split(' ');
+        const initials = parts.length > 1 ? (parts[0][0] + parts[1][0]).toUpperCase() : company.substring(0, 2).toUpperCase();
+        const newId = 'client_' + Date.now();
+
+        // Calculate deterministic score based on domain/name
+        const score = 88;
+        const newClient = {
+          id: newId,
+          name: company,
+          domain: domain,
+          industry: `Verified Partner · ${domain}`,
+          initials: initials,
+          color: 'emerald',
+          grade: 'GRADE A',
+          gradeBadge: 'bg-emerald-50 border-emerald-200 text-emerald-700',
+          score: score,
+          scoreColor: 'text-emerald-600',
+          avgDays: '3.2',
+          avgSpeedColor: 'text-emerald-600',
+          speedTag: 'Prompt Payer',
+          speedIcon: 'verified',
+          disputeRate: '0.0%',
+          disputeText: '0 disputes',
+          totalSettled: '$' + contractSize.toLocaleString(),
+          settledSub: 'New Contract',
+          termsBadge: 'Verified credit record. Standard Net 30 or 50% upfront retainer recommended.',
+          termsCardStyle: 'bg-emerald-50/60 border-l-2 border-emerald-500 text-emerald-950',
+          historyText: 'New Audited Account',
+          historyColor: 'text-emerald-700',
+          bars: ['bg-emerald-500', 'bg-emerald-500', 'bg-emerald-500', 'bg-emerald-500', 'bg-emerald-500'],
+          termsLabel: 'Terms: Net 30 Safe',
+          actionUrl: `05_dynamic_milestone_invoice_builder.html?client=${encodeURIComponent(company)}`,
+          actionLabel: 'Draft Invoice →',
+          actionStyle: 'bg-slate-100 hover:bg-slate-200 text-slate-800',
+          riskTier: 1,
+          contractDefault: contractSize,
+          policyMode: 'safe'
+        };
+
+        clientsData.unshift(newClient);
+        renderScorecards();
+
+        // Update telemetry banner counts
+        const count1 = document.getElementById('accounts-monitored-count');
+        const count2 = document.getElementById('active-counterparties-count');
+        if (count1) count1.textContent = `${clientsData.length} Active Accounts Monitored`;
+        if (count2) count2.textContent = `(${clientsData.length} Active Counterparties)`;
+
+        // Update progress bar
+        const barA = document.getElementById('bar-grade-a');
+        const barB = document.getElementById('bar-grade-b');
+        const barD = document.getElementById('bar-grade-d');
+        const legA = document.getElementById('legend-pct-a');
+        const legB = document.getElementById('legend-pct-b');
+        const legD = document.getElementById('legend-pct-d');
+
+        if (barA) barA.style.width = '70%';
+        if (barB) barB.style.width = '20%';
+        if (barD) barD.style.width = '10%';
+        if (legA) legA.textContent = '70%';
+        if (legB) legB.textContent = '20%';
+        if (legD) legD.textContent = '10%';
+
+        closeAuditModal();
+        loadClientInCalculator(newId);
+        showToast(`✓ Credit audit completed for ${company}! Assigned Grade A (88/100)`, 'verified');
+      }
+
+      function applyTermsToInvoice() {
+        const val = document.getElementById('contract-input')?.value || '10000';
+        const clause = document.getElementById('clause-code')?.innerText || '';
+        const m1 = document.getElementById('m1-val')?.innerText || '$5,000';
+        const m2 = document.getElementById('m2-val')?.innerText || '$2,500';
+        const m3 = document.getElementById('m3-val')?.innerText || '$2,500';
+
+        const termsPayload = {
+          total: val,
+          policy: currentPolicy,
+          m1: m1,
+          m2: m2,
+          m3: m3,
+          clause: clause,
+          selectedClient: selectedClientId ? clientsData.find(c => c.id === selectedClientId)?.name : 'Veloce Motors Inc.'
+        };
+
+        try {
+          localStorage.setItem('gigpulse_latest_terms', JSON.stringify(termsPayload));
+        } catch (e) {}
+
+        showToast('Calibrated terms saved! Opening Milestone Invoice Builder...', 'receipt_long');
+        setTimeout(() => {
+          window.location.href = '05_dynamic_milestone_invoice_builder.html';
+        }, 600);
+      }
+
+      // Initialize Scorecards on Load
+      document.addEventListener('DOMContentLoaded', () => {
+        renderScorecards();
+      });
+      // In case DOMContentLoaded already fired:
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        renderScorecards();
+      }
+
+      const mobileToggle = document.getElementById('mobile-sidebar-toggle');
+      const appSidebar = document.getElementById('app-sidebar');
+      const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+      const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+
+      function toggleMobileSidebar() {
+        if (!appSidebar) return;
+        const isClosed = appSidebar.classList.contains('-translate-x-full');
+        if (isClosed) {
+          appSidebar.classList.remove('-translate-x-full');
+          sidebarBackdrop?.classList.remove('hidden');
+        } else {
+          appSidebar.classList.add('-translate-x-full');
+          sidebarBackdrop?.classList.add('hidden');
+        }
+      }
+
+      if (mobileToggle) mobileToggle.addEventListener('click', toggleMobileSidebar);
+      if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleMobileSidebar);
+      if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', toggleMobileSidebar);
+    </script>
+  </main>
+
+  <!-- Clean Executive Footer -->
+  <footer class="w-full border-t border-slate-200 bg-white py-6 hidden md:block relative z-10 md:pl-64 xl:pl-72">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-xs">
+      <div>© 2026 GigPulse OS · Autonomous Financial Intelligence for Independent Studios</div>
+      <div class="flex items-center gap-6">
+        <span class="flex items-center gap-1.5 text-slate-600">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Risk Engine Active
+        </span>
+        <span class="text-slate-300">|</span>
+        <span>256-bit Bank Grade Encryption</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Centralized Session Hydration Script -->
+  <script src="assets/gigpulse_session_sync.js"></script>
+</body>
+</html>
