@@ -65,6 +65,8 @@ Gig_Pulse/
 │   │   └── chaser_autopilot.py    # Autonomous Multi-Channel AR Payment Recovery Agent
 │   ├── ml/
 │   │   └── credit_underwriting.py # Predictive Counterparty Credit Risk & Default Probability ML
+│   ├── pyproject.toml             # Python Project Specification
+│   ├── requirements.txt           # Python Dependencies (FastAPI, LangChain, Scikit-Learn)
 │   └── server.py                  # FastAPI High-Performance Treasury & REST API Service
 ├── src/                           # TypeScript Core Financial Computation Engine
 │   ├── engine/
@@ -73,7 +75,8 @@ Gig_Pulse/
 │       └── treasury.ts            # Enterprise Financial Telemetry Type Schemas
 ├── Dockerfile                     # Multi-Stage Production Containerization
 ├── package.json                   # Node Tooling, TypeScript Schemas & Scripts
-├── requirements.txt               # Python Dependencies (FastAPI, LangChain, Scikit-Learn)
+├── tsconfig.json                  # TypeScript Configuration
+├── vercel.json                    # Edge CDN Static Routing Specification
 └── README.md                      # Executive Architectural Documentation
 ```
 
@@ -81,23 +84,40 @@ Gig_Pulse/
 
 ## ⚡ 60-Second Judge Quickstart Tour
 
-Follow these steps to evaluate the full GigPulse experience in under 1 minute:
+Experience the full GigPulse Autonomous Financial OS in under 1 minute:
 
-1. **Launch the Local Server:**
+### 🌐 Option A: Instant 1-Click Live Cloud Demo (Zero Setup Required)
+
+Click the live links below to evaluate the complete production deployment directly in your browser:
+
+1. **Experience the Sovereign Marketing Showcase:**
+   Visit [**gig-pulse-zeta.vercel.app**](https://gig-pulse-zeta.vercel.app). Hover your cursor across the hero visual to reveal the human founder inside the AI sentinel.
+2. **1-Click Judge Pass Access:**
+   Visit the [**Auth Portal**](https://gig-pulse-zeta.vercel.app/00_auth_login_signup) and click the amber **"Enter as Alex Mercer ➔"** button for instant biometric bypass.
+3. **Test the Live Pulse Cockpit:**
+   In the [**Executive Cockpit Dashboard**](https://gig-pulse-zeta.vercel.app/02_pulse_cockpit_dashboard):
+   - Click **"Test What-If Scenarios"** in the top action bar to open the Monte-Carlo simulation popover.
+   - Toggle **"Acme Corp delays $8.5k payment by 30 days"** and watch the circular liquidity gauge contract dynamically from **98 days to 54 days** in real time!
+   - Use the left sidebar to audit the **AI Chaser Sentinel**, **Milestone Escrow Builder**, and **Client Credit Scorecard**.
+4. **Interactive Device Navigator:**
+   Visit the [**Screens Hub**](https://gig-pulse-zeta.vercel.app/screens_hub.html) to inspect all 9 modular screens with live Desktop, Tablet, and Mobile viewport toggles.
+
+---
+
+### 💻 Option B: Run Locally via Git Clone
+
+If you prefer testing on your local machine:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/NoorFatima323/Gig_Pulse.git
+   cd Gig_Pulse
+   ```
+2. **Launch the local web server:**
    ```bash
    python -m http.server 3000
    ```
-2. **Open the Screen Hub:**
-   Navigate to [http://localhost:3000/frontend/](http://localhost:3000/frontend/) to toggle between mobile, tablet, and desktop viewports.
-3. **Experience the Landing Page:**
-   Visit [http://localhost:3000/frontend/01_landing_page_full.html](http://localhost:3000/frontend/01_landing_page_full.html). Hover over the hero image to reveal the Human Founder inside the AI Sentinel.
-4. **Use the 1-Click Judge Pass:**
-   Click **"LOG IN"** or visit [http://localhost:3000/frontend/00_auth_login_signup.html](http://localhost:3000/frontend/00_auth_login_signup.html). Click the amber **"Enter as Alex Mercer ➔"** button.
-5. **Test the Autonomous Cockpit:**
-   In [02_pulse_cockpit_dashboard.html](http://localhost:3000/frontend/02_pulse_cockpit_dashboard.html):
-   - Click **"Test What-If Scenarios"** in the top action bar to open the top-floating simulation popover.
-   - Toggle **"Acme Corp delays $8.5k payment by 30 days"** and watch the runway gauge dynamically contract from 98 days to 54 days!
-   - Navigate through the sidebar to explore the Chaser Sentinel, Scorecard, and Forecaster.
+3. Open your browser at [http://localhost:3000](http://localhost:3000).
 
 ---
 
