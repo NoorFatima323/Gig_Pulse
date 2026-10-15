@@ -8,7 +8,11 @@
     },
     {
       "source": "/",
-      "destination": "/frontend/index.html"
+      "destination": "/index.html"
+    },
+    {
+      "source": "/01_landing_page_full.html",
+      "destination": "/index.html"
     },
     {
       "source": "/assets/(.*)",

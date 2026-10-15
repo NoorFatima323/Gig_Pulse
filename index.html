@@ -1,18 +1,3290 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; url=frontend/">
-  <title>GigPulse® — Autonomous Financial OS for Independent Founders & Studios</title>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>GigPulse — Autonomous Financial OS | Sovereign Multi-Agent Fleet</title>
+  <meta name="description" content="GigPulse deploys autonomous AI agents that predict cash flow gaps, secure upfront deposits, and chase overdue invoices automatically." />
+
+  <!-- Google Fonts: Inter (Modern Swiss Sans), Newsreader (Editorial Serif), JetBrains Mono (Technical Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,600;1,700;1,800&family=Inter:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400;1,6..72,500;1,6..72,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <link href="assets/fonts.css" rel="stylesheet"/>
+  <link href="assets/dark_theme.css?v=20261014_3" rel="stylesheet"/>
+
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    window.location.href = "frontend/";
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "void": "#050506",
+            "void-soft": "#0b0b0d",
+            "surface-charcoal": "#0e0e12",
+            "surface-elevated": "#14141c",
+            "surface-container": "#1c1c27",
+            "border-line": "rgba(241, 240, 234, 0.12)",
+            "border-line-bright": "rgba(241, 240, 234, 0.22)",
+            "border-iris-active": "rgba(108, 99, 255, 0.45)",
+            "electric": "#6c63ff",
+            "signal": "#a9a5ff",
+            "mint": "#4edea3",
+            "mint-glow": "rgba(78, 222, 163, 0.28)",
+            "ink": "#f1f0ea",
+            "ink-dim": "rgba(241, 240, 234, 0.68)",
+            "ink-muted": "rgba(241, 240, 234, 0.42)",
+            "paper": "#e7e5de"
+          },
+          fontFamily: {
+            sans: ["'Inter'", "sans-serif"],
+            serif: ["'Newsreader'", "Georgia", "serif"],
+            mono: ["'JetBrains Mono'", "monospace"],
+            display: ["'Inter'", "sans-serif"]
+          }
+        }
+      }
+    };
   </script>
+
+  <!-- NØEMA SIGNATURE DESIGN SYSTEM & CURSOR STYLES -->
+  <style>
+    :root {
+      --void: #050506;
+      --void-soft: #0b0b0d;
+      --ink: #f1f0ea;
+      --ink-dim: rgba(241, 240, 234, 0.68);
+      --paper: #e7e5de;
+      --line: rgba(241, 240, 234, 0.12);
+      --line-dark: rgba(5, 5, 6, 0.18);
+      --electric: #6c63ff;
+      --signal: #a9a5ff;
+      --mint: #4edea3;
+      --mx: 65%;
+      --my: 42%;
+      --pad: clamp(1.2rem, 3vw, 3rem);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--void);
+      color: var(--ink);
+    }
+
+    body {
+      margin: 0;
+      background: var(--void);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    body.loading {
+      overflow: hidden;
+    }
+
+    ::selection {
+      background: var(--electric);
+      color: #ffffff;
+    }
+
+    /* Subtle Film Grain Noise Texture */
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      opacity: 0.055;
+      pointer-events: none;
+      background-image: radial-gradient(circle at 35% 40%, rgba(255,255,255,.05) 0 1px, transparent 1.5px);
+      background-size: 5px 5px;
+    }
+
+    /* Global Hairline Scroll Progress Bar */
+    .global-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      height: 2px;
+      pointer-events: none;
+    }
+    .global-progress span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--signal);
+      box-shadow: 0 0 16px rgba(169, 165, 255, 0.85);
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+
+    /* Noema Preloader / Calibration Screen */
+    .preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: var(--pad);
+      background: #09090c;
+      color: var(--ink);
+      transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .preloader__mark {
+      align-self: center;
+      justify-self: center;
+      font-size: clamp(4rem, 15vw, 13rem);
+      font-weight: 700;
+      letter-spacing: -0.09em;
+      line-height: 0.75;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .preloader__mark span {
+      color: var(--signal);
+      font-size: 0.35em;
+      vertical-align: super;
+    }
+    .preloader__foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .preloader__percent {
+      font-size: clamp(2.4rem, 6vw, 5.5rem);
+      line-height: 0.8;
+      letter-spacing: -0.08em;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* TRUE NOEMA CUSTOM CURSOR (DOT + RING WITH MIX-BLEND DIFFERENCE) */
+    .cursor,
+    .cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+    }
+    .cursor {
+      width: 5px;
+      height: 5px;
+      background: #ffffff;
+      transition: opacity 0.25s ease;
+    }
+    .cursor-ring {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      transition:
+        width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.35s ease,
+        border-color 0.35s ease;
+    }
+    .cursor-ring.is-active {
+      width: 74px;
+      height: 74px;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* Typography & Outline utility */
+    .outline {
+      color: transparent;
+      -webkit-text-stroke: 1.25px rgba(241, 240, 234, 0.78);
+    }
+
+    /* Hero Section Immersive Dual-Layer Visual */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      height: 100vh;
+      max-height: 1080px;
+      overflow: hidden;
+      background: var(--void);
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .hero__visual {
+      position: absolute;
+      inset: 0;
+      cursor: none;
+      overflow: hidden;
+    }
+    .hero__visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background:
+        linear-gradient(90deg, rgba(5, 5, 6, 0.88) 0%, rgba(5, 5, 6, 0.42) 50%, rgba(5, 5, 6, 0.85) 100%),
+        linear-gradient(0deg, rgba(5, 5, 6, 0.95) 0%, rgba(5, 5, 6, 0.25) 50%, rgba(5, 5, 6, 0.6) 100%);
+      pointer-events: none;
+    }
+    .hero__image {
+      position: absolute;
+      inset: -2%;
+      width: 104%;
+      height: 104%;
+      object-fit: cover;
+      object-position: center;
+      will-change: transform, clip-path;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero__image--machine {
+      z-index: 1;
+      filter: contrast(1.08) brightness(0.95);
+    }
+    .hero__image--human {
+      z-index: 2;
+      clip-path: circle(0 at var(--mx) var(--my));
+      filter: contrast(1.05) saturate(1.1);
+      transition: clip-path 0.08s linear;
+    }
+    .hero__halo {
+      position: absolute;
+      z-index: 4;
+      top: var(--my);
+      left: var(--mx);
+      width: clamp(160px, 18vw, 320px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(169, 165, 255, 0.75);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.85);
+      transition:
+        opacity 0.35s ease,
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow:
+        inset 0 0 0 8px rgba(108, 99, 255, 0.05),
+        0 0 60px rgba(108, 99, 255, 0.22);
+    }
+    .hero__visual:hover .hero__halo {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .hero__halo::before,
+    .hero__halo::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: rgba(169, 165, 255, 0.55);
+    }
+    .hero__halo::before {
+      width: 120%;
+      height: 1px;
+      transform: translate(-50%, -50%);
+    }
+    .hero__halo::after {
+      width: 1px;
+      height: 120%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Hero HUD Telemetry Coordinates */
+    .hero__coordinates {
+      position: absolute;
+      right: var(--pad);
+      bottom: 4.5rem;
+      z-index: 10;
+      display: grid;
+      gap: 0.35rem;
+      padding-left: 1.2rem;
+      border-left: 1px solid var(--line);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      line-height: 1.5;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      pointer-events: none;
+    }
+    .hero__coordinates b {
+      color: var(--signal);
+      font-weight: 500;
+    }
+    .hero__mode {
+      position: absolute;
+      top: 48%;
+      right: var(--pad);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      transform: rotate(90deg) translateX(50%);
+      transform-origin: right bottom;
+      pointer-events: none;
+    }
+    .hero__mode b {
+      color: var(--mint);
+      font-weight: 500;
+    }
+
+    /* Scroll Cue with pulsating hairline animation */
+    .scroll-cue {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      white-space: nowrap;
+    }
+    .scroll-cue::before {
+      content: "";
+      width: 2.8rem;
+      height: 1px;
+      background: var(--ink);
+      animation: cue 2s ease-in-out infinite;
+      transform-origin: left;
+    }
+    @keyframes cue {
+      0%, 100% { transform: scaleX(0.2); }
+      50% { transform: scaleX(1); }
+    }
+
+    /* Noema Signal Strip Marquee */
+    .signal-strip {
+      position: relative;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      height: 3.4rem;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--void);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .signal-strip__track {
+      display: flex;
+      gap: 2.8rem;
+      white-space: nowrap;
+      animation: marquee 24s linear infinite;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .signal-strip__track span {
+      display: flex;
+      align-items: center;
+      gap: 2.8rem;
+    }
+    .signal-strip__track span::after {
+      content: "//";
+      opacity: 0.45;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* HUD Corner Marks */
+    .hud-corner {
+      position: relative;
+    }
+    .hud-corner::before {
+      content: '+';
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--signal);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .hud-corner::after {
+      content: '+';
+      position: absolute;
+      bottom: -8px;
+      right: -8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--signal);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    /* Smooth Card Hover Transitions */
+    .noema-card, .cockpit-card {
+      transition: all 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .noema-card:hover, .cockpit-card:hover {
+      border-color: rgba(108, 99, 255, 0.45) !important;
+      box-shadow: 0 0 35px rgba(108, 99, 255, 0.18), 0 20px 40px -15px rgba(0, 0, 0, 0.8) !important;
+    }
+
+    /* Cybernetic Cockpit Hologram Radar Scanline & Beacon Animations */
+    @keyframes radarSweep {
+      0% { transform: translateY(-100%); opacity: 0; }
+      20% { opacity: 0.85; }
+      80% { opacity: 0.85; }
+      100% { transform: translateY(350%); opacity: 0; }
+    }
+    .radar-scanline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00f2fe, #a9a5ff, #00f2fe, transparent);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.8), 0 0 30px rgba(169, 165, 255, 0.6);
+      animation: radarSweep 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      pointer-events: none;
+    }
+    @keyframes beaconPulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+    }
+    .beacon-ping {
+      animation: beaconPulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    /* ---------- GrowthSphere Services / Multi-Agent Slider Style ---------- */
+    .svc-section {
+      position: relative;
+      padding: clamp(80px, 11vh, 140px) 0;
+      overflow: hidden;
+    }
+    .svc-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 0 var(--pad);
+      align-items: start;
+      max-width: 1440px;
+      margin-inline: auto;
+    }
+    .svc-visual {
+      display: none;
+      position: relative;
+    }
+    .svc-visual::before {
+      content: '';
+      position: absolute;
+      inset: 8%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(108, 99, 255, 0.35), transparent 68%);
+      filter: blur(40px);
+    }
+    .svc-visual canvas {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      display: block;
+    }
+    @media (min-width: 1100px) {
+      .svc-grid {
+        grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+        gap: clamp(30px, 4vw, 70px);
+      }
+      .svc-visual {
+        display: block;
+        position: sticky;
+        top: 14vh;
+      }
+    }
+    .svc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 30px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    .svc-slider {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 10px;
+    }
+    .svc-track {
+      display: flex;
+      gap: 24px;
+      cursor: grab;
+      touch-action: pan-y;
+      will-change: transform;
+      transition: transform 0.65s cubic-bezier(0.45, 0, 0.15, 1);
+    }
+    .svc-track.dragging {
+      cursor: grabbing;
+      transition: none;
+    }
+    /* GrowthSphere Card Typography - Matching mockup.html */
+    .svc-section,
+    .svc-card,
+    .svc-card * {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    }
+    .svc-card {
+      --svc-w: min(380px, 82vw);
+      flex: 0 0 var(--svc-w);
+      width: var(--svc-w);
+      height: 560px;
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      user-select: none;
+      background-color: #0a0a0f;
+      background-image: linear-gradient(155deg, rgba(255, 255, 255, 0.045), transparent 40%, rgba(108, 99, 255, 0.08) 90%);
+      border: 1px solid #27272f;
+      transition: background-color 0.55s ease, border-color 0.55s ease, opacity 0.55s ease, box-shadow 0.55s ease;
+    }
+    .svc-card .dots {
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      width: 220px;
+      height: 220px;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1.5px, transparent 1.5px);
+      background-size: 16px 16px;
+      mask-image: radial-gradient(circle at 100% 100%, #000 30%, transparent 72%);
+      -webkit-mask-image: radial-gradient(circle at 100% 100%, #000 30%, transparent 72%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .svc-card:hover {
+      border-color: #3d3d55;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .svc-card.active {
+      background-color: #6c63ff;
+      background-image: linear-gradient(145deg, #7c73ff 0%, #584ee4 60%, #3e35b8 100%);
+      border-color: transparent;
+      cursor: default;
+      box-shadow: 0 20px 50px -10px rgba(108, 99, 255, 0.45);
+    }
+    .svc-card.passed {
+      opacity: 0.35;
+    }
+    .svc-layer {
+      position: absolute;
+      inset: 0;
+      padding: 36px 34px;
+      display: flex;
+      flex-direction: column;
+      transition: opacity 0.45s ease 0.12s, transform 0.45s ease;
+    }
+    .svc-collapsed {
+      opacity: 1;
+      transform: none;
+    }
+    .svc-expanded {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+    }
+    .svc-card.active .svc-collapsed {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+    }
+    .svc-card.active .svc-expanded {
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+    }
+    .svc-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .svc-num {
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #f4f4f6;
+    }
+    .svc-arrow {
+      font-size: 24px;
+      line-height: 1;
+      color: #f4f4f6;
+      transition: transform 0.4s cubic-bezier(0.2, 0.65, 0.3, 1);
+    }
+    .svc-card:hover .svc-arrow {
+      transform: translate(4px, -4px);
+    }
+    .svc-mini-title {
+      margin-top: auto;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      max-width: 78%;
+      position: relative;
+      z-index: 1;
+      color: #f4f4f6;
+      line-height: 1.25;
+    }
+    .svc-expanded h3 {
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      max-width: 82%;
+      line-height: 1.2;
+      color: #ffffff;
+      margin: 0;
+    }
+    .svc-desc {
+      margin-top: clamp(32px, 6vh, 64px);
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 92%;
+    }
+    .svc-cols {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 22px;
+      align-items: end;
+    }
+    .svc-cols h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .svc-cols ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+    }
+    .svc-cols li {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.94);
+      line-height: 1.45;
+      position: relative;
+    }
+    .svc-cols li::before {
+      content: '→ ';
+      color: rgba(255, 255, 255, 0.7);
+      margin-right: 4px;
+    }
+    .svc-chip {
+      display: inline-block;
+      padding: 7px 13px;
+      margin: 0 6px 6px 0;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .svc-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .svc-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border-line);
+      background: var(--surface-charcoal);
+      color: var(--ink);
+      font-size: 18px;
+      transition: background 0.35s, border-color 0.35s, transform 0.35s;
+      cursor: pointer;
+    }
+    .svc-btn:hover {
+      background: var(--electric);
+      border-color: transparent;
+      transform: scale(1.06);
+    }
+    .svc-btn:disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    .dots {
+      position: absolute;
+      right: -25px;
+      bottom: -25px;
+      width: 200px;
+      height: 200px;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1.5px, transparent 1.5px);
+      background-size: 15px 15px;
+      mask-image: radial-gradient(circle at 100% 100%, #000 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(circle at 100% 100%, #000 30%, transparent 70%);
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: var(--void); }
+    ::-webkit-scrollbar-thumb { background: rgba(241, 240, 234, 0.16); border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--electric); }
+
+    /* ==========================================================================
+       NOEMA SIGNATURE HEADER & SELECTED COORDINATES OVERLAY (1:1 REPLICA)
+       ========================================================================== */
+    header,
+    header.landing-header,
+    header.bg-transparent {
+      background: transparent !important;
+      background-color: transparent !important;
+      border: none !important;
+      border-bottom: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: none !important;
+      transition: background-color 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease, padding 0.35s ease;
+    }
+    header.scrolled {
+      background: rgba(5, 5, 6, 0.88) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-bottom: 1px solid rgba(241, 240, 234, 0.08) !important;
+      padding-top: 14px !important;
+      padding-bottom: 14px !important;
+    }
+    .noema-menu-btn {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+    .noema-radar-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.2, 0.65, 0.3, 1);
+    }
+    .noema-menu-btn:hover .noema-radar-svg {
+      transform: rotate(90deg);
+    }
+    .noema-hamburger-lines {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+    }
+
+    /* FULLSCREEN SPLIT OVERLAY */
+    .noema-nav-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: #020203;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .noema-nav-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* OVERLAY HEADER */
+    .noema-overlay-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 36px;
+      pointer-events: auto;
+    }
+    .noema-close-btn {
+      width: 48px;
+      height: 48px;
+      background: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.4s ease;
+    }
+    .noema-close-btn:hover {
+      transform: rotate(90deg) scale(1.08);
+    }
+    .noema-close-svg {
+      width: 44px;
+      height: 44px;
+    }
+
+    /* OVERLAY BODY SPLIT */
+    .noema-overlay-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      width: 100vw;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    @media (min-width: 1024px) {
+      .noema-overlay-body {
+        grid-template-columns: 1fr 1fr;
+        overflow: hidden;
+      }
+    }
+
+    /* LEFT SIDE: DARK VOID + OBSIDIAN FLOWER */
+    .noema-overlay-left {
+      background: #020203;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 90px 40px;
+      overflow: hidden;
+      min-height: 380px;
+    }
+    .noema-flower-wrapper {
+      position: relative;
+      width: min(560px, 86%);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .noema-flower-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 25px 60px rgba(0,0,0,0.95));
+      animation: flowerFloat 8s ease-in-out infinite alternate;
+    }
+    @keyframes flowerFloat {
+      0% { transform: scale(0.96) rotate(0deg); }
+      100% { transform: scale(1.03) rotate(3deg); }
+    }
+    .noema-flower-glow {
+      position: absolute;
+      inset: 15%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(108, 99, 255, 0.22), transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+    .noema-overlay-telemetry {
+      position: absolute;
+      bottom: 28px;
+      left: 36px;
+      right: 36px;
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+    }
+
+    /* RIGHT SIDE: LIGHT CREAM / PARCHMENT COORDINATES */
+    .noema-overlay-right {
+      background-color: #e7e5de;
+      color: #050506;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 7vw 60px 6vw;
+      position: relative;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+    .noema-coordinates-container {
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .noema-coordinates-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(5, 5, 6, 0.62);
+      margin-bottom: 24px;
+      display: block;
+      font-weight: 500;
+    }
+    .noema-nav-list {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .noema-nav-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 18px 0;
+      border-top: 1px solid rgba(5, 5, 6, 0.14);
+      text-decoration: none;
+      transition: transform 0.35s cubic-bezier(0.2, 0.65, 0.3, 1);
+      cursor: pointer;
+    }
+    .noema-nav-item:last-child {
+      border-bottom: 1px solid rgba(5, 5, 6, 0.14);
+    }
+    .noema-nav-item:hover {
+      transform: translateX(14px);
+    }
+    .noema-nav-title {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: clamp(2.6rem, 4.6vw, 4.4rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      color: #050506;
+      transition: color 0.25s ease;
+    }
+    .noema-nav-item:hover .noema-nav-title {
+      color: #3b35b8;
+    }
+    .noema-nav-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      letter-spacing: 0.14em;
+      color: rgba(5, 5, 6, 0.45);
+      font-weight: 500;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+    .noema-nav-item:hover .noema-nav-num {
+      color: #050506;
+      transform: translateX(4px);
+    }
+    .noema-badge-wrapper {
+      margin-top: 36px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .noema-aura-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #050506;
+      color: #f1f0ea;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+    .noema-badge-icon {
+      font-size: 10px;
+      color: #4edea3;
+    }
+
+    /* ==========================================================================
+       08 / COLLECTIVE FIELD (1:1 NOEMA AI STUDIO LUXURY SPECIFICATION)
+       ========================================================================== */
+    .collective {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      background: #050506;
+    }
+    .collective__pin {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 720px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .collective__image-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(94vw, 1300px);
+      height: 82vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .collective__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      clip-path: circle(38% at 50% 50%);
+      filter: brightness(0.9) saturate(1);
+      will-change: transform, clip-path, filter;
+      border-radius: 16px;
+    }
+    .collective__halo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(65vw, 56rem);
+      aspect-ratio: 1;
+      border: 1px solid rgba(241, 240, 234, 0.16);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .collective__halo::before,
+    .collective__halo::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(241, 240, 234, 0.12);
+      border-radius: inherit;
+    }
+    .collective__halo::before {
+      inset: 12%;
+    }
+    .collective__halo::after {
+      inset: 28%;
+    }
+    .collective__top {
+      position: absolute;
+      top: 5.5rem;
+      left: clamp(1.5rem, 4vw, 4rem);
+      right: clamp(1.5rem, 4vw, 4rem);
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid rgba(241, 240, 234, 0.14);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(241, 240, 234, 0.85);
+    }
+    .collective__title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      width: 100%;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: clamp(3.2rem, 8.5vw, 9rem);
+      font-weight: 600;
+      letter-spacing: -0.06em;
+      line-height: 0.88;
+      text-align: center;
+      pointer-events: none;
+    }
+    .collective__title span {
+      display: block;
+      color: #f1f0ea;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
+    }
+    .collective__title span:nth-child(2) {
+      color: transparent;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      font-weight: 400;
+      -webkit-text-stroke: 1.5px rgba(241, 240, 234, 0.9);
+      text-shadow: none;
+    }
+    .collective__footer {
+      position: absolute;
+      left: clamp(1.5rem, 4vw, 4rem);
+      right: clamp(1.5rem, 4vw, 4rem);
+      bottom: 2.5rem;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr minmax(280px, 34rem);
+      gap: 2.5rem;
+      align-items: end;
+      padding-top: 1.1rem;
+      border-top: 1px solid rgba(241, 240, 234, 0.14);
+    }
+    .collective__counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #4edea3;
+      font-weight: 600;
+    }
+    .collective__footer p {
+      margin: 0;
+      color: rgba(241, 240, 234, 0.75);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    /* Cybernetic Runway Flight Deck Faders */
+    .fader-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      outline: none;
+      transition: background 0.2s;
+    }
+    .fader-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #f1f0ea;
+      border: 3px solid #050506;
+      box-shadow: 0 0 14px rgba(108, 99, 255, 0.7);
+      cursor: grab;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .fader-slider::-webkit-slider-thumb:active {
+      cursor: grabbing;
+      transform: scale(1.18);
+      box-shadow: 0 0 22px rgba(78, 222, 163, 0.95);
+    }
+    .fader-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #f1f0ea;
+      border: 3px solid #050506;
+      box-shadow: 0 0 14px rgba(108, 99, 255, 0.7);
+      cursor: grab;
+    }
+    .fader-slider--mint::-webkit-slider-thumb {
+      box-shadow: 0 0 14px rgba(78, 222, 163, 0.75);
+    }
+    .fader-slider--mint::-moz-range-thumb {
+      box-shadow: 0 0 14px rgba(78, 222, 163, 0.75);
+    }
+  </style>
 </head>
-<body style="background:#060813;color:#F8FAFC;font-family:system-ui,-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
-  <div style="text-align:center;">
-    <div style="font-size:24px;font-weight:bold;margin-bottom:8px;background:linear-gradient(135deg,#6366F1,#10B981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">GigPulse® Sovereign Financial OS</div>
-    <p style="color:#94A3B8;font-size:14px;">Launching interactive frontend cockpit... <a href="frontend/" style="color:#818CF8;text-decoration:none;font-weight:600;">Click here if not redirected</a>.</p>
+
+<body class="loading">
+
+  <!-- NOEMA PRELOADER / CALIBRATION SCREEN -->
+  <div class="preloader" aria-label="Loading GigPulse OS">
+    <div class="preloader__mark">
+      GP<span>®</span>
+    </div>
+    <div class="preloader__foot">
+      <span>Calibrating Sovereign Liquidity Radar<br/>Autonomous Financial OS · v2.4</span>
+      <span class="preloader__percent">00</span>
+    </div>
   </div>
+
+  <!-- AMBIENT FILM GRAIN NOISE OVERLAY -->
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- FIXED GLOBAL SCROLL PROGRESS HAIRLINE -->
+  <div class="global-progress" aria-hidden="true"><span></span></div>
+
+  <!-- TRUE DUAL-ELEMENT NOEMA INTERACTIVE CURSOR -->
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- GLOBAL FIXED HEADER NAVIGATION (MATCHING NOEMA AI STUDIO) -->
+  <header class="landing-header header-transparent fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 sm:px-10 py-6 transition-all duration-300 bg-transparent border-0 shadow-none pointer-events-auto" style="background: transparent !important; background-color: transparent !important; border: none !important; border-bottom: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;">
+    <!-- Brand (Left) -->
+    <a href="#top" class="flex items-center gap-2.5 group">
+      <span class="font-sans font-bold text-lg sm:text-xl tracking-wider text-ink uppercase">GIGPULSE<sup class="text-[10px] text-signal font-mono font-normal ml-0.5">®</sup></span>
+    </a>
+
+    <!-- Center: Signature Noema Studio Status Indicator -->
+    <div class="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-[0.24em] uppercase text-ink/90 font-medium select-none">
+      <span class="w-2 h-2 rounded-full bg-mint shadow-[0_0_10px_rgba(78,222,163,0.85)] animate-pulse"></span>
+      <span>STUDIO ONLINE</span>
+    </div>
+
+    <!-- Right: Quick Connect & Signature Noema Radar Menu Button -->
+    <div class="flex items-center gap-3 sm:gap-4">
+      <a href="00_auth_login_signup.html?mode=signin" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-ink hover:text-signal font-mono text-xs tracking-wider uppercase transition-colors">
+        <span class="material-symbols-outlined text-[15px]">lock_open</span>
+        <span>LOG IN</span>
+      </a>
+      <a href="00_auth_login_signup.html?mode=signup" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-elevated/80 border border-border-line hover:border-signal/50 text-ink font-mono text-xs tracking-wider uppercase transition-colors shadow-sm">
+        <span>CONNECT VAULT</span>
+        <span class="text-signal">↗</span>
+      </a>
+
+      <!-- Noema Menu Trigger Button -->
+      <button id="noemaMenuTrigger" aria-label="Open Selected Coordinates Navigation" class="noema-menu-btn group" title="Open Selected Coordinates">
+        <svg class="noema-radar-svg" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="21" stroke="currentColor" stroke-width="1" class="text-border-line-bright group-hover:text-signal/70 transition-colors"/>
+          <line x1="22" y1="3" x2="22" y2="41" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2 2" class="text-border-line/40"/>
+          <line x1="3" y1="22" x2="41" y2="22" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2 2" class="text-border-line/40"/>
+        </svg>
+        <div class="noema-hamburger-lines">
+          <span class="w-5 h-[1.5px] bg-ink group-hover:bg-signal transition-all"></span>
+          <span class="w-3.5 h-[1.5px] bg-ink group-hover:w-5 group-hover:bg-signal transition-all"></span>
+        </div>
+      </button>
+    </div>
+  </header>
+
+  <!-- NOEMA SIGNATURE SELECTED COORDINATES FULLSCREEN OVERLAY (AS SEEN ON NOEMA AI STUDIO) -->
+  <div id="noemaNavOverlay" class="noema-nav-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <!-- Top Bar inside the Overlay -->
+    <div class="noema-overlay-header">
+      <a href="#top" onclick="closeNoemaNav()" class="flex items-center gap-2.5">
+        <span class="font-sans font-bold text-lg sm:text-xl tracking-wider text-white uppercase">GIGPULSE<sup class="text-[10px] text-signal font-mono font-normal ml-0.5">®</sup></span>
+      </a>
+      
+      <div class="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-[0.24em] uppercase text-white/90 font-medium select-none">
+        <span class="w-2 h-2 rounded-full bg-mint shadow-[0_0_10px_rgba(78,222,163,0.85)] animate-pulse"></span>
+        <span>STUDIO ONLINE</span>
+      </div>
+
+      <!-- Close Button: Dial with Compass Needle & Dot (Matching Screenshot 2) -->
+      <button id="noemaNavClose" onclick="closeNoemaNav()" aria-label="Close Coordinates Menu" class="noema-close-btn group" title="Close Menu">
+        <svg class="noema-close-svg" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="21" stroke="#050506" stroke-width="1.2" class="opacity-30 group-hover:opacity-100 transition-opacity"/>
+          <!-- Compass crossing lines -->
+          <line x1="7" y1="15" x2="37" y2="29" stroke="#050506" stroke-width="1.4" class="transition-transform group-hover:rotate-45 origin-center"/>
+          <line x1="7" y1="29" x2="37" y2="15" stroke="#050506" stroke-width="1.4" class="transition-transform group-hover:-rotate-45 origin-center"/>
+          <circle cx="24" cy="23" r="2.2" fill="#050506"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Split Content Container: Left Dark Obsidian Flower + Right Signature Cream Coordinates -->
+    <div class="noema-overlay-body">
+      <!-- Left Half: Dark Void Visual with Obsidian Glass Biomechanical Flower -->
+      <div class="noema-overlay-left">
+        <div class="noema-flower-wrapper">
+          <img 
+            src="assets/noema_glass_flower.jpg" 
+            alt="Intricate dark obsidian glass lotus flower bloom with iridescent crystal reflections"
+            class="noema-flower-img"
+          />
+          <div class="noema-flower-glow"></div>
+        </div>
+        <div class="noema-overlay-telemetry">
+          <span>COORDINATES // 34.0522° N, 118.2437° W</span>
+          <span>AUTONOMOUS MATRIX // 6 AGENTS ACTIVE</span>
+        </div>
+      </div>
+
+      <!-- Right Half: Signature Noema Cream Parchment Navigation Column -->
+      <div class="noema-overlay-right">
+        <div class="noema-coordinates-container">
+          <span class="noema-coordinates-label">NØEMA / SELECTED COORDINATES</span>
+
+          <nav class="noema-nav-list">
+            <a href="#manifesto" onclick="closeNoemaNav()" class="noema-nav-item group">
+              <span class="noema-nav-title">Thesis</span>
+              <span class="noema-nav-num">01</span>
+            </a>
+
+            <a href="#collective" onclick="closeNoemaNav()" class="noema-nav-item group">
+              <span class="noema-nav-title">Collective Field</span>
+              <span class="noema-nav-num">02</span>
+            </a>
+
+            <a href="#telemetry" onclick="closeNoemaNav()" class="noema-nav-item group">
+              <span class="noema-nav-title">Autonomous Cockpit</span>
+              <span class="noema-nav-num">03</span>
+            </a>
+
+            <a href="#agents" onclick="closeNoemaNav()" class="noema-nav-item group">
+              <span class="noema-nav-title">Agent Syndicate</span>
+              <span class="noema-nav-num">04</span>
+            </a>
+
+            <a href="#simulation" onclick="closeNoemaNav()" class="noema-nav-item group">
+              <span class="noema-nav-title">Simulation Engine</span>
+              <span class="noema-nav-num">05</span>
+            </a>
+
+            <a href="#pricing" onclick="closeNoemaNav()" class="noema-nav-item group">
+              <span class="noema-nav-title">Investment</span>
+              <span class="noema-nav-num">06</span>
+            </a>
+
+            <a href="#faq" onclick="closeNoemaNav()" class="noema-nav-item group">
+              <span class="noema-nav-title">Intelligence</span>
+              <span class="noema-nav-num">07</span>
+            </a>
+
+            <!-- Direct Web App Portal Links -->
+            <div class="pt-4 mt-4 border-t border-[#050506]/15 flex flex-col gap-2">
+              <a href="00_auth_login_signup.html?mode=signin" onclick="closeNoemaNav()" class="flex items-center justify-between text-xs font-mono font-bold tracking-wider uppercase text-signal hover:opacity-80 py-1 transition-opacity">
+                <span>⚡ Sign In to Studio</span>
+                <span>↗</span>
+              </a>
+              <a href="00_auth_login_signup.html?mode=signup" onclick="closeNoemaNav()" class="flex items-center justify-between text-xs font-mono font-bold tracking-wider uppercase text-[#050506] hover:text-signal py-1 transition-colors">
+                <span>+ Create Sovereign Account</span>
+                <span>→</span>
+              </a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN EXPERIENCE CONTAINER -->
+  <main class="relative z-10 w-full min-h-screen">
+
+    <!-- 01. HERO SECTION: DUAL-LAYER ROBOT SENTINEL ⇄ HUMAN FOUNDER LENS -->
+    <section class="hero" id="top">
+      <!-- Interactive Dual-Layer Visual -->
+      <div class="hero__visual" aria-label="Interactive Lens: Hover to reveal the Sovereign Founder inside the Autonomous AI Sentinel">
+        <!-- Layer 1: Machine AI Sentinel Robot -->
+        <img
+          class="hero__image hero__image--machine"
+          src="assets/gigpulse_sentinel_robot.jpg"
+          alt="Futuristic sleek obsidian cybernetic AI financial sentinel with glowing neural visor"
+        />
+        <!-- Layer 2: Sovereign Founder Reveal Layer -->
+        <img
+          class="hero__image hero__image--human"
+          src="assets/gigpulse_founder_human.jpg"
+          alt="The Sovereign Human Founder in a serene financial cockpit with holographic cash flow HUD telemetry"
+        />
+        <!-- Reticle Halo Scanner -->
+        <div class="hero__halo" aria-hidden="true"></div>
+      </div>
+
+      <!-- Hero Copy Overlay -->
+      <div class="relative z-10 w-full max-w-5xl px-6 sm:px-10 pb-10 sm:pb-14 pt-24 sm:pt-28 flex flex-col justify-end pointer-events-none">
+        <!-- Eyebrow Badge -->
+        <div class="inline-flex items-center gap-3 font-mono text-[10px] sm:text-[11px] tracking-widest uppercase text-signal mb-3 sm:mb-4">
+          <span class="w-6 h-[1px] bg-signal"></span>
+          <span>SOVEREIGN AUTONOMOUS FINANCIAL INTELLIGENCE</span>
+        </div>
+
+        <!-- Monumental Headline -->
+        <h1 class="font-sans font-semibold text-ink tracking-tighter leading-[0.85] text-[clamp(2.8rem,7vw,6.4rem)] mb-4 sm:mb-6">
+          Never Run Out <br/>
+          <span class="outline">of Cash.</span>
+          <span class="block font-serif italic font-normal text-signal tracking-normal text-[clamp(1.8rem,4.2vw,4.2rem)] leading-[1.05] mt-1 sm:mt-2">
+            The Autonomous Financial OS.
+          </span>
+        </h1>
+
+        <!-- Subtitle & CTA Row -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end max-w-4xl pointer-events-auto">
+          <div class="md:col-span-4 hidden sm:block">
+            <span class="scroll-cue">Explore the Fleet</span>
+          </div>
+          <div class="md:col-span-8">
+            <p class="font-sans text-xs sm:text-sm md:text-base text-ink-dim leading-relaxed max-w-xl">
+              Sovereign liquidity intelligence for elite creators, engineers, and digital studios. Real-time predictive runway models, automated deposit shielding, and zero-anxiety polite invoice recovery.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4 mt-6 pointer-events-auto">
+          <a class="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-ink text-void hover:bg-white font-sans text-xs font-semibold tracking-wider uppercase transition-all flex items-center gap-3 group shadow-lg" href="00_auth_login_signup.html?mode=signup">
+            <span>Connect Vault &amp; Calculate Buffer</span>
+            <span class="w-5 h-5 rounded-full bg-void text-ink flex items-center justify-center text-xs group-hover:rotate-45 transition-transform duration-300">↗</span>
+          </a>
+          <a class="px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-surface-elevated/80 border border-border-line hover:border-signal/40 text-ink font-mono text-xs tracking-wider uppercase transition-colors flex items-center gap-2" href="#telemetry">
+            <span class="material-symbols-outlined text-signal text-[18px]">view_in_ar</span>
+            <span>Live Cockpit Telemetry</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Real-Time HUD Coordinates -->
+      <div class="hero__coordinates" aria-hidden="true">
+        <span>AGENT // GP-SENTINEL-01</span>
+        <span>STATE // <b data-state>AUTONOMOUS DEFENSE</b></span>
+        <span>X <b data-x>065.0</b> / Y <b data-y>042.0</b></span>
+      </div>
+
+      <!-- Mode Label -->
+      <div class="hero__mode">
+        Hover Lens: <b>AI Sentinel ⇄ Sovereign Founder</b>
+      </div>
+    </section>
+
+    <!-- 02. NOEMA RUNNING SIGNAL MARQUEE STRIP -->
+    <div class="signal-strip" aria-hidden="true">
+      <div class="signal-strip__track">
+        <span>AUTONOMOUS RUNWAY SENTINEL</span>
+        <span>DYNAMIC DEPOSIT SHIELD</span>
+        <span>CLIENT RELIABILITY SCORECARD</span>
+        <span>POLITE CHASER PROTOCOL</span>
+        <span>98-DAY CASH BUFFER</span>
+        <span>ZERO INVOICE ANXIETY</span>
+        <span>SOVEREIGN FOUNDER LIQUIDITY</span>
+        <span>AUTONOMOUS RUNWAY SENTINEL</span>
+        <span>DYNAMIC DEPOSIT SHIELD</span>
+        <span>CLIENT RELIABILITY SCORECARD</span>
+        <span>POLITE CHASER PROTOCOL</span>
+        <span>98-DAY CASH BUFFER</span>
+      </div>
+    </div>
+
+    <!-- 03. THESIS / MANIFESTO SECTION (NOEMA SIGNATURE SPLIT LINE REVEAL) -->
+    <section class="w-full py-24 sm:py-32 px-6 sm:px-10 border-b border-border-line relative overflow-hidden" id="manifesto">
+      <div class="max-w-6xl mx-auto">
+        <span class="font-mono text-xs text-signal tracking-widest uppercase block mb-8">01 / THESIS</span>
+        
+        <h2 class="font-sans font-semibold text-[clamp(2.8rem,7vw,6.5rem)] leading-[0.88] tracking-tighter text-ink mb-16">
+          <span class="block overflow-hidden"><span class="manifesto__line inline-block">Payment anxiety is default.</span></span>
+          <span class="block overflow-hidden"><span class="manifesto__line inline-block text-ink-dim">Recognition is rare.</span></span>
+          <span class="block overflow-hidden"><span class="manifesto__line inline-block">We engineer the moment</span></span>
+          <span class="block overflow-hidden"><span class="manifesto__line inline-block font-serif italic font-normal text-signal">your cash flow becomes felt.</span></span>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pt-8 border-t border-border-line items-start">
+          <div class="md:col-span-4 font-mono text-xs uppercase tracking-widest text-ink-dim leading-relaxed">
+            <span class="text-ink font-bold block mb-1">GIGPULSE / noun</span>
+            The sovereign financial operating system;<br/>
+            what independent mastery commands.
+          </div>
+          <div class="md:col-span-8 font-sans text-base sm:text-lg text-ink-dim leading-relaxed">
+            Independent creators and engineering studios shouldn't spend their best creative energy chasing checks, calculating survival buffers on napkins, or negotiating late payment excuses. Strategy gives you leverage. Code gives you speed. GigPulse gives you <span class="text-ink font-medium">sovereign invulnerability</span>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. PROOF STRIP NUMBERS (NOEMA METRICS GRID) -->
+    <section class="w-full border-b border-border-line bg-surface-charcoal/40" id="metrics-strip">
+      <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-border-line">
+        <div class="p-8 sm:p-12">
+          <p class="font-sans font-bold text-3xl sm:text-5xl text-ink tracking-tight stat-counter" data-start="0.0" data-target="98.2" data-decimals="1" data-suffix="%">0.0%</p>
+          <p class="font-mono text-xs text-ink-dim mt-2 uppercase tracking-wider">Autonomous Recovery Rate</p>
+          <span class="text-xs text-ink-muted block mt-1">Zero relationship friction</span>
+        </div>
+        <div class="p-8 sm:p-12">
+          <p class="font-sans font-bold text-3xl sm:text-5xl text-mint tracking-tight stat-counter" data-start="0.0" data-target="3.8" data-decimals="1" data-suffix="x">0.0x</p>
+          <p class="font-mono text-xs text-ink-dim mt-2 uppercase tracking-wider">Faster Settlement</p>
+          <span class="text-xs text-ink-muted block mt-1">vs Net-30 invoice delays</span>
+        </div>
+        <div class="p-8 sm:p-12">
+          <p class="font-sans font-bold text-3xl sm:text-5xl text-signal tracking-tight stat-counter" data-start="24" data-target="0" data-decimals="0" data-suffix=" hrs">24 hrs</p>
+          <p class="font-mono text-xs text-ink-dim mt-2 uppercase tracking-wider">Awkward Chasing</p>
+          <span class="text-xs text-ink-muted block mt-1">Autonomous multi-channel agents</span>
+        </div>
+        <div class="p-8 sm:p-12">
+          <p class="font-sans font-bold text-3xl sm:text-5xl text-ink tracking-tight stat-counter" data-prefix="$" data-start="0.0" data-target="4.2" data-decimals="1" data-suffix="M+">$0.0M+</p>
+          <p class="font-mono text-xs text-ink-dim mt-2 uppercase tracking-wider">Liquid Capital Shielded</p>
+          <span class="text-xs text-ink-muted block mt-1">Underwritten solvency</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         08 / COLLECTIVE FIELD (1:1 NOEMA AI STUDIO SIGNATURE - GIGPULSE RUNTIME)
+         ========================================================================== -->
+    <section class="collective" id="collective">
+      <div class="collective__pin">
+        <div class="collective__image-wrapper">
+          <img
+            class="collective__image"
+            src="assets/gigpulse_collective_field.jpg"
+            alt="Four black obsidian autonomous AI fintech agent pods interconnected by glowing emerald and violet laser filaments"
+          />
+        </div>
+        <div class="collective__halo" aria-hidden="true"></div>
+        <div class="collective__top">
+          <span>02 / COLLECTIVE FIELD</span>
+          <div class="flex items-center gap-3">
+            <span class="hidden sm:inline">FOUR AGENTS · ONE SOVEREIGN RUNWAY</span>
+            <a href="#telemetry" class="px-2.5 py-1 rounded-full bg-surface-elevated/90 border border-border-line text-mint hover:text-ink font-mono text-[10px] tracking-wider transition-colors inline-flex items-center gap-1.5">
+              <span>BENTO HUD</span>
+              <span>↓</span>
+            </a>
+          </div>
+        </div>
+        <h2 class="collective__title">
+          <span>Together</span>
+          <span>defends</span>
+          <span>the pulse.</span>
+        </h2>
+        <div class="collective__footer">
+          <span class="collective__counter">Node sync / 00%</span>
+          <p>
+            The sovereign runway is not protected by fragmented spreadsheets. It emerges when four autonomous agents—The Sentinel, The Chaser, The Underwriter, and The Conductor—synchronize across banking rails to defend your cash flow 24/7.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. INTERACTIVE COCKPIT TELEMETRY BENTO (LIVE SYSTEM RUNTIME) -->
+    <section class="w-full py-24 sm:py-32 px-6 sm:px-10 border-b border-border-line relative scroll-mt-28" id="telemetry">
+      <div class="max-w-6xl mx-auto">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <div class="inline-flex items-center gap-2 font-mono text-[11px] text-signal tracking-widest uppercase mb-3">
+              <span class="w-5 h-[1px] bg-signal"></span>
+              <span>03 / RUNTIME TELEMETRY</span>
+            </div>
+            <h2 class="font-sans font-semibold text-3xl sm:text-5xl text-ink tracking-tight">
+              The Autonomous <em class="font-serif italic font-normal text-signal">Cockpit</em>
+            </h2>
+            <p class="font-sans text-sm sm:text-base text-ink-dim mt-2.5 max-w-xl leading-relaxed">
+              Real-time cryptographic feed monitoring your cash burn velocity, collective solvency grading, and multi-agent settlement telemetry.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 font-mono text-xs">
+            <a href="#collective" class="px-3 py-1.5 rounded-full bg-surface-elevated hover:bg-surface-container border border-border-line text-ink-dim hover:text-ink flex items-center gap-1.5 shadow-sm transition-colors">
+              <span class="material-symbols-outlined text-[14px] text-mint">hub</span>
+              <span>NEURAL MESH ↑</span>
+            </a>
+            <span class="px-3 py-1.5 rounded-full bg-surface-elevated border border-border-line text-mint flex items-center gap-2 shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-mint animate-pulse"></span>
+              <span>LIVE TELEMETRY: ACTIVE</span>
+            </span>
+            <span class="text-ink-muted hidden sm:inline">NODE // GP-88402 (12ms)</span>
+          </div>
+        </div>
+
+        <!-- Bento Box Frame -->
+        <div class="w-full bg-surface-charcoal/90 rounded-2xl border border-border-line p-5 sm:p-8 relative overflow-hidden shadow-2xl hud-corner">
+          <!-- Ambient shimmer -->
+          <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-electric/10 blur-[100px] pointer-events-none"></div>
+
+          <!-- Top Status Strip -->
+          <div class="flex flex-wrap items-center justify-between gap-4 pb-6 mb-6 border-b border-border-line">
+            <div class="flex items-center gap-3">
+              <div class="flex gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-mint/80"></span>
+              </div>
+              <span class="font-mono text-xs text-ink-muted tracking-wider">VAULT // GP-88402 // PRODUCTION RUNTIME</span>
+            </div>
+            <div class="flex items-center gap-3 font-mono text-xs">
+              <a href="#collective" class="text-mint hover:text-white flex items-center gap-1 transition-colors">
+                <span class="material-symbols-outlined text-[13px]">hub</span>
+                <span>4-AGENT POD MESH ↑</span>
+              </a>
+              <span class="text-ink-muted">· SYNC: 1.2s AGO</span>
+            </div>
+          </div>
+
+          <!-- Bento Grid Core -->
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <!-- 1. LEFT CARD: Survival Runway & Scenario Stress Engine (4 Cols) -->
+            <div class="md:col-span-4 bg-surface-elevated rounded-xl border border-border-line p-6 flex flex-col justify-between relative overflow-hidden cockpit-card">
+              <!-- Header -->
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="font-mono text-[10px] text-ink-muted uppercase tracking-wider">01 // RUNWAY FLOOR</p>
+                  <h3 class="font-sans font-bold text-3xl sm:text-4xl text-ink tracking-tight mt-1">
+                    <span id="runway-stat-num" class="stat-counter" data-start="0.0" data-target="98.4" data-decimals="1">98.4</span><span class="text-mint text-xl font-mono">d</span>
+                  </h3>
+                </div>
+                <span id="runway-badge" class="px-2.5 py-0.5 rounded-full bg-mint/10 border border-mint/20 text-mint font-mono text-[10px] transition-colors">+18d vs last mo</span>
+              </div>
+
+              <!-- High-Precision Circular SVG Meter -->
+              <div class="py-4 flex items-center justify-center relative">
+                <svg class="w-40 h-40 -rotate-90" viewBox="0 0 100 100">
+                  <defs>
+                    <linearGradient id="runwayGaugeGrad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#4edea3" />
+                      <stop offset="100%" stop-color="#6c63ff" />
+                    </linearGradient>
+                  </defs>
+                  <!-- Track -->
+                  <circle class="text-surface-container" cx="50" cy="50" fill="none" r="42" stroke="currentColor" stroke-width="6.5"></circle>
+                  <!-- Active Meter -->
+                  <circle id="cockpit-gauge" class="text-mint gauge-circle transition-all duration-700" cx="50" cy="50" fill="none" r="42" stroke="url(#runwayGaugeGrad)" stroke-dasharray="264" stroke-dashoffset="60" stroke-linecap="round" stroke-width="7"></circle>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span class="font-mono text-[9px] text-ink-muted uppercase tracking-widest">SAFE LIQUIDITY</span>
+                  <span id="safe-liquidity-num" class="font-mono text-2xl font-bold text-ink stat-counter" data-prefix="$" data-start="0" data-target="38420" data-decimals="0">$38,420</span>
+                  <span id="risk-status-text" class="font-mono text-[10px] text-mint mt-0.5">Low Risk // Protected</span>
+                </div>
+              </div>
+
+              <!-- Interactive Scenario Stress Engine -->
+              <div class="space-y-3 pt-3 border-t border-border-line">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono text-[10px] text-ink-muted uppercase tracking-wider">STRESS SIMULATION:</span>
+                  <span class="text-[10px] font-mono text-signal">LIVE REACTIVE</span>
+                </div>
+                <div class="grid grid-cols-3 gap-1.5 p-1 bg-surface-charcoal rounded-lg border border-border-line font-mono text-[10px]" id="scenario-buttons">
+                  <button id="btn-scen-worst" onclick="setCockpitScenario('worst')" class="py-1 px-1.5 rounded text-ink-dim hover:text-ink transition-all text-center">
+                    Worst (62d)
+                  </button>
+                  <button id="btn-scen-current" onclick="setCockpitScenario('current')" class="py-1 px-1.5 rounded bg-surface-elevated text-mint font-semibold border border-mint/20 transition-all text-center shadow-sm">
+                    Current (98d)
+                  </button>
+                  <button id="btn-scen-boosted" onclick="setCockpitScenario('boosted')" class="py-1 px-1.5 rounded text-ink-dim hover:text-ink transition-all text-center">
+                    Boosted (124d)
+                  </button>
+                </div>
+
+                <!-- Refined Minimalist Telemetry Strip -->
+                <div class="flex items-center justify-between pt-2 border-t border-border-line font-mono text-[11px] text-ink-dim">
+                  <span>Burn: <strong id="burn-velocity-text" class="text-ink font-semibold">$385.00/d</strong></span>
+                  <span>Vault: <strong id="tax-vault-text" class="text-signal font-semibold">$4,960 Locked</strong></span>
+                  <span id="safe-spend-text" class="hidden">$4,120.00 / mo</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. RIGHT CARD: Pure-Code Interactive Cash Flow Horizon & Forecast Chart (8 Cols) -->
+            <div class="md:col-span-8 bg-surface-elevated rounded-xl border border-border-line p-6 flex flex-col justify-between cockpit-card">
+              <!-- Header & Trajectory Controls -->
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+                <div>
+                  <span class="font-mono text-[10px] text-ink-muted uppercase tracking-wider">02 // PREDICTIVE LIQUIDITY ACCELERATOR</span>
+                  <h4 class="font-sans font-semibold text-lg sm:text-xl text-ink mt-0.5">Cash Flow Horizon <span class="font-mono text-xs text-mint font-normal ml-2">+60D</span></h4>
+                </div>
+
+                <!-- Minimalist Filter Pills -->
+                <div class="flex items-center gap-1 p-0.5 bg-surface-charcoal rounded-lg border border-border-line font-mono text-[10px]">
+                  <button id="btn-filter-all" onclick="setChartFilter('all')" class="px-2.5 py-1 rounded bg-surface-elevated text-ink font-semibold border border-border-line transition-all">
+                    All
+                  </button>
+                  <button id="btn-filter-milestones" onclick="setChartFilter('milestones')" class="px-2.5 py-1 rounded text-ink-dim hover:text-ink transition-all">
+                    Milestones
+                  </button>
+                  <button id="btn-filter-shield" onclick="setChartFilter('shield')" class="px-2.5 py-1 rounded text-ink-dim hover:text-ink transition-all">
+                    Tax Sweeps
+                  </button>
+                </div>
+              </div>
+
+              <!-- PURE SVG FINANCIAL VECTOR CHART (CLEAN, MINIMALIST, HIGH PRECISION) -->
+              <div class="w-full relative rounded-xl bg-surface-charcoal/70 border border-border-line p-4 overflow-hidden group">
+                <div class="w-full h-52 relative flex items-end">
+                  <svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 600 200">
+                    <defs>
+                      <linearGradient id="chartAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#4edea3" stop-opacity="0.25" />
+                        <stop offset="60%" stop-color="#6c63ff" stop-opacity="0.08" />
+                        <stop offset="100%" stop-color="#6c63ff" stop-opacity="0.0" />
+                      </linearGradient>
+                      <linearGradient id="chartStrokeGrad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#4edea3" />
+                        <stop offset="50%" stop-color="#a9a5ff" />
+                        <stop offset="100%" stop-color="#4edea3" />
+                      </linearGradient>
+                    </defs>
+
+                    <!-- Subtle Grid Lines -->
+                    <line x1="0" y1="40" x2="600" y2="40" stroke="rgba(255,255,255,0.04)" stroke-dasharray="4 4" stroke-width="1" />
+                    <line x1="0" y1="90" x2="600" y2="90" stroke="rgba(255,255,255,0.04)" stroke-dasharray="4 4" stroke-width="1" />
+                    <line x1="0" y1="140" x2="600" y2="140" stroke="rgba(255,255,255,0.04)" stroke-dasharray="4 4" stroke-width="1" />
+                    
+                    <!-- Insolvency Threshold (Subtle dashed line) -->
+                    <line x1="0" y1="175" x2="600" y2="175" stroke="#f43f5e" stroke-dasharray="4 4" stroke-opacity="0.4" stroke-width="1" />
+                    <text x="590" y="168" fill="#f43f5e" opacity="0.6" font-family="'JetBrains Mono', monospace" font-size="8.5" text-anchor="end" letter-spacing="0.1em">INSOLVENCY FLOOR ($3,500)</text>
+
+                    <!-- Filled Area Polygon -->
+                    <polygon id="svg-chart-area" points="0,110 120,95 240,65 380,85 490,45 600,20 600,195 0,195" fill="url(#chartAreaGrad)" />
+
+                    <!-- Trajectory Smooth Bezier Line -->
+                    <path id="svg-chart-line" d="M0,110 C60,110 80,95 120,95 C180,95 200,65 240,65 C300,65 340,85 380,85 C430,85 450,45 490,45 C540,45 560,20 600,20" fill="none" stroke="url(#chartStrokeGrad)" stroke-width="2.5" stroke-linecap="round" />
+
+                    <!-- Interactive Milestone Nodes (Clean glowing dots without overlapping text) -->
+                    <!-- Point 0: Today -->
+                    <g class="cursor-pointer group/pin" onmouseenter="showMilestone('Day 0', '$38,420', 'Current Safe Liquid Reserve Floor', 'Agent: The Sentinel', 'OPTIMAL', '#4edea3')" onclick="showMilestone('Day 0', '$38,420', 'Current Safe Liquid Reserve Floor', 'Agent: The Sentinel', 'OPTIMAL', '#4edea3')">
+                      <circle cx="0" cy="110" r="4.5" fill="#4edea3" stroke="#050506" stroke-width="2" />
+                      <circle cx="0" cy="110" r="9" fill="#4edea3" opacity="0.15" class="animate-ping" />
+                    </g>
+
+                    <!-- Point 1: Day 15 (Advance Approved) -->
+                    <g class="cursor-pointer group/pin" onmouseenter="showMilestone('Day 15', '+$14,200', 'Stripe Milestone Advance Approved & Disbursed', 'Agent: Pulse Conductor', 'FUNDS CLEARED', '#4edea3')" onclick="showMilestone('Day 15', '+$14,200', 'Stripe Milestone Advance Approved & Disbursed', 'Agent: Pulse Conductor', 'FUNDS CLEARED', '#4edea3')">
+                      <circle cx="120" cy="95" r="5" fill="#4edea3" stroke="#050506" stroke-width="2" class="hover:r-7 transition-all" />
+                      <circle cx="120" cy="95" r="10" fill="#4edea3" opacity="0.2" class="animate-ping" />
+                    </g>
+
+                    <!-- Point 2: Day 30 (WhatsApp Chaser Settled) -->
+                    <g class="cursor-pointer group/pin" onmouseenter="showMilestone('Day 30', '+$8,200', 'Acme Labs WhatsApp Chaser Automated Settlement', 'Agent: The Chaser', 'RECOVERED (96%)', '#4edea3')" onclick="showMilestone('Day 30', '+$8,200', 'Acme Labs WhatsApp Chaser Automated Settlement', 'Agent: The Chaser', 'RECOVERED (96%)', '#4edea3')">
+                      <circle cx="240" cy="65" r="5.5" fill="#4edea3" stroke="#ffffff" stroke-width="1.5" class="hover:r-7 transition-all" />
+                      <circle cx="240" cy="65" r="11" fill="#4edea3" opacity="0.25" class="animate-ping" />
+                    </g>
+
+                    <!-- Point 3: Day 45 (Tax Partition Sweep) -->
+                    <g class="cursor-pointer group/pin" onmouseenter="showMilestone('Day 45', '-$3,850', 'Tax Allocator Partition Sweep into Sovereign Vault', 'Agent: Tax Allocator', 'TAX SHIELDED', '#a9a5ff')" onclick="showMilestone('Day 45', '-$3,850', 'Tax Allocator Partition Sweep into Sovereign Vault', 'Agent: Tax Allocator', 'TAX SHIELDED', '#a9a5ff')">
+                      <circle cx="380" cy="85" r="4.5" fill="#a9a5ff" stroke="#050506" stroke-width="2" class="hover:r-6 transition-all" />
+                    </g>
+
+                    <!-- Point 4: Day 60 (Projected Net Cushion) -->
+                    <g class="cursor-pointer group/pin" onmouseenter="showMilestone('Day 60', '$56,970', 'Projected Net Sovereign Treasury Buffer', 'Agent: The Sentinel', 'SURPLUS TARGET', '#4edea3')" onclick="showMilestone('Day 60', '$56,970', 'Projected Net Sovereign Treasury Buffer', 'Agent: The Sentinel', 'SURPLUS TARGET', '#4edea3')">
+                      <circle cx="600" cy="20" r="5.5" fill="#4edea3" stroke="#ffffff" stroke-width="2" class="animate-pulse hover:r-8 transition-all" />
+                    </g>
+                  </svg>
+                </div>
+
+                <!-- Clean Timeline Labels -->
+                <div class="flex justify-between items-center pt-2.5 mt-1 border-t border-border-line font-mono text-[9px] text-ink-muted">
+                  <span>DAY 0</span>
+                  <span>DAY 15 (ADVANCE)</span>
+                  <span>DAY 30 (RECOVERY)</span>
+                  <span>DAY 45 (TAX)</span>
+                  <span>DAY 60 (TREASURY)</span>
+                </div>
+              </div>
+
+              <!-- Refined Milestone Telemetry HUD Strip -->
+              <div id="milestone-hud" class="p-3 rounded-lg bg-surface-charcoal/80 border border-border-line flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mt-3">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <span class="w-2 h-2 rounded-full bg-mint animate-pulse shrink-0"></span>
+                  <span id="hud-day" class="font-mono text-xs font-semibold text-ink shrink-0">Day 30:</span>
+                  <p id="hud-desc" class="font-sans text-xs text-ink-dim truncate">Acme Labs WhatsApp Chaser Automated Settlement</p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0 font-mono text-xs self-end sm:self-auto">
+                  <span id="hud-status" class="px-2 py-0.5 rounded text-[9px] bg-mint/10 border border-mint/20 text-mint font-semibold">RECOVERED (96%)</span>
+                  <span id="hud-val" class="font-bold text-mint">+$8,200.00</span>
+                  <span id="hud-agent" class="text-[10px] text-ink-muted hidden md:inline">The Chaser</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. BOTTOM CARD: Live Multi-Agent Autonomous Action & Execution Terminal (12 Cols) -->
+            <div class="md:col-span-12 bg-surface-elevated rounded-xl border border-border-line p-4 sm:p-5 flex flex-col gap-3.5 cockpit-card">
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-full bg-mint/10 border border-mint/20 text-mint flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[20px]">smart_toy</span>
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-mono text-xs font-semibold text-ink">AGENT 'THE CHASER'</span>
+                      <span class="px-2 py-0.5 rounded-full bg-mint/10 border border-mint/20 text-mint font-mono text-[10px] flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-mint animate-pulse"></span>
+                        <span>WHATSAPP LIVE</span>
+                      </span>
+                    </div>
+                    <p id="live-agent-stream" class="font-sans text-xs text-ink-dim mt-0.5">
+                      Initiated polite milestone settlement sync for <span class="text-signal font-mono">Inv #1094 ($4,200)</span> with Marcus (Acme Labs). Probability of settlement: <strong class="text-mint font-mono">96%</strong>.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Interactive Buttons -->
+                <div class="flex items-center gap-2.5 shrink-0 font-mono text-xs">
+                  <button onclick="triggerLiveChaserPing()" class="px-3 py-1.5 rounded-lg bg-surface-charcoal hover:bg-surface-container border border-mint/30 hover:border-mint text-mint font-mono transition-all flex items-center gap-1.5 cursor-pointer shadow-sm">
+                    <span class="material-symbols-outlined text-[14px]">send</span>
+                    <span>Test Chaser Ping</span>
+                  </button>
+                  <button onclick="toggleCockpitLogs()" class="px-3 py-1.5 rounded-lg bg-surface-charcoal hover:bg-surface-container border border-border-line text-signal font-mono transition-colors flex items-center gap-1.5 cursor-pointer">
+                    <span>Audit Ledger</span>
+                    <span id="log-chevron" class="material-symbols-outlined text-[14px] transition-transform">expand_more</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Collapsible Log Drawer -->
+              <div id="cockpit-logs-drawer" class="hidden pt-3 border-t border-border-line space-y-1.5 font-mono text-[11px] text-ink-dim">
+                <div class="flex items-center justify-between bg-surface-charcoal/70 p-2.5 rounded border border-border-line">
+                  <span>[16:24:10] GP-SENTINEL: Calibrated 98.4-day runway cushion against $385/day burn rate</span>
+                  <span class="text-mint">VERIFIED</span>
+                </div>
+                <div class="flex items-center justify-between bg-surface-charcoal/70 p-2.5 rounded border border-border-line">
+                  <span>[16:22:34] GP-CHASER: Sent warm milestone #3 reminder to Marcus (Acme Labs) via WhatsApp</span>
+                  <span class="text-signal">DELIVERED</span>
+                </div>
+                <div class="flex items-center justify-between bg-surface-charcoal/70 p-2.5 rounded border border-border-line">
+                  <span>[16:20:12] GP-UNDERWRITER: Assessed Acme Labs corporate solvency index (Grade A+)</span>
+                  <span class="text-mint">LOW RISK</span>
+                </div>
+                <div class="flex items-center justify-between bg-surface-charcoal/70 p-2.5 rounded border border-border-line">
+                  <span>[16:18:05] GP-CONDUCTOR: Escrow milestone token locked for Inv #1095 ($10,000)</span>
+                  <span class="text-signal">ENCRYPTED</span>
+                </div>
+                <div class="flex items-center justify-between bg-surface-charcoal/70 p-2.5 rounded border border-border-line">
+                  <span>[16:15:20] GP-TAX: Partitioned $1,280 (30%) into isolated reserve escrow</span>
+                  <span class="text-mint">SWEEP COMPLETE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06. AUTONOMOUS AGENT FLEET (THE SYNDICATE: GROWTHSPHERE SLIDER STYLE) -->
+    <section id="features" class="svc-section border-b border-border-line">
+      <div class="svc-grid">
+        <!-- 3D Particle Visual Column (Sticky) -->
+        <div class="svc-visual" aria-hidden="true">
+          <canvas id="cubeCanvas"></canvas>
+          <!-- Live Telemetry Badge -->
+          <div class="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-surface-charcoal/85 border border-border-line backdrop-blur-md font-mono text-[11px] text-ink-dim flex items-center justify-between shadow-xl">
+            <span class="text-mint flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-mint animate-pulse"></span>
+              FLEET STATUS: ACTIVE
+            </span>
+            <span class="text-signal">6 SPECIALIZED AGENTS</span>
+          </div>
+        </div>
+
+        <!-- Content & Slider Column -->
+        <div class="svc-content">
+          <div class="svc-head">
+            <div>
+              <div class="inline-flex items-center gap-2 font-mono text-[11px] text-signal tracking-widest uppercase mb-3">
+                <span class="w-5 h-[1px] bg-signal"></span>
+                <span>04 / MULTI-AGENT SYNDICATE</span>
+              </div>
+              <h2 class="font-sans font-semibold text-3xl sm:text-5xl text-ink tracking-tight">
+                The Autonomous <em class="font-serif italic font-normal text-signal">Syndicate</em>
+              </h2>
+            </div>
+            <p class="font-sans text-sm sm:text-base text-ink-dim max-w-md leading-relaxed">
+              Six specialized autonomous AI intelligence units engineered for solopreneurs, boutique engineering studios, and sovereign consultants who refuse to hire finance ops.
+            </p>
+          </div>
+
+          <!-- Interactive Slider Track -->
+          <div class="svc-slider">
+            <div class="svc-track" id="svcTrack"></div>
+            <div class="svc-nav">
+              <button class="svc-btn" id="svcPrev" aria-label="Previous agent">&#8592;</button>
+              <p class="font-mono text-xs uppercase tracking-widest text-ink-muted" style="margin:0">Drag or click a card</p>
+              <button class="svc-btn" id="svcNext" aria-label="Next agent">&#8594;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05. INTERACTIVE RUNWAY SIMULATOR (CYBERNETIC FLIGHT DECK) -->
+    <section class="w-full py-24 sm:py-32 px-6 sm:px-10 border-b border-border-line bg-surface-charcoal/30 relative overflow-hidden" id="simulation">
+      <!-- Ambient backdrop glow -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-electric/5 rounded-full blur-[140px] pointer-events-none"></div>
+
+      <div class="max-w-5xl mx-auto relative z-10">
+        <!-- Section Header -->
+        <div class="text-center mb-12">
+          <div class="inline-flex items-center gap-2 font-mono text-[11px] text-signal tracking-widest uppercase mb-3">
+            <span class="w-5 h-[1px] bg-signal"></span>
+            <span>05 / SIMULATION</span>
+          </div>
+          <h2 class="font-sans font-semibold text-3xl sm:text-5xl text-ink tracking-tight">
+            The Sovereign <em class="font-serif italic font-normal text-signal">Survival Radar</em>
+          </h2>
+          <p class="font-sans text-sm sm:text-base text-ink-dim mt-3 max-w-xl mx-auto leading-relaxed">
+            Drag the cybernetic faders to simulate cash burn scenarios, stress-test your bank runway, and calculate your automated defense cushion.
+          </p>
+
+          <!-- Studio Preset Switcher Pills -->
+          <div class="flex flex-wrap items-center justify-center gap-2 mt-7">
+            <span class="font-mono text-[10px] text-ink-muted uppercase tracking-wider mr-1 hidden sm:inline">PRESETS:</span>
+            <button onclick="setRunwayPreset(4200, 18000, this)" class="preset-btn px-3 py-1.5 rounded-full bg-surface-charcoal hover:bg-surface-elevated border border-border-line text-ink-dim hover:text-ink font-mono text-[11px] transition-all flex items-center gap-1.5 cursor-pointer shadow-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-mint"></span>
+              <span>Solo Freelance ($4.2k)</span>
+            </button>
+            <button onclick="setRunwayPreset(6500, 22000, this)" class="preset-btn px-3 py-1.5 rounded-full bg-surface-elevated border border-mint/40 text-mint font-mono text-[11px] font-semibold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-mint animate-pulse"></span>
+              <span>Studio Agency ($6.5k)</span>
+            </button>
+            <button onclick="setRunwayPreset(14000, 65000, this)" class="preset-btn px-3 py-1.5 rounded-full bg-surface-charcoal hover:bg-surface-elevated border border-border-line text-ink-dim hover:text-ink font-mono text-[11px] transition-all flex items-center gap-1.5 cursor-pointer shadow-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-signal"></span>
+              <span>Scale Studio ($14k)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cybernetic Flight Deck Console Container -->
+        <div class="w-full bg-surface-charcoal/95 rounded-2xl border border-border-line p-6 sm:p-10 shadow-2xl relative overflow-hidden hud-corner">
+          <!-- Top Console Strip -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-5 mb-8 border-b border-border-line/70 font-mono text-xs">
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-mint animate-pulse"></span>
+                <span class="text-ink-muted uppercase tracking-wider text-[11px]">FLIGHT DECK RUNTIME // REAL-TIME CALIBRATION</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 text-ink-muted text-[11px]">
+              <span>ALGORITHM: DYNAMIC ESCROW BUFFER</span>
+              <span class="text-mint">· 1.42x SHIELD MULTIPLIER</span>
+            </div>
+          </div>
+
+          <!-- Main Split Core: Left Flight Controls + Right Horizon Radar -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <!-- Left Side: Interactive Flight Faders (6 Cols) -->
+            <div class="lg:col-span-6 space-y-7">
+              <!-- Parameter 1: Monthly Burn Rate -->
+              <div class="bg-surface-elevated/70 rounded-xl border border-border-line p-5 relative overflow-hidden group hover:border-border-line transition-all">
+                <div class="flex items-start justify-between gap-4 mb-3">
+                  <div>
+                    <span class="font-mono text-[10px] text-ink-muted uppercase tracking-wider block">01 // MONTHLY OPERATIONAL BURN</span>
+                    <span class="font-sans text-xs text-ink-dim mt-0.5 block">Rent, Stack Subscriptions, Taxes & Payroll</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="font-mono font-bold text-xl sm:text-2xl text-ink" id="burn-val">$6,500</span>
+                    <span class="font-mono text-[10px] text-ink-muted block mt-0.5" id="burn-daily-calc">$217 / day</span>
+                  </div>
+                </div>
+
+                <!-- Custom Slider Bar with Track Glow -->
+                <div class="relative py-2">
+                  <input class="fader-slider" id="burn-slider" max="25000" min="2000" step="250" type="range" value="6500" />
+                </div>
+
+                <!-- Tactile Adjustment Buttons & Guide Markers -->
+                <div class="flex items-center justify-between pt-2 mt-1 font-mono text-[10px] text-ink-muted border-t border-border-line/40">
+                  <div class="flex items-center gap-1.5">
+                    <button onclick="nudgeBurn(-500)" class="px-2 py-0.5 rounded bg-surface-charcoal hover:bg-surface-container border border-border-line text-ink-dim hover:text-ink transition-colors cursor-pointer">- $500</button>
+                    <button onclick="nudgeBurn(+500)" class="px-2 py-0.5 rounded bg-surface-charcoal hover:bg-surface-container border border-border-line text-ink-dim hover:text-ink transition-colors cursor-pointer">+ $500</button>
+                  </div>
+                  <span>RANGE: $2,000 — $25,000/mo</span>
+                </div>
+              </div>
+
+              <!-- Parameter 2: Liquid Bank Reserve -->
+              <div class="bg-surface-elevated/70 rounded-xl border border-border-line p-5 relative overflow-hidden group hover:border-border-line transition-all">
+                <div class="flex items-start justify-between gap-4 mb-3">
+                  <div>
+                    <span class="font-mono text-[10px] text-ink-muted uppercase tracking-wider block">02 // LIQUID TREASURY RESERVES</span>
+                    <span class="font-sans text-xs text-ink-dim mt-0.5 block">Unencumbered Cash in Operating Bank Accounts</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="font-mono font-bold text-xl sm:text-2xl text-mint" id="bank-val">$22,000</span>
+                    <span class="font-mono text-[10px] text-mint/80 block mt-0.5">Liquid & Available</span>
+                  </div>
+                </div>
+
+                <!-- Custom Slider Bar with Mint Glow -->
+                <div class="relative py-2">
+                  <input class="fader-slider fader-slider--mint" id="bank-slider" max="100000" min="5000" step="1000" type="range" value="22000" />
+                </div>
+
+                <!-- Tactile Adjustment Buttons & Guide Markers -->
+                <div class="flex items-center justify-between pt-2 mt-1 font-mono text-[10px] text-ink-muted border-t border-border-line/40">
+                  <div class="flex items-center gap-1.5">
+                    <button onclick="nudgeBank(-2500)" class="px-2 py-0.5 rounded bg-surface-charcoal hover:bg-surface-container border border-border-line text-ink-dim hover:text-ink transition-colors cursor-pointer">- $2.5k</button>
+                    <button onclick="nudgeBank(+2500)" class="px-2 py-0.5 rounded bg-surface-charcoal hover:bg-surface-container border border-border-line text-ink-dim hover:text-ink transition-colors cursor-pointer">+ $2.5k</button>
+                  </div>
+                  <span>RANGE: $5,000 — $100,000</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Side: The Horizon Solvency Arc Radar (6 Cols) -->
+            <div class="lg:col-span-6 flex flex-col justify-between h-full bg-surface-elevated rounded-xl border border-border-line p-6 relative overflow-hidden">
+              <!-- Watermark Background Horizon Circles -->
+              <div class="absolute -right-16 -top-16 w-56 h-56 rounded-full bg-mint/5 blur-3xl pointer-events-none"></div>
+
+              <!-- Top Radar Header -->
+              <div class="flex items-center justify-between border-b border-border-line/60 pb-3 mb-4">
+                <span class="font-mono text-[10px] text-ink-muted uppercase tracking-wider">SOLVENCY HORIZON METER</span>
+                <span id="solvency-badge" class="px-2.5 py-0.5 rounded-full bg-mint/15 border border-mint/30 text-mint font-mono text-[10px]">SOVEREIGN SURPLUS</span>
+              </div>
+
+              <!-- Precision Semi-Circle Arc SVG Radar -->
+              <div class="relative flex flex-col items-center justify-center py-2">
+                <svg class="w-64 h-36 overflow-visible" viewBox="0 0 200 110">
+                  <defs>
+                    <linearGradient id="horizonArcGrad" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="#f43f5e" />
+                      <stop offset="35%" stop-color="#fbbf24" />
+                      <stop offset="65%" stop-color="#6c63ff" />
+                      <stop offset="100%" stop-color="#4edea3" />
+                    </linearGradient>
+                  </defs>
+
+                  <!-- Background Arc Track (0 to 180 degrees) -->
+                  <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="12" stroke-linecap="round" />
+
+                  <!-- Reference Tick Markers -->
+                  <line x1="20" y1="100" x2="10" y2="100" stroke="rgba(244,63,94,0.6)" stroke-width="2" />
+                  <line x1="100" y1="20" x2="100" y2="10" stroke="rgba(108,99,255,0.6)" stroke-width="2" />
+                  <line x1="180" y1="100" x2="190" y2="100" stroke="rgba(78,222,163,0.6)" stroke-width="2" />
+
+                  <!-- Active Dynamic Gauge Arc -->
+                  <path id="horizon-dynamic-arc" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#horizonArcGrad)" stroke-width="12" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="110" class="transition-all duration-300" />
+                </svg>
+
+                <!-- Center Displayed Readout -->
+                <div class="text-center -mt-6">
+                  <div class="flex items-baseline justify-center gap-1.5">
+                    <span class="font-sans font-bold text-5xl sm:text-6xl text-ink tracking-tight" id="runway-output">101</span>
+                    <span class="font-mono text-lg text-mint font-semibold">DAYS</span>
+                  </div>
+                  <span class="font-mono text-xs text-ink-muted uppercase tracking-widest block mt-1">Autonomous Freedom Floor</span>
+                </div>
+              </div>
+
+              <!-- GigPulse Autonomous Shield Multiplier Pill -->
+              <div class="mt-4 p-3 rounded-lg bg-surface-charcoal/90 border border-border-line flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-full bg-signal/15 border border-signal/30 text-signal flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[16px]">shield</span>
+                  </div>
+                  <div>
+                    <span class="font-mono text-[10px] text-ink-muted uppercase block">WITH GIGPULSE AUTONOMOUS BUFFER</span>
+                    <p class="font-mono text-xs font-semibold text-signal" id="shield-output">+42 Days Shielded (143 Total Days)</p>
+                  </div>
+                </div>
+                <span class="font-mono text-[10px] text-mint px-2 py-0.5 rounded bg-mint/10 border border-mint/20 hidden sm:inline">1.42x EXTENSION</span>
+              </div>
+
+              <!-- Projected Horizon Zero-Anxiety Date Banner -->
+              <div class="mt-3 pt-3 border-t border-border-line flex items-center justify-between font-mono text-[11px]">
+                <span class="text-ink-muted">SAFE BUFFER THROUGH:</span>
+                <span class="text-mint font-semibold flex items-center gap-1" id="projected-date-banner">
+                  <span class="material-symbols-outlined text-[13px]">event_available</span>
+                  <span id="runway-date-str">JANUARY 15, 2027</span>
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08. TRANSPARENT PRICING TIERS -->
+    <section class="w-full py-24 sm:py-32 px-6 sm:px-10 border-b border-border-line" id="pricing">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="font-mono text-xs text-signal tracking-widest uppercase block mb-3">06 / INVESTMENT</span>
+          <h2 class="font-sans font-semibold text-3xl sm:text-5xl text-ink tracking-tight">
+            Predictable, Sovereign Pricing
+          </h2>
+          <p class="font-sans text-sm sm:text-base text-ink-dim mt-3 max-w-xl mx-auto">
+            Zero hidden transaction penalties. Cancel or adjust anytime as your studio scales.
+          </p>
+
+          <!-- Monthly / Annual Toggle -->
+          <div class="mt-8 inline-flex items-center gap-2 bg-surface-charcoal border border-border-line p-1.5 rounded-full font-mono text-xs">
+            <button class="px-4 py-1.5 rounded-full bg-surface-elevated text-ink font-semibold transition-all" id="btn-monthly">Monthly</button>
+            <button class="px-4 py-1.5 rounded-full text-ink-dim hover:text-ink transition-all flex items-center gap-1.5" id="btn-annual">
+              <span>Annual</span>
+              <span class="px-2 py-0.5 rounded-full bg-mint/10 border border-mint/20 text-mint text-[10px]">20% OFF</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          <!-- Tier 1 -->
+          <div class="bg-surface-charcoal rounded-2xl border border-border-line p-8 flex flex-col justify-between noema-card">
+            <div>
+              <span class="font-mono text-[10px] text-ink-muted uppercase tracking-wider block">ENTRY REPUTATION</span>
+              <h3 class="font-sans font-semibold text-2xl text-ink mt-1">Solo Creator</h3>
+              <div class="mt-4 mb-6">
+                <span class="font-sans font-bold text-4xl text-ink">$0</span>
+                <span class="font-mono text-xs text-ink-muted"> / forever</span>
+              </div>
+              <p class="font-sans text-xs text-ink-dim leading-relaxed mb-6">
+                Essential liquidity radar for part-time freelancers testing their independent sovereign thesis.
+              </p>
+              <ul class="space-y-3 font-mono text-xs text-ink-dim mb-8">
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-mint text-[16px]">check</span>
+                  <span>Up to 2 Active Clients</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-mint text-[16px]">check</span>
+                  <span>The Sentinel Runway Gauge</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-mint text-[16px]">check</span>
+                  <span>Standard Email Reminders</span>
+                </li>
+              </ul>
+            </div>
+            <a href="00_auth_login_signup.html?mode=signup&plan=sandbox" class="w-full py-3 rounded-full bg-surface-elevated border border-border-line hover:border-signal/40 text-ink font-mono text-xs tracking-wider uppercase transition-colors text-center inline-block">
+              Start Sandbox
+            </a>
+          </div>
+
+          <!-- Tier 2 (Highlighted Pro) -->
+          <div class="bg-surface-charcoal rounded-2xl border-2 border-signal p-8 flex flex-col justify-between relative shadow-2xl noema-card scale-100 md:scale-105 z-10">
+            <div class="absolute -top-3 right-8 bg-signal text-void px-3 py-0.5 rounded-full font-mono text-[10px] font-bold tracking-wider uppercase">
+              FOUNDER CHOICE
+            </div>
+            <div>
+              <span class="font-mono text-[10px] text-signal uppercase tracking-wider block">FULL SYNDICATE</span>
+              <h3 class="font-sans font-semibold text-2xl text-ink mt-1">Pro Independent</h3>
+              <div class="mt-4 mb-6">
+                <span class="font-sans font-bold text-4xl text-ink" id="price-pro">$19</span>
+                <span class="font-mono text-xs text-ink-muted"> / month</span>
+              </div>
+              <p class="font-sans text-xs text-ink-dim leading-relaxed mb-6">
+                For senior engineers, design consultants, and high-conviction solo operators demanding safety.
+              </p>
+              <ul class="space-y-3 font-mono text-xs text-ink mb-8">
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-mint text-[16px]">check</span>
+                  <span>Unlimited Active Clients</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-mint text-[16px]">check</span>
+                  <span>All 4 Autonomous Agents</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-mint text-[16px]">check</span>
+                  <span>WhatsApp &amp; SMS Chaser Escalation</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-mint text-[16px]">check</span>
+                  <span>Underwriter Credit Ratings (A-D)</span>
+                </li>
+              </ul>
+            </div>
+            <a href="00_auth_login_signup.html?mode=signup&plan=pro" class="w-full py-3.5 rounded-full bg-ink text-void hover:bg-white font-sans text-xs font-semibold tracking-wider uppercase transition-colors text-center inline-block">
+              Deploy 14-Day Free Defense
+            </a>
+          </div>
+
+          <!-- Tier 3 -->
+          <div class="bg-surface-charcoal rounded-2xl border border-border-line p-8 flex flex-col justify-between noema-card">
+            <div>
+              <span class="font-mono text-[10px] text-ink-muted uppercase tracking-wider block">COLLECTIVE DEFENSE</span>
+              <h3 class="font-sans font-semibold text-2xl text-ink mt-1">Studio &amp; Collective</h3>
+              <div class="mt-4 mb-6">
+                <span class="font-sans font-bold text-4xl text-ink" id="price-agency">$49</span>
+                <span class="font-mono text-xs text-ink-muted"> / month</span>
+              </div>
+              <p class="font-sans text-xs text-ink-dim leading-relaxed mb-6">
+                For boutique agencies, multi-partner studios, and distributed high-output developer syndicates.
+              </p>
+              <ul class="space-y-3 font-mono text-xs text-ink-dim mb-8">
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-mint text-[16px]">check</span>
+                  <span>Up to 5 Co-Founders / Partners</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-mint text-[16px]">check</span>
+                  <span>Subcontractor Milestone Auto-Payouts</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-mint text-[16px]">check</span>
+                  <span>Dedicated Risk Officer Slack Channel</span>
+                </li>
+              </ul>
+            </div>
+            <a href="00_auth_login_signup.html?mode=signup&plan=studio" class="w-full py-3 rounded-full bg-surface-elevated border border-border-line hover:border-signal/40 text-ink font-mono text-xs tracking-wider uppercase transition-colors text-center inline-block">
+              Deploy Studio Plan
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09. FAQ ACCORDION -->
+    <section class="w-full py-24 sm:py-32 px-6 sm:px-10 border-b border-border-line" id="faq">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-14">
+          <span class="font-mono text-xs text-signal tracking-widest uppercase block mb-3">07 / INTELLIGENCE BRIEFING</span>
+          <h2 class="font-sans font-semibold text-3xl sm:text-4xl text-ink tracking-tight">Frequently Answered Queries</h2>
+        </div>
+
+        <div class="space-y-3 font-sans">
+          <!-- Item 1 -->
+          <div class="bg-surface-charcoal rounded-xl border border-border-line overflow-hidden">
+            <button class="faq-toggle w-full p-5 text-left flex items-center justify-between text-ink text-sm sm:text-base font-medium">
+              <span>Will autonomous followups embarrass me with long-term clients?</span>
+              <span class="material-symbols-outlined text-signal transition-transform duration-300">expand_more</span>
+            </button>
+            <div class="faq-content px-5 pb-5 text-ink-dim text-xs sm:text-sm hidden leading-relaxed border-t border-border-line pt-3">
+              Never. You maintain 100% control over agent tone presets: choose from 'Warm Collaborator', 'Institutional Accounting', or 'Executive Assertive'. You can review any scheduled message before it fires or let the system operate autonomously.
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="bg-surface-charcoal rounded-xl border border-border-line overflow-hidden">
+            <button class="faq-toggle w-full p-5 text-left flex items-center justify-between text-ink text-sm sm:text-base font-medium">
+              <span>How does the 1.5% instant factoring advance work?</span>
+              <span class="material-symbols-outlined text-signal transition-transform duration-300">expand_more</span>
+            </button>
+            <div class="faq-content px-5 pb-5 text-ink-dim text-xs sm:text-sm hidden leading-relaxed border-t border-border-line pt-3">
+              When an approved invoice or verified milestone enters the system, you can tap 'Unlock Now'. Pulse Conductor transfers funds directly to your verified bank within 2 hours. When the client settles, the invoice pays out automatically.
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="bg-surface-charcoal rounded-xl border border-border-line overflow-hidden">
+            <button class="faq-toggle w-full p-5 text-left flex items-center justify-between text-ink text-sm sm:text-base font-medium">
+              <span>Do you have write access to my bank accounts?</span>
+              <span class="material-symbols-outlined text-signal transition-transform duration-300">expand_more</span>
+            </button>
+            <div class="faq-content px-5 pb-5 text-ink-dim text-xs sm:text-sm hidden leading-relaxed border-t border-border-line pt-3">
+              No. GigPulse utilizes SOC2 Type II read-only Plaid/Financial APIs to monitor balance inflows and burn velocity. We cannot move funds or execute transactions out of your depository accounts without explicit biometric approval.
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="bg-surface-charcoal rounded-xl border border-border-line overflow-hidden">
+            <button class="faq-toggle w-full p-5 text-left flex items-center justify-between text-ink text-sm sm:text-base font-medium">
+              <span>Can I bring my existing invoices and recurring retainers?</span>
+              <span class="material-symbols-outlined text-signal transition-transform duration-300">expand_more</span>
+            </button>
+            <div class="faq-content px-5 pb-5 text-ink-dim text-xs sm:text-sm hidden leading-relaxed border-t border-border-line pt-3">
+              Yes. Connect your existing billing tools like Stripe Invoicing, Harvest, QuickBooks, or raw PDF contracts. The Sentinel ingests them immediately to reconstruct your dynamic cash flow curve.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FINAL CALL TO ACTION (NOEMA MONUMENTAL FINISH) -->
+    <section class="w-full py-28 px-6 sm:px-10 text-center relative overflow-hidden bg-void">
+      <div class="max-w-4xl mx-auto relative z-10">
+        <span class="font-mono text-xs text-mint tracking-widest uppercase block mb-4">08 / PROTOCOL ACTIVATION</span>
+        <h2 class="font-sans font-semibold text-4xl sm:text-6xl text-ink tracking-tighter leading-tight mb-6">
+          Reclaim Your Cash Runway Today. <br/>
+          <span class="font-serif italic font-normal text-signal">Let Autonomous Agents Handle the Rest.</span>
+        </h2>
+        <p class="font-sans text-base text-ink-dim max-w-xl mx-auto mb-10 leading-relaxed">
+          Join over 1,400 independent engineers, designers, and founders who never negotiate with payment anxiety again.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a class="px-8 py-4 rounded-full bg-ink text-void hover:bg-white font-sans text-xs font-semibold tracking-wider uppercase transition-all flex items-center gap-3 group" href="00_auth_login_signup.html?mode=signup">
+            <span>Deploy GigPulse in 3 Minutes</span>
+            <span class="w-5 h-5 rounded-full bg-void text-ink flex items-center justify-center text-xs group-hover:rotate-45 transition-transform duration-300">↗</span>
+          </a>
+          <a class="px-7 py-4 rounded-full bg-surface-charcoal border border-border-line hover:border-signal/40 text-ink font-mono text-xs tracking-wider uppercase transition-colors" href="#features">
+            Explore Agent Fleet
+          </a>
+        </div>
+        <p class="font-mono text-xs text-ink-muted mt-5">No credit card required • Instant 14-day full autonomy trial</p>
+      </div>
+    </section>
+
+    <!-- 11. FOOTER (NOEMA HIGH-TECH METADATA) -->
+    <footer class="w-full py-12 px-6 sm:px-10 border-t border-border-line bg-void-soft font-mono text-xs">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3 text-ink-dim">
+          <span class="w-2 h-2 rounded-full bg-mint"></span>
+          <span>ALL AUTONOMOUS AGENTS OPERATIONAL</span>
+          <span class="text-ink-muted">· GIGPULSE OS v2.4</span>
+        </div>
+        <p class="text-ink-muted">© 2026 GigPulse Technologies Inc. Sovereign Financial Intelligence.</p>
+        <div class="flex items-center gap-6 text-ink-dim">
+          <a href="#" class="hover:text-ink transition-colors">X // Twitter</a>
+          <a href="#" class="hover:text-ink transition-colors">GitHub</a>
+          <a href="#" class="hover:text-ink transition-colors">Dispatch</a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- NOEMA ANIMATION ENGINE & INTERACTION SCRIPTS -->
+  <script>
+    (function() {
+      // Force scroll to top on refresh
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+
+      // 1. True Dual-Element Noema Custom Cursor
+      const cursor = document.querySelector('.cursor');
+      const ring = document.querySelector('.cursor-ring');
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let ringX = mouseX;
+      let ringY = mouseY;
+
+      function moveCursor() {
+        ringX += (mouseX - ringX) * 0.14;
+        ringY += (mouseY - ringY) * 0.14;
+        if (cursor && ring) {
+          cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+          ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+        }
+        requestAnimationFrame(moveCursor);
+      }
+
+      if (window.matchMedia('(pointer:fine)').matches) {
+        requestAnimationFrame(moveCursor);
+
+        window.addEventListener('pointermove', (event) => {
+          mouseX = event.clientX;
+          mouseY = event.clientY;
+        });
+
+        // Hover expansions for links, buttons, inputs, interactive cards & dynamic slider cards
+        document.addEventListener('pointerover', (e) => {
+          const isInteractive = !!e.target.closest('a, button, input, select, textarea, [tabindex], .hero__visual, .noema-card, .cockpit-card, .svc-card, .svc-btn');
+          ring.classList.toggle('is-active', isInteractive);
+        });
+      }
+
+      // 2. Hero Interactive Lens (Robot AI Sentinel ⇄ Human Sovereign Founder)
+      const hero = document.querySelector('.hero');
+      const heroVisual = document.querySelector('.hero__visual');
+      const humanImg = document.querySelector('.hero__image--human');
+      const root = document.documentElement;
+      const coordX = document.querySelector('[data-x]');
+      const coordY = document.querySelector('[data-y]');
+      const state = document.querySelector('[data-state]');
+
+      if (hero && heroVisual && humanImg) {
+        hero.addEventListener('pointermove', (event) => {
+          const bounds = hero.getBoundingClientRect();
+          const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+          const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+          root.style.setProperty('--mx', `${x}%`);
+          root.style.setProperty('--my', `${y}%`);
+          humanImg.style.clipPath = `circle(clamp(130px, 14vw, 240px) at ${x}% ${y}%)`;
+          if (coordX && coordY && state) {
+            coordX.textContent = x.toFixed(1).padStart(5, '0');
+            coordY.textContent = y.toFixed(1).padStart(5, '0');
+            state.textContent = 'SOVEREIGN FOUNDER REVEALED';
+            state.style.color = '#4edea3';
+          }
+        });
+
+        hero.addEventListener('pointerleave', () => {
+          humanImg.style.clipPath = 'circle(0 at var(--mx) var(--my))';
+          if (state) {
+            state.textContent = 'AUTONOMOUS SENTINEL ACTIVE';
+            state.style.color = '#a9a5ff';
+          }
+        });
+      }
+
+      // 3. Preloader & GSAP Motion Initialization
+      const body = document.body;
+      const preloader = document.querySelector('.preloader');
+      const percentEl = document.querySelector('.preloader__percent');
+
+      function initMotion() {
+        if (!window.gsap) {
+          if (preloader) preloader.remove();
+          body.classList.remove('loading');
+          return;
+        }
+
+        if (window.ScrollTrigger) {
+          gsap.registerPlugin(ScrollTrigger);
+
+          // Top scroll progress bar
+          gsap.to('.global-progress span', {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: {
+              start: 0,
+              end: () => ScrollTrigger.maxScroll(window),
+              scrub: 0.15
+            }
+          });
+        }
+
+        // Fast & Snappy Preloader Calibration Counter (0.9s)
+        const preload = { val: 0 };
+        gsap.to(preload, {
+          val: 100,
+          duration: 0.9,
+          ease: 'power2.inOut',
+          onUpdate: () => {
+            if (percentEl) percentEl.textContent = String(Math.round(preload.val)).padStart(2, '0');
+          },
+          onComplete: () => {
+            const tl = gsap.timeline({
+              onComplete: () => {
+                if (preloader) preloader.remove();
+                body.classList.remove('loading');
+                if (window.ScrollTrigger) ScrollTrigger.refresh();
+                // ATTACH COUNTERS ONLY AFTER PRELOADER IS REMOVED
+                initScrollObservers();
+              }
+            });
+            tl.to('.preloader__mark', { scale: 1.05, opacity: 1, duration: 0.25, ease: 'power2.out' })
+              .to('.preloader', { clipPath: 'inset(0 0 100% 0)', duration: 0.65, ease: 'power4.inOut' }, '+=0.05')
+              .from('.hero h1', { yPercent: 35, opacity: 0, duration: 0.8, ease: 'power4.out' }, '-=0.4')
+              .from('.hero .scroll-cue, .hero__coordinates, .hero__mode', { opacity: 0, y: 15, duration: 0.5, stagger: 0.06 }, '-=0.5');
+          }
+        });
+      }
+
+      // Viewport Intersection Observers (Only fires when the section is physically visible on screen)
+      function initScrollObservers() {
+        // 1. Proof Metrics Strip: 98.2%, 3.8x, 0 hrs, $4.2M+
+        const metricsSection = document.getElementById('metrics-strip');
+        if (metricsSection) {
+          const metricsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const statElements = metricsSection.querySelectorAll('.stat-counter');
+                statElements.forEach((el, index) => {
+                  const startVal = parseFloat(el.getAttribute('data-start') || '0');
+                  const targetVal = parseFloat(el.getAttribute('data-target') || '0');
+                  const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+                  const prefix = el.getAttribute('data-prefix') || '';
+                  const suffix = el.getAttribute('data-suffix') || '';
+                  const duration = 1.7;
+
+                  const counterObj = { val: startVal };
+                  gsap.to(counterObj, {
+                    val: targetVal,
+                    duration: duration,
+                    delay: index * 0.1,
+                    ease: 'power3.out',
+                    onUpdate: () => {
+                      let numStr = decimals > 0 ? counterObj.val.toFixed(decimals) : Math.round(counterObj.val).toLocaleString();
+                      el.textContent = `${prefix}${numStr}${suffix}`;
+                    },
+                    onComplete: () => {
+                      let finalStr = decimals > 0 ? targetVal.toFixed(decimals) : Math.round(targetVal).toLocaleString();
+                      el.textContent = `${prefix}${finalStr}${suffix}`;
+                      gsap.fromTo(el, { scale: 1.06 }, { scale: 1, duration: 0.25, ease: 'power2.out' });
+                    }
+                  });
+                });
+                metricsObserver.unobserve(entry.target);
+              }
+            });
+          }, {
+            threshold: 0.25,
+            rootMargin: '0px 0px -5% 0px'
+          });
+          metricsObserver.observe(metricsSection);
+        }
+
+        // 2. Cockpit Telemetry Section: 98.4d, $38,420, SVG radial gauge arc
+        const telemetrySection = document.getElementById('telemetry');
+        if (telemetrySection) {
+          const telemetryObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const telemetryCounters = telemetrySection.querySelectorAll('.stat-counter');
+                telemetryCounters.forEach(el => {
+                  const startVal = parseFloat(el.getAttribute('data-start') || '0');
+                  const targetVal = parseFloat(el.getAttribute('data-target') || '0');
+                  const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+                  const prefix = el.getAttribute('data-prefix') || '';
+                  const suffix = el.getAttribute('data-suffix') || '';
+
+                  const counterObj = { val: startVal };
+                  gsap.to(counterObj, {
+                    val: targetVal,
+                    duration: 1.8,
+                    ease: 'power3.out',
+                    onUpdate: () => {
+                      let numStr = decimals > 0 ? counterObj.val.toFixed(decimals) : Math.round(counterObj.val).toLocaleString();
+                      el.textContent = `${prefix}${numStr}${suffix}`;
+                    },
+                    onComplete: () => {
+                      let finalStr = decimals > 0 ? targetVal.toFixed(decimals) : Math.round(targetVal).toLocaleString();
+                      el.textContent = `${prefix}${finalStr}${suffix}`;
+                    }
+                  });
+                });
+
+                const gauge = telemetrySection.querySelector('.gauge-circle');
+                if (gauge) {
+                  gsap.fromTo(gauge, 
+                    { strokeDashoffset: 264 },
+                    { strokeDashoffset: 60, duration: 2.0, ease: 'power3.out' }
+                  );
+                }
+                telemetryObserver.unobserve(entry.target);
+              }
+            });
+          }, {
+            threshold: 0.2
+          });
+          telemetryObserver.observe(telemetrySection);
+        }
+
+        // 3. Manifesto / Thesis Section: Split Line Text Reveal
+        const manifestoSection = document.getElementById('manifesto');
+        if (manifestoSection) {
+          const manifestoLines = manifestoSection.querySelectorAll('.manifesto__line');
+          const manifestoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                gsap.fromTo(manifestoLines,
+                  { yPercent: 100, opacity: 0.2 },
+                  { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.1, ease: 'power4.out' }
+                );
+                manifestoObserver.unobserve(entry.target);
+              }
+            });
+          }, {
+            threshold: 0.15
+          });
+          manifestoObserver.observe(manifestoSection);
+        }
+
+        // 4. Features Section: GrowthSphere Multi-Agent Slider & 3D Particle Visual
+        initAgentSlider();
+        initCubeCanvas();
+      }
+
+      initMotion();
+
+      // 4. Interactive FAQ Accordion
+      document.querySelectorAll('.faq-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+          const content = button.nextElementSibling;
+          const icon = button.querySelector('.material-symbols-outlined');
+          const isHidden = content.classList.contains('hidden');
+          
+          document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+          document.querySelectorAll('.faq-toggle .material-symbols-outlined').forEach(i => i.classList.remove('rotate-180'));
+          
+          if (isHidden) {
+            content.classList.remove('hidden');
+            if (icon) icon.classList.add('rotate-180');
+          }
+        });
+      });
+
+      // 5. Interactive Runway Calculator & Cybernetic Horizon Radar
+      const burnSlider = document.getElementById('burn-slider');
+      const bankSlider = document.getElementById('bank-slider');
+      const burnVal = document.getElementById('burn-val');
+      const bankVal = document.getElementById('bank-val');
+      const burnDailyCalc = document.getElementById('burn-daily-calc');
+      const runwayOutput = document.getElementById('runway-output');
+      const shieldOutput = document.getElementById('shield-output');
+      const horizonArc = document.getElementById('horizon-dynamic-arc');
+      const solvencyBadge = document.getElementById('solvency-badge');
+      const runwayDateStr = document.getElementById('runway-date-str');
+
+      function updateRunway() {
+        if (!burnSlider || !bankSlider) return;
+        const burn = parseFloat(burnSlider.value);
+        const bank = parseFloat(bankSlider.value);
+        
+        if (burnVal) burnVal.textContent = `$${burn.toLocaleString()}`;
+        if (bankVal) bankVal.textContent = `$${bank.toLocaleString()}`;
+        
+        const dailyBurn = burn / 30;
+        if (burnDailyCalc) burnDailyCalc.textContent = `$${Math.round(dailyBurn)} / day`;
+        
+        const rawDays = Math.max(1, Math.round(bank / dailyBurn));
+        const shieldedExtra = Math.round(rawDays * 0.42);
+        const totalDays = rawDays + shieldedExtra;
+        
+        if (runwayOutput) runwayOutput.textContent = rawDays;
+        if (shieldOutput) {
+          shieldOutput.textContent = `+${shieldedExtra} Days Shielded (${totalDays} Total Days)`;
+        }
+        
+        // Arc Dashoffset Calculation (Arc length = 251)
+        // 0 days = 251 offset, 180+ days = 0 offset
+        if (horizonArc) {
+          const ratio = Math.min(Math.max(rawDays / 180, 0), 1);
+          const offset = 251 - (ratio * 251);
+          horizonArc.style.strokeDashoffset = offset;
+        }
+
+        // Solvency Status Badge
+        if (solvencyBadge) {
+          if (rawDays < 35) {
+            solvencyBadge.textContent = 'CONTRACTION ALERT';
+            solvencyBadge.className = 'px-2.5 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-400 font-mono text-[10px]';
+          } else if (rawDays < 75) {
+            solvencyBadge.textContent = 'STABLE BUFFER';
+            solvencyBadge.className = 'px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 font-mono text-[10px]';
+          } else {
+            solvencyBadge.textContent = 'SOVEREIGN SURPLUS';
+            solvencyBadge.className = 'px-2.5 py-0.5 rounded-full bg-mint/15 border border-mint/30 text-mint font-mono text-[10px]';
+          }
+        }
+
+        // Projected Date
+        if (runwayDateStr) {
+          const proj = new Date();
+          proj.setDate(proj.getDate() + totalDays);
+          const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+          runwayDateStr.textContent = `${months[proj.getMonth()]} ${proj.getDate()}, ${proj.getFullYear()}`;
+        }
+      }
+
+      window.nudgeBurn = function(delta) {
+        if (!burnSlider) return;
+        burnSlider.value = Math.min(Math.max(parseFloat(burnSlider.value) + delta, 2000), 25000);
+        updateRunway();
+      };
+
+      window.nudgeBank = function(delta) {
+        if (!bankSlider) return;
+        bankSlider.value = Math.min(Math.max(parseFloat(bankSlider.value) + delta, 5000), 100000);
+        updateRunway();
+      };
+
+      window.setRunwayPreset = function(burn, bank, btn) {
+        if (burnSlider) burnSlider.value = burn;
+        if (bankSlider) bankSlider.value = bank;
+        document.querySelectorAll('.preset-btn').forEach(b => {
+          b.className = 'preset-btn px-3 py-1.5 rounded-full bg-surface-charcoal hover:bg-surface-elevated border border-border-line text-ink-dim hover:text-ink font-mono text-[11px] transition-all flex items-center gap-1.5 cursor-pointer shadow-sm';
+        });
+        if (btn) {
+          btn.className = 'preset-btn px-3 py-1.5 rounded-full bg-surface-elevated border border-mint/40 text-mint font-mono text-[11px] font-semibold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm';
+        }
+        updateRunway();
+      };
+
+      if (burnSlider && bankSlider) {
+        burnSlider.addEventListener('input', updateRunway);
+        bankSlider.addEventListener('input', updateRunway);
+        updateRunway(); // Initialize starting values on load
+      }
+
+      // 6. Pricing Toggle
+      const btnMonthly = document.getElementById('btn-monthly');
+      const btnAnnual = document.getElementById('btn-annual');
+      const pricePro = document.getElementById('price-pro');
+
+      if (btnMonthly && btnAnnual) {
+        btnMonthly.addEventListener('click', () => {
+          btnMonthly.classList.add('bg-surface-elevated', 'text-ink');
+          btnMonthly.classList.remove('text-ink-dim');
+          btnAnnual.classList.remove('bg-surface-elevated', 'text-ink');
+          btnAnnual.classList.add('text-ink-dim');
+          if (pricePro) pricePro.textContent = '$19';
+        });
+
+        btnAnnual.addEventListener('click', () => {
+          btnAnnual.classList.add('bg-surface-elevated', 'text-ink');
+          btnAnnual.classList.remove('text-ink-dim');
+          btnMonthly.classList.remove('bg-surface-elevated', 'text-ink');
+          btnMonthly.classList.add('text-ink-dim');
+          if (pricePro) pricePro.textContent = '$15';
+        });
+      }
+
+      // 7. Autonomous Cockpit Dynamic Control System
+      window.setCockpitScenario = function(mode) {
+        const runwayStat = document.getElementById('runway-stat-num');
+        const runwayBadge = document.getElementById('runway-badge');
+        const safeLiq = document.getElementById('safe-liquidity-num');
+        const riskStatus = document.getElementById('risk-status-text');
+        const burnVelocity = document.getElementById('burn-velocity-text');
+        const safeSpend = document.getElementById('safe-spend-text');
+        const taxVault = document.getElementById('tax-vault-text');
+        const gauge = document.getElementById('cockpit-gauge');
+
+        const btnWorst = document.getElementById('btn-scen-worst');
+        const btnCurrent = document.getElementById('btn-scen-current');
+        const btnBoosted = document.getElementById('btn-scen-boosted');
+
+        // Reset button states
+        [btnWorst, btnCurrent, btnBoosted].forEach(b => {
+          if (b) {
+            b.className = 'py-1 px-1.5 rounded text-ink-dim hover:text-ink transition-all text-center';
+          }
+        });
+
+        if (mode === 'worst') {
+          if (btnWorst) btnWorst.className = 'py-1 px-1.5 rounded bg-surface-elevated text-amber-400 font-semibold border border-amber-500/30 transition-all text-center shadow-sm';
+          if (runwayStat) runwayStat.textContent = '62.1';
+          if (runwayBadge) {
+            runwayBadge.textContent = 'Contraction Alert (-36d)';
+            runwayBadge.className = 'px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 font-mono text-[11px] transition-colors';
+          }
+          if (safeLiq) safeLiq.textContent = '$27,150';
+          if (riskStatus) {
+            riskStatus.textContent = 'Moderate Contraction Risk';
+            riskStatus.className = 'font-mono text-[11px] text-amber-400 mt-0.5';
+          }
+          if (burnVelocity) burnVelocity.textContent = '$540.00 / day (+40%)';
+          if (safeSpend) safeSpend.textContent = '$1,850.00 / mo';
+          if (taxVault) taxVault.textContent = '$3,420.00 Shielded';
+          if (gauge) {
+            gauge.style.strokeDashoffset = '135';
+            gauge.style.stroke = '#fbbf24';
+          }
+        } else if (mode === 'boosted') {
+          if (btnBoosted) btnBoosted.className = 'py-1 px-1.5 rounded bg-surface-elevated text-mint font-semibold border border-mint/30 transition-all text-center shadow-sm';
+          if (runwayStat) runwayStat.textContent = '124.6';
+          if (runwayBadge) {
+            runwayBadge.textContent = '+44d Expansion Cushion';
+            runwayBadge.className = 'px-2.5 py-0.5 rounded-full bg-mint/15 border border-mint/30 text-mint font-mono text-[11px] transition-colors';
+          }
+          if (safeLiq) safeLiq.textContent = '$48,200';
+          if (riskStatus) {
+            riskStatus.textContent = 'Ultra-Insulated // Surplus Active';
+            riskStatus.className = 'font-mono text-[11px] text-mint mt-0.5';
+          }
+          if (burnVelocity) burnVelocity.textContent = '$310.00 / day (-20%)';
+          if (safeSpend) safeSpend.textContent = '$6,480.00 / mo';
+          if (taxVault) taxVault.textContent = '$6,150.00 Locked';
+          if (gauge) {
+            gauge.style.strokeDashoffset = '20';
+            gauge.style.stroke = 'url(#runwayGaugeGrad)';
+          }
+        } else {
+          // Current (98d default)
+          if (btnCurrent) btnCurrent.className = 'py-1 px-1.5 rounded bg-surface-elevated text-mint font-semibold border border-mint/20 transition-all text-center shadow-sm';
+          if (runwayStat) runwayStat.textContent = '98.4';
+          if (runwayBadge) {
+            runwayBadge.textContent = '+18d vs last mo';
+            runwayBadge.className = 'px-2.5 py-0.5 rounded-full bg-mint/10 border border-mint/20 text-mint font-mono text-[11px] transition-colors';
+          }
+          if (safeLiq) safeLiq.textContent = '$38,420';
+          if (riskStatus) {
+            riskStatus.textContent = 'Low Risk // Protected';
+            riskStatus.className = 'font-mono text-[11px] text-mint mt-0.5';
+          }
+          if (burnVelocity) burnVelocity.textContent = '$385.00 / day';
+          if (safeSpend) safeSpend.textContent = '$4,120.00 / mo';
+          if (taxVault) taxVault.textContent = '$4,960.00 Locked';
+          if (gauge) {
+            gauge.style.strokeDashoffset = '60';
+            gauge.style.stroke = 'url(#runwayGaugeGrad)';
+          }
+        }
+      };
+
+      // Forecast Chart Filter Pills
+      window.setChartFilter = function(filter) {
+        const btnAll = document.getElementById('btn-filter-all');
+        const btnMilestones = document.getElementById('btn-filter-milestones');
+        const btnShield = document.getElementById('btn-filter-shield');
+
+        [btnAll, btnMilestones, btnShield].forEach(b => {
+          if (b) b.className = 'px-2.5 py-1 rounded text-ink-dim hover:text-ink transition-all';
+        });
+
+        const chartLine = document.getElementById('svg-chart-line');
+        const chartArea = document.getElementById('svg-chart-area');
+
+        if (filter === 'milestones') {
+          if (btnMilestones) btnMilestones.className = 'px-2.5 py-1 rounded bg-surface-elevated text-ink font-semibold border border-border-line transition-all';
+          if (chartLine) chartLine.setAttribute('d', 'M0,110 C60,110 80,95 120,95 C180,95 200,65 240,65 C320,65 420,50 490,45 C540,45 560,20 600,20');
+          if (chartArea) chartArea.setAttribute('points', '0,110 120,95 240,65 490,45 600,20 600,195 0,195');
+          window.showMilestone('Day 30 Milestone', '+$8,200', 'Acme Labs WhatsApp Chaser Automated Settlement', 'Agent: The Chaser', 'RECOVERED (96%)', '#4edea3');
+        } else if (filter === 'shield') {
+          if (btnShield) btnShield.className = 'px-2.5 py-1 rounded bg-surface-elevated text-ink font-semibold border border-border-line transition-all';
+          if (chartLine) chartLine.setAttribute('d', 'M0,130 C100,130 180,120 240,115 C320,115 360,95 380,85 C450,85 520,70 600,60');
+          if (chartArea) chartArea.setAttribute('points', '0,130 240,115 380,85 600,60 600,195 0,195');
+          window.showMilestone('Day 45 Milestone', '-$3,850', 'Tax Allocator Partition Sweep into Sovereign Vault', 'Agent: Tax Allocator', 'TAX SHIELDED', '#a9a5ff');
+        } else {
+          // All
+          if (btnAll) btnAll.className = 'px-2.5 py-1 rounded bg-surface-elevated text-ink font-semibold border border-border-line transition-all';
+          if (chartLine) chartLine.setAttribute('d', 'M0,110 C60,110 80,95 120,95 C180,95 200,65 240,65 C300,65 340,85 380,85 C430,85 450,45 490,45 C540,45 560,20 600,20');
+          if (chartArea) chartArea.setAttribute('points', '0,110 120,95 240,65 380,85 490,45 600,20 600,195 0,195');
+          window.showMilestone('Day 30 Milestone', '+$8,200', 'Acme Labs WhatsApp Chaser Automated Settlement', 'Agent: The Chaser', 'RECOVERED (96%)', '#4edea3');
+        }
+      };
+
+      // Milestone HUD Tooltip Dynamic Updater
+      window.showMilestone = function(day, val, desc, agent, status, color) {
+        const hudDay = document.getElementById('hud-day');
+        const hudStatus = document.getElementById('hud-status');
+        const hudDesc = document.getElementById('hud-desc');
+        const hudVal = document.getElementById('hud-val');
+        const hudAgent = document.getElementById('hud-agent');
+
+        if (hudDay) hudDay.textContent = `${day}:`;
+        if (hudStatus) {
+          hudStatus.textContent = status || 'ACTIVE';
+          hudStatus.style.color = color || '#4edea3';
+        }
+        if (hudDesc) hudDesc.textContent = desc;
+        if (hudVal) {
+          hudVal.textContent = val;
+          hudVal.style.color = color || '#4edea3';
+        }
+        if (hudAgent) hudAgent.textContent = agent || 'Agent: GigPulse Engine';
+      };
+
+      // Live Chaser Simulator Action
+      window.triggerLiveChaserPing = function() {
+        const stream = document.getElementById('live-agent-stream');
+        const drawer = document.getElementById('cockpit-logs-drawer');
+        const chevron = document.getElementById('log-chevron');
+
+        const now = new Date();
+        const timeStr = [now.getHours(), now.getMinutes(), now.getSeconds()].map(n => String(n).padStart(2, '0')).join(':');
+
+        if (stream) {
+          stream.innerHTML = `<span class="text-mint font-semibold animate-pulse">[${timeStr} DISPATCHED]</span> Sent WhatsApp settlement nudge for <span class="text-signal font-mono">Inv #1094 ($4,200)</span>. Live telemetry sync verified.`;
+        }
+
+        if (drawer) {
+          drawer.classList.remove('hidden');
+          if (chevron) chevron.style.transform = 'rotate(180deg)';
+          const newEntry = document.createElement('div');
+          newEntry.className = 'flex items-center justify-between bg-mint/10 p-2.5 rounded border border-mint/30 transition-all';
+          newEntry.innerHTML = `
+            <span class="text-mint font-semibold">[${timeStr}] GP-CHASER: Live WhatsApp Business API ping dispatched to client counterparty</span>
+            <span class="text-mint font-bold">SENT NOW</span>
+          `;
+          drawer.prepend(newEntry);
+        }
+      };
+
+      window.toggleCockpitLogs = function() {
+        const drawer = document.getElementById('cockpit-logs-drawer');
+        const chevron = document.getElementById('log-chevron');
+        if (!drawer) return;
+        const isHidden = drawer.classList.contains('hidden');
+        if (isHidden) {
+          drawer.classList.remove('hidden');
+          if (chevron) chevron.style.transform = 'rotate(180deg)';
+        } else {
+          drawer.classList.add('hidden');
+          if (chevron) chevron.style.transform = 'rotate(0deg)';
+        }
+      };
+
+      // Smart Scroll-Aware Frosted Glass Header
+      const globalHeader = document.querySelector('header');
+      window.addEventListener('scroll', () => {
+        if (!globalHeader) return;
+        if (window.scrollY > 40) {
+          globalHeader.classList.add('scrolled');
+        } else {
+          globalHeader.classList.remove('scrolled');
+        }
+      }, { passive: true });
+
+      // 8. GrowthSphere Style Interactive 6-Agent Slider Engine
+      const GIGPULSE_AGENTS = [
+        {
+          t: 'The Sentinel',
+          d: 'Monitors burn velocity, recurring overhead, and cash reserves 24/7. Calibrates safe runway cushions and warns you 45 days before any liquidity dip.',
+          l: [
+            '98-day safe runway tracking',
+            '45-day burn contraction alerts',
+            'Automated SaaS & expense audit',
+            'Safe daily spending buffer'
+          ],
+          m: ['Runway Radar', 'Autonomous']
+        },
+        {
+          t: 'The Chaser',
+          d: 'Autonomous milestone settlement recovery across WhatsApp, iMessage, and email. Executes polite, escalating check-ins with zero awkward friction.',
+          l: [
+            'Multi-channel WhatsApp recovery',
+            '3-tier polite settlement sync',
+            'Client payment habit tracking',
+            'Instant Stripe / Wise links'
+          ],
+          m: ['Recovery', 'WhatsApp API']
+        },
+        {
+          t: 'The Underwriter',
+          d: 'Pre-qualifies client counterparty solvency (Grade A+ to D) using corporate filings and payment history before you sign or deliver work.',
+          l: [
+            'Corporate solvency grading',
+            'Net-terms risk evaluation',
+            'Payout velocity telemetry',
+            'Upfront deposit requirement'
+          ],
+          m: ['Solvency', 'Deposit Shield']
+        },
+        {
+          t: 'Pulse Conductor',
+          d: 'Unlocks verified, approved milestone invoices with instant cash advances at a flat 1.5% fee. No predatory debt, personal guarantees, or liens.',
+          l: [
+            'Same-day milestone advance',
+            'Flat 1.5% advance fee',
+            'Zero personal guarantees',
+            'Automated bank settlement'
+          ],
+          m: ['Factoring', 'Instant Cash']
+        },
+        {
+          t: 'Escrow Conductor',
+          d: 'Locks upfront client deposits in non-custodial smart escrow before work begins. Automatically disburses funds the moment staging work is verified.',
+          l: [
+            'Non-custodial milestone vault',
+            'Instant staging verification release',
+            'Single-click client approval',
+            'Zero-chargeback protection'
+          ],
+          m: ['Smart Escrow', '0% Chargeback']
+        },
+        {
+          t: 'Tax Allocator',
+          d: 'Automatically skims and partitions tax reserves from incoming payments into an isolated vault, eliminating quarterly surprise tax bills.',
+          l: [
+            'Instant 25%–35% tax sweeping',
+            'Isolated reserve vaulting',
+            'Quarterly tax preparation logs',
+            'Real-time take-home calculation'
+          ],
+          m: ['Tax Shield', 'Autonomous']
+        }
+      ];
+
+      function initAgentSlider() {
+        const svcTrack = document.getElementById('svcTrack');
+        const prevBtn = document.getElementById('svcPrev');
+        const nextBtn = document.getElementById('svcNext');
+        if (!svcTrack) return;
+
+        svcTrack.innerHTML = GIGPULSE_AGENTS.map((a, i) => {
+          const num = String(i + 1).padStart(2, '0');
+          return `
+            <article class="svc-card ${i === 0 ? 'active' : ''}" role="button" tabindex="0" aria-label="${a.t}" data-index="${i}">
+              <div class="svc-layer svc-collapsed">
+                <div class="svc-top">
+                  <span class="svc-num">${num}</span>
+                  <span class="svc-arrow" aria-hidden="true">&#8599;</span>
+                </div>
+                <h3 class="svc-mini-title">${a.t}</h3>
+                <div class="dots" aria-hidden="true"></div>
+              </div>
+              <div class="svc-layer svc-expanded">
+                <div class="svc-top">
+                  <h3>${a.t}</h3>
+                  <span class="svc-arrow" aria-hidden="true">&#8599;</span>
+                </div>
+                <p class="svc-desc">${a.d}</p>
+                <div class="svc-cols">
+                  <div>
+                    <h4>What it does</h4>
+                    <ul>
+                      ${a.l.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Mode</h4>
+                    <div>
+                      ${a.m.map(chip => `<span class="svc-chip">${chip}</span>`).join('')}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        const svcCards = [...svcTrack.children];
+        let svcActive = 0, dragStart = 0, dragBase = 0, dragDelta = 0, dragging = false;
+        const SVC_GAP = 24;
+
+        const cardW = () => (svcCards[0] ? svcCards[0].getBoundingClientRect().width : 390);
+        const offsetFor = i => -i * (cardW() + SVC_GAP);
+
+        function setActive(i) {
+          svcActive = Math.max(0, Math.min(svcCards.length - 1, i));
+          svcCards.forEach((c, idx) => {
+            c.classList.toggle('active', idx === svcActive);
+            c.classList.toggle('passed', idx < svcActive);
+          });
+          svcTrack.style.transform = `translateX(${offsetFor(svcActive)}px)`;
+          if (prevBtn) prevBtn.disabled = svcActive === 0;
+          if (nextBtn) nextBtn.disabled = svcActive === svcCards.length - 1;
+        }
+
+        svcCards.forEach((c, i) => {
+          c.addEventListener('click', () => {
+            if (Math.abs(dragDelta) < 8) setActive(i);
+          });
+          c.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setActive(i);
+            }
+          });
+        });
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            setActive(svcActive - 1);
+          });
+        }
+        if (nextBtn) {
+          nextBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            setActive(svcActive + 1);
+          });
+        }
+
+        svcTrack.addEventListener('pointerdown', e => {
+          dragging = true;
+          dragDelta = 0;
+          dragStart = e.clientX;
+          dragBase = offsetFor(svcActive);
+          svcTrack.classList.add('dragging');
+          if (svcTrack.setPointerCapture) svcTrack.setPointerCapture(e.pointerId);
+        });
+
+        svcTrack.addEventListener('pointermove', e => {
+          if (!dragging) return;
+          dragDelta = e.clientX - dragStart;
+          svcTrack.style.transform = `translateX(${dragBase + dragDelta}px)`;
+        });
+
+        function svcEndDrag() {
+          if (!dragging) return;
+          dragging = false;
+          svcTrack.classList.remove('dragging');
+          if (dragDelta < -60) setActive(svcActive + 1);
+          else if (dragDelta > 60) setActive(svcActive - 1);
+          else setActive(svcActive);
+          setTimeout(() => { dragDelta = 0; }, 50);
+        }
+
+        svcTrack.addEventListener('pointerup', svcEndDrag);
+        svcTrack.addEventListener('pointercancel', svcEndDrag);
+
+        // Touchpad / horizontal mouse wheel scroll
+        let wheelAcc = 0, wheelLock = false, wheelTimer = null;
+        const sliderEl = svcTrack.closest('.svc-slider');
+        if (sliderEl) {
+          sliderEl.addEventListener('wheel', e => {
+            if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+            e.preventDefault();
+            if (wheelLock) return;
+            wheelAcc += e.deltaX;
+            clearTimeout(wheelTimer);
+            wheelTimer = setTimeout(() => { wheelAcc = 0; }, 200);
+            if (Math.abs(wheelAcc) > 80) {
+              setActive(svcActive + (wheelAcc > 0 ? 1 : -1));
+              wheelAcc = 0;
+              wheelLock = true;
+              setTimeout(() => { wheelLock = false; }, 550);
+            }
+          }, { passive: false });
+        }
+
+        window.addEventListener('resize', () => setActive(svcActive));
+        setActive(0);
+      }
+
+      // 9. Sticky 3D Particle Visual Canvas on the Left
+      function initCubeCanvas() {
+        const cubeCanvas = document.getElementById('cubeCanvas');
+        if (!cubeCanvas) return;
+        const cctx = cubeCanvas.getContext('2d');
+        if (!cctx) return;
+
+        let CW = 0, CH = 0;
+        function sizeCube() {
+          const r = cubeCanvas.getBoundingClientRect();
+          CW = cubeCanvas.width = Math.max(1, Math.round(r.width * (window.devicePixelRatio || 1)));
+          CH = cubeCanvas.height = Math.max(1, Math.round(r.height * (window.devicePixelRatio || 1)));
+        }
+        sizeCube();
+        window.addEventListener('resize', sizeCube);
+
+        const cubePts = [];
+        for (let i = 0; i < 900; i++) {
+          const face = i % 6, axis = face >> 1, sign = (face & 1) ? 1 : -1;
+          let u = Math.random() * 2 - 1, v = Math.random() * 2 - 1;
+          u = Math.sign(u) * Math.pow(Math.abs(u), 0.55);
+          v = Math.sign(v) * Math.pow(Math.abs(v), 0.55);
+          const p = [0, 0, 0];
+          p[axis] = sign * (1 + (Math.random() - 0.5) * 0.06);
+          p[(axis + 1) % 3] = u;
+          p[(axis + 2) % 3] = v;
+          cubePts.push({ x: p[0], y: p[1], z: p[2], s: 0.5 + Math.random() * 1.4, tw: Math.random() * Math.PI * 2 });
+        }
+
+        let cubeRot = 0, cmx = 0, cmy = 0, scmx = 0, scmy = 0;
+        window.addEventListener('pointermove', e => {
+          cmx = (e.clientX / window.innerWidth - 0.5);
+          cmy = (e.clientY / window.innerHeight - 0.5);
+        }, { passive: true });
+
+        function drawCube(t) {
+          if (!CW || !CH) {
+            requestAnimationFrame(drawCube);
+            return;
+          }
+          cctx.clearRect(0, 0, CW, CH);
+          scmx += (cmx - scmx) * 0.04;
+          scmy += (cmy - scmy) * 0.04;
+          cubeRot += 0.0028;
+          const ry = cubeRot + scmx * 0.8, rx = 0.42 + scmy * 0.5;
+          const sy = Math.sin(ry), cy2 = Math.cos(ry), sx = Math.sin(rx), cx3 = Math.cos(rx);
+          const scale = Math.min(CW, CH) * 0.30, ox = CW / 2, oy = CH / 2;
+
+          for (const p of cubePts) {
+            const x1 = p.x * cy2 + p.z * sy;
+            const z1 = -p.x * sy + p.z * cy2;
+            const y1 = p.y * cx3 - z1 * sx;
+            const z2 = p.y * sx + z1 * cx3;
+            const persp = 2.8 / (2.8 + z2);
+            const px = ox + x1 * scale * persp;
+            const py = oy + y1 * scale * persp;
+            const depth = (z2 + 1.4) / 2.8;
+            const twinkle = 0.55 + 0.45 * Math.sin(t * 0.0016 + p.tw);
+            cctx.globalAlpha = Math.max(0.05, (1 - depth) * 0.9) * twinkle;
+            const sz = p.s * persp * (window.devicePixelRatio || 1);
+            cctx.fillStyle = depth < 0.45 ? '#ffffff' : '#a9a5ff';
+            cctx.beginPath();
+            cctx.arc(px, py, sz, 0, Math.PI * 2);
+            cctx.fill();
+          }
+          cctx.globalAlpha = 1;
+          requestAnimationFrame(drawCube);
+        }
+        requestAnimationFrame(drawCube);
+      }
+
+      // 9. Noema Signature Selected Coordinates Navigation Drawer Logic
+      window.openNoemaNav = function() {
+        const overlay = document.getElementById('noemaNavOverlay');
+        if (!overlay) return;
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closeNoemaNav = function() {
+        const overlay = document.getElementById('noemaNavOverlay');
+        if (!overlay) return;
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      };
+
+      const noemaTrigger = document.getElementById('noemaMenuTrigger');
+      if (noemaTrigger) {
+        noemaTrigger.addEventListener('click', window.openNoemaNav);
+      }
+
+      const noemaCloseBtn = document.getElementById('noemaNavClose');
+      if (noemaCloseBtn) {
+        noemaCloseBtn.addEventListener('click', window.closeNoemaNav);
+      }
+
+      // Close on Escape key press
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          window.closeNoemaNav();
+        }
+      });
+
+      // 10. Noema 08 / Collective Field ScrollTrigger Animation (1:1 Match)
+      function initCollectiveField() {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+        gsap.registerPlugin(ScrollTrigger);
+
+        const pinEl = document.querySelector('.collective__pin');
+        if (!pinEl) return;
+
+        const syncVal = { value: 0 };
+        const counterEl = document.querySelector('.collective__counter');
+
+        if (window.innerWidth >= 768) {
+          const collectiveTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: '.collective__pin',
+              start: 'top top',
+              end: '+=180%',
+              pin: true,
+              scrub: 1,
+              anticipatePin: 1,
+            },
+          });
+
+          collectiveTl
+            .fromTo('.collective__image', 
+              { clipPath: 'circle(38% at 50% 50%)', filter: 'brightness(0.85) saturate(0.95)', scale: 1 },
+              { clipPath: 'circle(75% at 50% 50%)', filter: 'brightness(1) saturate(1.05)', scale: 1.04, duration: 1.1, ease: 'none' }, 0)
+            .to('.collective__halo', { rotate: 120, scale: 1.18, duration: 1.8, ease: 'none' }, 0)
+            .to(syncVal, {
+              value: 98.4,
+              duration: 1.6,
+              ease: 'none',
+              onUpdate: () => {
+                if (counterEl) {
+                  counterEl.textContent = `Node sync / ${syncVal.value.toFixed(1)}%`;
+                }
+              },
+            }, 0)
+            .fromTo('.collective__title span:nth-child(1)', { opacity: 0.15, y: 15 }, { opacity: 1, y: 0, duration: 0.35 }, 0.2)
+            .fromTo('.collective__title span:nth-child(2)', { opacity: 0.15, y: 15 }, { opacity: 1, y: 0, duration: 0.35 }, 0.55)
+            .fromTo('.collective__title span:nth-child(3)', { opacity: 0.15, y: 15 }, { opacity: 1, y: 0, duration: 0.35 }, 0.9);
+        } else {
+          gsap.fromTo('.collective__image',
+            { clipPath: 'circle(35% at 50% 50%)' },
+            {
+              clipPath: 'circle(78% at 50% 50%)',
+              filter: 'brightness(1) saturate(1)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '.collective',
+                start: 'top 80%',
+                end: 'bottom 25%',
+                scrub: true,
+              },
+            }
+          );
+          gsap.fromTo('.collective__title span',
+            { opacity: 0.3, y: 12 },
+            {
+              opacity: 1,
+              y: 0,
+              stagger: 0.15,
+              scrollTrigger: { trigger: '.collective__title', start: 'top 80%' },
+            }
+          );
+          if (counterEl) {
+            counterEl.textContent = 'Node sync / 98.4%';
+          }
+        }
+      }
+      initCollectiveField();
+    })();
+  </script>
 </body>
 </html>
