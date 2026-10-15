@@ -40,6 +40,6 @@ STITCH_GROWTHSPHERE_PROMPTS.md
 # External Scraping & Unused Large Bundles
 noema_main.js
 noema_raw.html
-noema_*
-**/noema_*
-**/assets/noema_*
+noema_theme_preview.html
+!assets/noema_glass_flower.jpg
+!**/assets/noema_glass_flower.jpg
