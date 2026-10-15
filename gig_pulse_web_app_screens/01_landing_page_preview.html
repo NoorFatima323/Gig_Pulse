@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="assets/fonts.css" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-charcoal": "#0A0A0F", "mint-glow": "rgba(16, 185, 129, 0.28)", "inverse-on-surface": "#303036", "surface-container-high": "#2a292f", "on-primary-fixed-variant": "#3131b7", "error": "#ffb4ab", "primary-container": "#5b5ee0", "outline-variant": "#464554", "surface-container-lowest": "#0e0e13", "primary": "#c0c1ff", "iris-deep": "#3F3CB8", "outline": "#908fa0", "error-container": "#93000a", "on-secondary-container": "#00311f", "secondary-container": "#00a572", "on-tertiary-fixed-variant": "#920028", "text-muted": "#525266", "text-secondary": "#9494A8", "on-tertiary-fixed": "#40000c", "border-iris-active": "rgba(91, 94, 224, 0.40)", "surface": "#131318", "on-tertiary": "#68001a", "secondary": "#4edea3", "primary-fixed": "#e1e0ff", "surface-container": "#1f1f25", "canvas-void": "#020202", "on-tertiary-container": "#ffefee", "surface-dim": "#131318", "tertiary-container": "#d91443", "on-primary-fixed": "#06006c", "on-error": "#690005", "iris-soft": "#7B78F2", "background": "#131318", "tertiary-fixed-dim": "#ffb3b6", "surface-hover": "#171722", "on-secondary-fixed-variant": "#005236", "mint-subtle": "rgba(16, 185, 129, 0.12)", "surface-tint": "#c0c1ff", "on-error-container": "#ffdad6", "inverse-surface": "#e4e1e9", "border-illuminated": "#33334A", "on-primary": "#140ba2", "on-secondary": "#003824", "on-surface-variant": "#c7c5d6", "tertiary": "#ffb3b6", "crimson-subtle": "rgba(225, 29, 72, 0.12)", "secondary-fixed-dim": "#4edea3", "tertiary-fixed": "#ffdada", "on-surface": "#e4e1e9", "on-primary-container": "#f3f0ff", "crimson-glow": "rgba(225, 29, 72, 0.28)", "primary-fixed-dim": "#c0c1ff", "border-slate": "#1D1D24", "secondary-fixed": "#6ffbbe", "surface-elevated": "#12121A", "on-secondary-fixed": "#002113", "on-background": "#e4e1e9", "inverse-primary": "#4a4dcf", "surface-bright": "#39383e", "text-primary": "#FFFFFF", "surface-container-low": "#1b1b20", "surface-variant": "#35343a", "surface-container-highest": "#35343a" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-sm": "0.5rem", "space-xl": "2.5rem", "margin": "2.5rem", "gutter-mobile": "0.75rem", "gutter": "1.5rem", "margin-mobile": "1rem", "space-lg": "1.5rem", "space-md": "1rem" }, "fontFamily": { "telemetry-hero": [ "JetBrains Mono" ], "headline-lg": [ "Plus Jakarta Sans" ], "body-lg": [ "Plus Jakarta Sans" ], "telemetry-lg": [ "JetBrains Mono" ], "body-sm": [ "Plus Jakarta Sans" ], "title-card": [ "Plus Jakarta Sans" ], "body-md": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "eyebrow-caps": [ "JetBrains Mono" ], "telemetry-sm": [ "JetBrains Mono" ], "display-hero-mobile": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "display-hero": [ "Plus Jakarta Sans" ], "telemetry-md": [ "JetBrains Mono" ] }, "fontSize": { "telemetry-hero": [ "44px", { "lineHeight": "48px", "letterSpacing": "-0.04em", "fontWeight": "600" } ], "headline-lg": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "300" } ], "body-lg": [ "16px", { "lineHeight": "26px", "letterSpacing": "0.00em", "fontWeight": "400" } ], "telemetry-lg": [ "28px", { "lineHeight": "34px", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "body-sm": [ "12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "title-card": [ "16px", { "lineHeight": "24px", "letterSpacing": "0.00em", "fontWeight": "600" } ], "body-md": [ "14px", { "lineHeight": "22px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "headline-md": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "eyebrow-caps": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.25em", "fontWeight": "600" } ], "telemetry-sm": [ "13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" } ], "display-hero-mobile": [ "34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "300" } ], "headline-lg-mobile": [ "26px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "300" } ], "display-hero": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "300" } ], "telemetry-md": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "500" } ] } } } };</script></link><style>html,body{min-height:1024px}</style></head><body class="bg-canvas-void font-body-md text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container"><main class="relative z-10 w-full min-h-screen bg-canvas-void"><div class="flex flex-col w-full text-on-surface">
+<!-- Sticky Glassmorphic Header -->
+<header class="sticky top-0 z-50 w-full backdrop-blur-xl bg-surface-charcoal/85 border-b border-border-slate">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<!-- Left: Logo & Subtext -->
+<a class="flex items-center gap-3 group" href="#hero">
+<div class="relative w-10 h-10 rounded-xl bg-surface-elevated border border-border-slate flex items-center justify-center p-1.5 shadow-sm group-hover:border-iris-soft/40 transition-colors">
+<img alt="GigPulse Autonomous OS Icon" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Vv9jqU5sXyDV6c9T04gMS_tN8hmdH4qHe53molf_QxoHoKTYKVTCFWtp742O7ZKRqHthqWcWNK6888iGyTDVdTCWFgC5AkomqIVHzB2RY-yoB_PKrf2t1xxVtsfVoPMMtEUmLM6Rn-fl5NrBySAGNuiMgioLeFv0tsWaiUR92UW9a_DDQ76EI1e1EieMhqr_xtYnUf6biSJDpbkr-aihJ15GtaiZAay6-dVg8NSifSID9hjtvRtbIUF66G"/>
+<span class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-secondary shadow-[0_0_8px_#4edea3]"></span>
+</div>
+<div class="flex flex-col">
+<span class="font-telemetry-md text-telemetry-md text-text-primary tracking-tight font-bold flex items-center gap-1.5">
+            GIGPULSE
+            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-primary-container/20 text-primary border border-primary-container/30 uppercase tracking-widest font-mono">v2.4</span>
+</span>
+<span class="font-eyebrow-caps text-eyebrow-caps text-text-muted">AUTONOMOUS FINANCIAL OS</span>
+</div>
+</a>
+<!-- Center: Desktop Nav -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-body-md text-body-md text-text-secondary hover:text-text-primary transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-primary-container hover:after:w-full after:transition-all" href="#features">Features</a>
+<a class="font-body-md text-body-md text-text-secondary hover:text-text-primary transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-primary-container hover:after:w-full after:transition-all" href="#how-it-works">How It Works</a>
+<a class="font-body-md text-body-md text-text-secondary hover:text-text-primary transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-primary-container hover:after:w-full after:transition-all" href="#agents">Agents</a>
+<a class="font-body-md text-body-md text-text-secondary hover:text-text-primary transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-primary-container hover:after:w-full after:transition-all" href="#pricing">Pricing</a>
+<a class="font-body-md text-body-md text-text-secondary hover:text-text-primary transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-primary-container hover:after:w-full after:transition-all" href="#testimonials">Testimonials</a>
+</nav>
+<!-- Right: Telemetry Badge & Pill Button -->
+<div class="flex items-center gap-3">
+<div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-mint-subtle border border-secondary/30 text-secondary font-telemetry-sm text-telemetry-sm">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>98d Runway Active</span>
+</div>
+<a class="group relative inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full bg-gradient-to-r from-primary-container to-iris-deep hover:shadow-[0_0_24px_rgba(91,94,224,0.45)] transition-all duration-300" href="#demo">
+<span class="font-title-card text-title-card text-text-primary font-semibold">Launch Live App</span>
+<span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-text-primary group-hover:rotate-45 transition-transform duration-300">
+<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+</span>
+</a>
+</div>
+</div>
+</header>
+<!-- Ambient Glow Backgrounds -->
+<div class="relative w-full overflow-hidden">
+<div class="pointer-events-none absolute top-12 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-primary-container/15 blur-[120px] rounded-full"></div>
+<div class="pointer-events-none absolute top-[900px] right-0 w-[500px] h-[500px] bg-secondary-container/10 blur-[140px] rounded-full"></div>
+<div class="pointer-events-none absolute top-[2200px] left-0 w-[600px] h-[600px] bg-iris-deep/15 blur-[160px] rounded-full"></div>
+<!-- Hero Section -->
+<section class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-20 flex flex-col items-center text-center" id="hero">
+<!-- Eyebrow Pill -->
+<div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface-elevated border border-border-slate shadow-sm mb-8">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-eyebrow-caps text-eyebrow-caps text-iris-soft uppercase tracking-[0.25em]">
+          Replace Invoice Anxiety With Autonomous Financial Intelligence
+        </span>
+</div>
+<!-- Massive Headline with Dual-Weight -->
+<h1 class="font-display-hero text-[40px] leading-[48px] sm:text-display-hero max-w-5xl text-text-primary mb-6">
+        Never Run Out of Cash. <br class="hidden sm:inline"/>
+<span class="font-extrabold italic bg-clip-text text-transparent bg-gradient-to-r from-text-primary via-primary to-iris-soft">
+          The Autonomous Financial OS
+        </span>
+        for Independent Founders.
+      </h1>
+<!-- Subheadline -->
+<p class="font-body-lg text-body-lg text-text-secondary max-w-3xl mb-10">
+        GigPulse deploys 4 autonomous AI agents that predict cash flow gaps, secure upfront deposits, and chase overdue invoices automatically — without awkward client emails.
+      </p>
+<!-- Action Cluster -->
+<div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-16">
+<a class="w-full sm:w-auto group relative inline-flex items-center justify-center gap-3 pl-6 pr-2.5 py-3 rounded-full bg-gradient-to-r from-primary-container to-iris-deep hover:shadow-[0_0_28px_rgba(91,94,224,0.55)] transition-all duration-300" href="#pricing">
+<span class="font-title-card text-title-card text-text-primary">Launch Live Demo</span>
+<span class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-text-primary group-hover:rotate-45 transition-transform duration-300">
+<span class="material-symbols-outlined text-[20px]">arrow_outward</span>
+</span>
+</a>
+<button class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-surface-elevated/80 border border-border-slate hover:border-border-illuminated hover:bg-surface-hover text-text-primary transition-all" onclick="document.getElementById('video-modal').classList.remove('hidden')">
+<span class="material-symbols-outlined text-iris-soft text-[22px]">play_circle</span>
+<span class="font-title-card text-title-card">Watch 2-Min Walkthrough</span>
+</button>
+</div>
+<!-- Live Interactive Cockpit Preview Card (Hero Bento Anchor) -->
+<div class="w-full rounded-2xl bg-surface-charcoal border border-border-slate p-4 sm:p-6 md:p-8 relative shadow-2xl overflow-hidden backdrop-blur-xl group hover:border-border-iris-active transition-all duration-500">
+<!-- Radial Corner Dot Matrix -->
+<div class="absolute bottom-4 right-4 grid grid-cols-4 gap-1.5 opacity-20 pointer-events-none">
+<span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span><span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span><span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span><span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span><span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span><span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span><span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span><span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span><span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span><span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span>
+</div>
+<!-- Cockpit Header Row -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 border-b border-border-slate gap-4">
+<div class="flex items-center gap-3">
+<span class="font-telemetry-sm text-telemetry-sm text-text-muted font-mono">NODE // 0x7F2A</span>
+<span class="w-1.5 h-1.5 rounded-full bg-border-slate"></span>
+<span class="font-body-sm text-body-sm text-secondary flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+              Autonomous Shield Armed
+            </span>
+</div>
+<!-- Scenario Simulation Tabs -->
+<div class="flex items-center gap-2 p-1 rounded-full bg-surface-container-lowest border border-border-slate">
+<button class="scenario-btn px-3 py-1 rounded-full text-xs font-mono text-text-primary bg-surface-container font-semibold transition-all" id="scenario-btn-1" onclick="switchScenario(1)">Worst-Case (74d)</button>
+<button class="scenario-btn px-3 py-1 rounded-full text-xs font-mono text-text-secondary hover:text-text-primary transition-all" id="scenario-btn-2" onclick="switchScenario(2)">Current (98d)</button>
+<button class="scenario-btn px-3 py-1 rounded-full text-xs font-mono text-text-secondary hover:text-text-primary transition-all" id="scenario-btn-3" onclick="switchScenario(3)">Recovered (123d)</button>
+</div>
+</div>
+<!-- Cockpit Core Bento Display -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6 text-left">
+<!-- Left: Circular Runway Visualizer Gauge -->
+<div class="lg:col-span-7 bg-surface-elevated/70 rounded-xl p-6 border border-border-slate flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-title-card text-title-card text-text-primary">Capital Runway Forecast</span>
+<span class="text-xs font-mono px-2 py-0.5 rounded bg-primary-container/20 text-primary border border-primary/20">LIVE RADAR</span>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-6 my-6">
+<!-- SVG Ring Dial -->
+<div class="relative w-40 h-40 flex items-center justify-center shrink-0">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 120 120">
+<circle cx="60" cy="60" fill="transparent" r="50" stroke="#1D1D24" stroke-width="10"></circle>
+<circle class="transition-all duration-700" cx="60" cy="60" fill="transparent" id="runway-gauge" r="50" stroke="url(#irisMintGradient)" stroke-dasharray="314.159" stroke-dashoffset="65" stroke-linecap="round" stroke-width="10"></circle>
+<defs>
+<lineargradient id="irisMintGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#5B5EE0"></stop>
+<stop offset="100%" stop-color="#4edea3"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-telemetry-lg text-telemetry-lg text-text-primary font-bold" id="runway-metric-val">98d</span>
+<span class="font-eyebrow-caps text-eyebrow-caps text-text-muted">BUFFER</span>
+</div>
+</div>
+<!-- Stat Breakdowns -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+<div class="p-3 rounded-lg bg-surface-charcoal border border-border-slate">
+<div class="font-eyebrow-caps text-eyebrow-caps text-text-muted mb-1">MONTHLY BURN</div>
+<div class="font-telemetry-md text-telemetry-md text-text-primary font-semibold">$3,850</div>
+<div class="text-[11px] text-text-secondary mt-1">Rent &amp; Infra</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-charcoal border border-border-slate">
+<div class="font-eyebrow-caps text-eyebrow-caps text-text-muted mb-1">LIQUID VAULT</div>
+<div class="font-telemetry-md text-telemetry-md text-secondary font-semibold" id="runway-vault-val">$14,850</div>
+<div class="text-[11px] text-secondary mt-1">+12.4% MoM</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-charcoal border border-border-slate">
+<div class="font-eyebrow-caps text-eyebrow-caps text-text-muted mb-1">BUFFER FLOOR</div>
+<div class="font-telemetry-md text-telemetry-md text-primary font-semibold">+42 Days</div>
+<div class="text-[11px] text-primary mt-1">Sovereign State</div>
+</div>
+</div>
+</div>
+<!-- In-line Progress Sparkline Preview -->
+<div class="pt-4 border-t border-border-slate/60 flex items-center justify-between text-xs font-mono text-text-secondary">
+<span>Dynamic Insolvency Threshold</span>
+<span class="text-secondary font-semibold">SAFE (14.2% Above Baseline)</span>
+</div>
+</div>
+<!-- Right: Live Urgent Escalation Module -->
+<div class="lg:col-span-5 bg-surface-elevated/70 rounded-xl p-6 border border-crimson-subtle/50 relative overflow-hidden flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-1 rounded-full bg-crimson-subtle border border-tertiary-container/40 text-tertiary font-telemetry-sm text-telemetry-sm font-semibold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-ping"></span>
+                16d Overdue • Step 2 Armed
+              </span>
+<span class="font-telemetry-sm text-telemetry-sm text-text-muted">#INV-2026-085</span>
+</div>
+<div class="my-4">
+<div class="font-headline-sm text-headline-sm text-text-primary mb-1">Veloce Motors Inc.</div>
+<div class="text-text-secondary font-body-sm text-body-sm mb-3">Enterprise Redesign Sprint 2 Milestone</div>
+<div class="flex items-baseline gap-2">
+<span class="font-telemetry-lg text-telemetry-lg text-tertiary font-bold">$3,200.00</span>
+<span class="text-xs text-text-muted font-mono">(Net 14 Term Breached)</span>
+</div>
+</div>
+<!-- Multi-Agent Reasoning Strip -->
+<div class="p-3 rounded-lg bg-surface-charcoal/90 border border-border-slate mb-4">
+<div class="flex items-center gap-2 mb-1.5">
+<span class="material-symbols-outlined text-[16px] text-iris-soft">smart_toy</span>
+<span class="text-xs font-mono text-iris-soft uppercase">Agent Chaser: Autonomous Playbook</span>
+</div>
+<p class="text-xs text-text-secondary leading-relaxed">
+                Escalating tone to Executive Statement via WhatsApp + Mercury Factor Pre-approval ($3,152 available instant payout).
+              </p>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex-1 py-2.5 px-4 rounded-lg bg-gradient-to-r from-primary-container to-iris-deep hover:shadow-[0_0_16px_rgba(91,94,224,0.4)] text-text-primary font-title-card text-title-card transition-all flex items-center justify-center gap-2">
+<span>Dispatch Auto-Chase</span>
+<span class="material-symbols-outlined text-[16px]">send</span>
+</button>
+<button class="py-2.5 px-3 rounded-lg bg-surface-charcoal border border-border-slate hover:border-border-illuminated text-text-secondary hover:text-text-primary text-xs font-mono transition-all">
+                Advance Payout
+              </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Stats Strip -->
+<div class="w-full grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-12">
+<div class="p-5 rounded-xl bg-surface-charcoal/60 border border-border-slate backdrop-blur-md text-left">
+<div class="font-telemetry-lg text-telemetry-lg text-secondary font-bold mb-1">98.2%</div>
+<div class="font-title-card text-title-card text-text-primary mb-1">AI Recovery Rate</div>
+<div class="font-body-sm text-body-sm text-text-muted">Uncontested payment settlement</div>
+</div>
+<div class="p-5 rounded-xl bg-surface-charcoal/60 border border-border-slate backdrop-blur-md text-left">
+<div class="font-telemetry-lg text-telemetry-lg text-primary font-bold mb-1">3.8x</div>
+<div class="font-title-card text-title-card text-text-primary mb-1">Faster Settlement</div>
+<div class="font-body-sm text-body-sm text-text-muted">Vs 24-day standard Net-terms</div>
+</div>
+<div class="p-5 rounded-xl bg-surface-charcoal/60 border border-border-slate backdrop-blur-md text-left">
+<div class="font-telemetry-lg text-telemetry-lg text-iris-soft font-bold mb-1">0</div>
+<div class="font-title-card text-title-card text-text-primary mb-1">Awkward Conversations</div>
+<div class="font-body-sm text-body-sm text-text-muted">Complete emotional insulation</div>
+</div>
+<div class="p-5 rounded-xl bg-surface-charcoal/60 border border-border-slate backdrop-blur-md text-left">
+<div class="font-telemetry-lg text-telemetry-lg text-text-primary font-bold mb-1">$4.2M+</div>
+<div class="font-title-card text-title-card text-text-primary mb-1">Cash Flow Shielded</div>
+<div class="font-body-sm text-body-sm text-text-muted">Across independent creators</div>
+</div>
+</div>
+</section>
+<!-- Numbers Strip (Divided 4 Columns) -->
+<section class="border-y border-border-slate bg-surface-charcoal/40 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:divide-x lg:divide-border-slate">
+<div class="flex flex-col lg:pl-0">
+<span class="font-telemetry-hero text-telemetry-hero text-text-primary font-bold tracking-tight">4.8 Days</span>
+<span class="font-body-md text-body-md text-secondary mt-1 font-semibold">Average Invoice Settlement</span>
+<span class="font-body-sm text-body-sm text-text-muted mt-0.5">Freelance industry benchmark is 24.8 days.</span>
+</div>
+<div class="flex flex-col lg:pl-8">
+<span class="font-telemetry-hero text-telemetry-hero text-primary font-bold tracking-tight">98 Days</span>
+<span class="font-body-md text-body-md text-primary mt-1 font-semibold">Average Protected Runway</span>
+<span class="font-body-sm text-body-sm text-text-muted mt-0.5">Enforced reserve cushion keeps stress at zero.</span>
+</div>
+<div class="flex flex-col lg:pl-8">
+<span class="font-telemetry-hero text-telemetry-hero text-text-primary font-bold tracking-tight">100%</span>
+<span class="font-body-md text-body-md text-secondary mt-1 font-semibold">Zero-Dispute Shielding</span>
+<span class="font-body-sm text-body-sm text-text-muted mt-0.5">Upfront milestone deposits locked in escrow.</span>
+</div>
+<div class="flex flex-col lg:pl-8">
+<span class="font-telemetry-hero text-telemetry-hero text-iris-soft font-bold tracking-tight">4 Agents</span>
+<span class="font-body-md text-body-md text-iris-soft mt-1 font-semibold">Working For You 24/7</span>
+<span class="font-body-sm text-body-sm text-text-muted mt-0.5">Full financial intelligence department on autopilot.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: The Autonomous Multi-Agent Fleet -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24" id="agents">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/15 text-primary border border-primary/20 text-xs font-mono uppercase tracking-widest mb-4">
+            Autonomous Fleet Intelligence
+          </div>
+<h2 class="font-headline-lg text-headline-lg text-text-primary">
+            Meet Your <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-text-primary via-primary to-iris-soft">Financial Syndicate</span>
+</h2>
+<p class="font-body-lg text-body-lg text-text-secondary mt-2 max-w-xl">
+            Four specialized autonomous AI agents collaborate in real time to run your personal finance department with mathematical rigor.
+          </p>
+</div>
+<div class="mt-4 md:mt-0 flex items-center gap-2 font-mono text-xs text-text-muted">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+          ALL AGENTS ONLINE // LATENCY 14MS
+        </div>
+</div>
+<!-- Agent Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Agent 1: The Sentinel -->
+<div class="group relative rounded-2xl bg-surface-charcoal border border-border-slate p-6 hover:border-border-iris-active transition-all duration-300 flex flex-col justify-between overflow-hidden">
+<div class="absolute top-4 left-4 font-mono text-xs text-text-muted">01 // SENTINEL</div>
+<div class="absolute bottom-4 right-4 grid grid-cols-3 gap-1 opacity-20 pointer-events-none">
+<span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span>
+<span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span>
+</div>
+<div class="pt-8">
+<div class="w-12 h-12 rounded-xl bg-surface-elevated border border-border-slate flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">shield_with_heart</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary mb-2">The Sentinel</h3>
+<p class="font-eyebrow-caps text-eyebrow-caps text-primary mb-4">RUNWAY GUARD &amp; BURN ANALYZER</p>
+<p class="font-body-md text-body-md text-text-secondary mb-6">
+              Monitors daily bank debits, calculates personal &amp; business burn, and protects minimum 60-day survival floors.
+            </p>
+<ul class="space-y-2 text-xs font-mono text-text-secondary border-t border-border-slate pt-4">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Predictive burn telemetry
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Auto-withholds 25% tax vault
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Safe-to-Spend real-time gauge
+              </li>
+</ul>
+</div>
+<div class="mt-8 pt-4 border-t border-border-slate flex items-center justify-between text-xs font-mono">
+<span class="text-text-muted">ACTIVE PROTOCOL</span>
+<span class="text-secondary font-semibold">GUARDING RUNWAY</span>
+</div>
+</div>
+<!-- Agent 2: The Chaser -->
+<div class="group relative rounded-2xl bg-surface-charcoal border border-border-slate p-6 hover:border-border-iris-active transition-all duration-300 flex flex-col justify-between overflow-hidden">
+<div class="absolute top-4 left-4 font-mono text-xs text-text-muted">02 // CHASER</div>
+<div class="absolute bottom-4 right-4 grid grid-cols-3 gap-1 opacity-20 pointer-events-none">
+<span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span>
+<span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span>
+</div>
+<div class="pt-8">
+<div class="w-12 h-12 rounded-xl bg-surface-elevated border border-border-slate flex items-center justify-center text-iris-soft mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">forward_to_inbox</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary mb-2">The Chaser</h3>
+<p class="font-eyebrow-caps text-eyebrow-caps text-iris-soft mb-4">AUTONOMOUS MULTI-TONE RECOVERY</p>
+<p class="font-body-md text-body-md text-text-secondary mb-6">
+              Dispatches polite pre-due nudges, professional statements, or firm executive follow-ups over Email and WhatsApp.
+            </p>
+<ul class="space-y-2 text-xs font-mono text-text-secondary border-t border-border-slate pt-4">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Calibrated 3-stage tone escalation
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Direct WhatsApp API nudges
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                1-Click embedded Stripe links
+              </li>
+</ul>
+</div>
+<div class="mt-8 pt-4 border-t border-border-slate flex items-center justify-between text-xs font-mono">
+<span class="text-text-muted">ESCALATION ARMED</span>
+<span class="text-primary font-semibold">3 QUEUED DISPATCHES</span>
+</div>
+</div>
+<!-- Agent 3: The Underwriter -->
+<div class="group relative rounded-2xl bg-surface-charcoal border border-border-slate p-6 hover:border-border-iris-active transition-all duration-300 flex flex-col justify-between overflow-hidden">
+<div class="absolute top-4 left-4 font-mono text-xs text-text-muted">03 // UNDERWRITER</div>
+<div class="absolute bottom-4 right-4 grid grid-cols-3 gap-1 opacity-20 pointer-events-none">
+<span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span>
+<span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span>
+</div>
+<div class="pt-8">
+<div class="w-12 h-12 rounded-xl bg-surface-elevated border border-border-slate flex items-center justify-center text-secondary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">verified_user</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary mb-2">The Underwriter</h3>
+<p class="font-eyebrow-caps text-eyebrow-caps text-secondary mb-4">CLIENT CREDIT &amp; RISK SCORER</p>
+<p class="font-body-md text-body-md text-text-secondary mb-6">
+              Assesses client payment reliability (Grade A to D) before you draft proposals, prescribing mandatory deposit ratios.
+            </p>
+<ul class="space-y-2 text-xs font-mono text-text-secondary border-t border-border-slate pt-4">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Historical velocity score (0-100)
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Enforces 50% upfront on Grade D
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Late fee clause auto-generation
+              </li>
+</ul>
+</div>
+<div class="mt-8 pt-4 border-t border-border-slate flex items-center justify-between text-xs font-mono">
+<span class="text-text-muted">CLIENT AUDIT</span>
+<span class="text-secondary font-semibold">94/100 PORTFOLIO</span>
+</div>
+</div>
+<!-- Agent 4: Pulse Conductor -->
+<div class="group relative rounded-2xl bg-surface-charcoal border border-border-slate p-6 hover:border-border-iris-active transition-all duration-300 flex flex-col justify-between overflow-hidden">
+<div class="absolute top-4 left-4 font-mono text-xs text-text-muted">04 // CONDUCTOR</div>
+<div class="absolute bottom-4 right-4 grid grid-cols-3 gap-1 opacity-20 pointer-events-none">
+<span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span>
+<span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span><span class="w-1 h-1 bg-text-muted rounded-full"></span>
+</div>
+<div class="pt-8">
+<div class="w-12 h-12 rounded-xl bg-surface-elevated border border-border-slate flex items-center justify-center text-primary-container mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">account_balance_wallet</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary mb-2">Pulse Conductor</h3>
+<p class="font-eyebrow-caps text-eyebrow-caps text-primary-container mb-4">FACTOR LIQUIDITY ALLOCATOR</p>
+<p class="font-body-md text-body-md text-text-secondary mb-6">
+              Unlocks instant factoring payouts against approved receivables to eliminate client-induced cash crunches.
+            </p>
+<ul class="space-y-2 text-xs font-mono text-text-secondary border-t border-border-slate pt-4">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Instant 95% cash advance liquidity
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Direct Stripe &amp; Mercury settlement
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[14px]">check</span>
+                Zero personal credit inquiry
+              </li>
+</ul>
+</div>
+<div class="mt-8 pt-4 border-t border-border-slate flex items-center justify-between text-xs font-mono">
+<span class="text-text-muted">CREDIT LINE</span>
+<span class="text-primary font-semibold">$25,000 READY</span>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works (Bento Step Grid) -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border-slate" id="how-it-works">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<span class="font-eyebrow-caps text-eyebrow-caps text-iris-soft uppercase tracking-widest">
+          Sovereign Workflow
+        </span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary mt-2">
+          From Invoice Fear to <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-text-primary via-primary to-iris-soft">Autonomous Armor</span>
+</h2>
+<p class="font-body-lg text-body-lg text-text-secondary mt-3">
+          Deploy an institutional treasury department in four deliberate, zero-friction steps.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Step 01 -->
+<div class="p-6 rounded-2xl bg-surface-charcoal border border-border-slate hover:border-border-illuminated transition-all relative">
+<div class="font-telemetry-lg text-telemetry-lg text-primary/40 font-bold mb-4 font-mono">01</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-2">Connect Your Bank &amp; Stripe</h3>
+<p class="font-body-sm text-body-sm text-text-secondary mb-4">
+            Zero-friction read-only API sync with Mercury, Stripe, Chase, or Brex in 30 seconds via Plaid protocol.
+          </p>
+<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-elevated text-[11px] font-mono text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 256-Bit Encrypted Sync
+          </div>
+</div>
+<!-- Step 02 -->
+<div class="p-6 rounded-2xl bg-surface-charcoal border border-border-slate hover:border-border-illuminated transition-all relative">
+<div class="font-telemetry-lg text-telemetry-lg text-primary/40 font-bold mb-4 font-mono">02</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-2">Calibrate Your Runway</h3>
+<p class="font-body-sm text-body-sm text-text-secondary mb-4">
+            The Sentinel maps out your 90-day survival forecast, factoring in recurring subscriptions, living burn, and tax reserves.
+          </p>
+<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-elevated text-[11px] font-mono text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Dynamic 90d Floor
+          </div>
+</div>
+<!-- Step 03 -->
+<div class="p-6 rounded-2xl bg-surface-charcoal border border-border-slate hover:border-border-illuminated transition-all relative">
+<div class="font-telemetry-lg text-telemetry-lg text-primary/40 font-bold mb-4 font-mono">03</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-2">Milestone Shielding</h3>
+<p class="font-body-sm text-body-sm text-text-secondary mb-4">
+            Draft smart invoices that automatically lock in 30-50% upfront deposits before you write a single line of code.
+          </p>
+<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-elevated text-[11px] font-mono text-iris-soft">
+<span class="w-1.5 h-1.5 rounded-full bg-iris-soft"></span> Zero Unpaid Hours
+          </div>
+</div>
+<!-- Step 04 -->
+<div class="p-6 rounded-2xl bg-surface-charcoal border border-border-slate hover:border-border-illuminated transition-all relative">
+<div class="font-telemetry-lg text-telemetry-lg text-primary/40 font-bold mb-4 font-mono">04</div>
+<h3 class="font-title-card text-title-card text-text-primary mb-2">Autonomous Recovery</h3>
+<p class="font-body-sm text-body-sm text-text-secondary mb-4">
+            If payment is delayed, The Chaser executes multi-channel escalation with professional tact so you never beg for cash.
+          </p>
+<div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-elevated text-[11px] font-mono text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 98.2% Auto-Settled
+          </div>
+</div>
+</div>
+</section>
+<!-- Interactive Pricing & Business Model -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-border-slate" id="pricing">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<span class="font-eyebrow-caps text-eyebrow-caps text-secondary uppercase tracking-widest">
+          Transparent Predictable ROI
+        </span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary mt-2">
+          Invest In Your <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-text-primary via-primary to-iris-soft">Financial Freedom</span>
+</h2>
+<p class="font-body-lg text-body-lg text-text-secondary mt-3">
+          Recovering just one delayed $3,000 invoice pays for 10 years of GigPulse.
+        </p>
+<!-- Toggle Switch -->
+<div class="flex items-center justify-center gap-3 mt-8">
+<span class="text-sm font-semibold text-text-primary transition-colors" id="monthly-label">Monthly</span>
+<button class="relative w-14 h-7 rounded-full bg-surface-elevated border border-border-slate transition-colors p-1" id="billing-toggle" onclick="toggleBilling()">
+<div class="w-5 h-5 rounded-full bg-primary-container transition-transform" id="billing-dot"></div>
+</button>
+<span class="text-sm font-semibold text-text-secondary flex items-center gap-1.5 transition-colors" id="annual-label">
+            Annual
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-mint-subtle text-secondary border border-secondary/30 font-mono">SAVE 20%</span>
+</span>
+</div>
+</div>
+<!-- Pricing Bento Tier Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Tier 1: Solo Creator -->
+<div class="rounded-2xl bg-surface-charcoal border border-border-slate p-8 flex flex-col justify-between hover:border-border-illuminated transition-all">
+<div>
+<div class="font-headline-sm text-headline-sm text-text-primary">Solo Creator</div>
+<div class="text-xs font-mono text-text-muted mt-1">FOR CASUAL FREELANCERS</div>
+<div class="my-6">
+<span class="font-telemetry-hero text-telemetry-hero text-text-primary font-bold">$0</span>
+<span class="text-text-muted font-mono text-sm">/ forever</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mb-6">
+              Essential runway tracking and milestone invoicing for getting started.
+            </p>
+<ul class="space-y-3 font-body-sm text-body-sm text-text-secondary">
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">check</span>
+                Up to 3 Active Invoices
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">check</span>
+                30-Day Runway Radar
+              </li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">check</span>
+                Manual One-Click Follow-ups
+              </li>
+<li class="flex items-center gap-2 text-text-muted">
+<span class="material-symbols-outlined text-[18px]">close</span>
+                Autonomous Agent Fleet
+              </li>
+</ul>
+</div>
+<button class="mt-8 w-full py-3 rounded-xl bg-surface-elevated border border-border-slate hover:border-border-illuminated hover:bg-surface-hover text-text-primary font-title-card text-title-card transition-all">
+            Get Started Free
+          </button>
+</div>
+<!-- Tier 2: Pro</main></body></html>--></div></section></div></div></main></body></html>

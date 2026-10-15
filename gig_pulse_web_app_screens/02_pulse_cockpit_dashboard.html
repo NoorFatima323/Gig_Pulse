@@ -1,0 +1,3002 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>GigPulse — Pulse Cockpit Executive Dashboard</title>
+  
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link href="assets/fonts.css" rel="stylesheet">
+  <link href="assets/dark_theme.css?v=20261014_3" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "void": "#F8FAFC",
+            "surface-base": "#FFFFFF",
+            "surface-elevated": "#F1F5F9",
+            "surface-card": "#FFFFFF",
+            "border-line": "#E2E8F0",
+            "border-subtle": "#F1F5F9",
+            "border-glow": "rgba(79, 70, 229, 0.25)",
+            "mint": "#059669",
+            "mint-glow": "rgba(5, 150, 105, 0.12)",
+            "signal": "#4F46E5",
+            "iris-soft": "#6366F1",
+            "ink": "#0F172A",
+            "ink-dim": "#334155",
+            "ink-muted": "#64748B",
+            "danger": "#E11D48",
+            "warning": "#D97706"
+          },
+          fontFamily: {
+            sans: ["'Plus Jakarta Sans'", "'Inter'", "system-ui", "sans-serif"],
+            mono: ["'Plus Jakarta Sans'", "'Inter'", "system-ui", "sans-serif"],
+            code: ["'JetBrains Mono'", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'Material Symbols Outlined';
+      font-style: normal;
+      font-weight: 100 700;
+      src: url('assets/material-symbols-outlined.ttf') format('truetype');
+      font-display: block;
+    }
+
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined' !important;
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+      vertical-align: middle;
+      user-select: none;
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #CBD5E1 transparent;
+    }
+
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    /* Completely hide scrollbars in sidebar while preserving smooth scrolling */
+    #app-sidebar,
+    #app-sidebar *,
+    .no-scrollbar {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    #app-sidebar::-webkit-scrollbar,
+    #app-sidebar *::-webkit-scrollbar,
+    .no-scrollbar::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    .cockpit-gauge-circle {
+      transform-origin: center;
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
+    }
+
+    .glass-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card:hover {
+      border-color: #CBD5E1;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+    }
+
+    .glass-card-alert {
+      background: #FFF1F2;
+      border: 1px solid rgba(225, 29, 72, 0.25);
+      box-shadow: 0 1px 3px 0 rgba(225, 29, 72, 0.05);
+    }
+
+    .glass-card-alert:hover {
+      border-color: rgba(225, 29, 72, 0.45);
+      box-shadow: 0 8px 24px -4px rgba(225, 29, 72, 0.12);
+    }
+
+    .gradient-text-iris {
+      background: linear-gradient(120deg, #0F172A 20%, #4F46E5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .pill-cta {
+      background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%);
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.28);
+      transition: all 0.2s ease;
+    }
+    .pill-cta:hover {
+      background: linear-gradient(135deg, #4338CA 0%, #3730A3 100%);
+      color: #FFFFFF !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.38);
+    }
+
+    /* Interactive Holographic & Telemetry HUD Accents */
+    @keyframes radarSweep {
+      0% { top: -20%; opacity: 0; }
+      30% { opacity: 0.9; }
+      80% { opacity: 0.7; }
+      100% { top: 120%; opacity: 0; }
+    }
+    .radar-beam-scan {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(180deg, transparent, rgba(99, 102, 241, 0.25), rgba(16, 185, 129, 0.4), transparent);
+      animation: radarSweep 1.4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .pulse-glow-emerald {
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.22);
+    }
+    .pulse-glow-rose {
+      box-shadow: 0 0 25px rgba(244, 63, 94, 0.25);
+    }
+    .pulse-glow-indigo {
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.25);
+    }
+    .pulse-glow-purple {
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
+    }
+
+    /* Realistic WhatsApp Messenger Preview Bubble */
+    .whatsapp-bubble {
+      background: #005C4B;
+      color: #E9EDEF;
+      position: relative;
+      border-radius: 12px 12px 2px 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+    .whatsapp-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: -6px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid #005C4B;
+      border-top: 6px solid transparent;
+    }
+
+    /* Range Slider Styling */
+    input[type=range].cyber-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 9999px;
+      background: #1E293B;
+      outline: none;
+    }
+    input[type=range].cyber-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #10B981;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    input[type=range].cyber-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+
+<body class="bg-void text-ink font-sans antialiased min-h-screen relative overflow-x-hidden selection:bg-signal selection:text-white">
+
+  <!-- Ambient Backdrop Lighting Glows -->
+  <div class="pointer-events-none fixed inset-0 z-0 flex items-start justify-center overflow-hidden">
+    <div class="w-[65vw] h-[400px] bg-indigo-600/[0.07] blur-[160px] rounded-full mt-[-120px]"></div>
+    <div class="w-[50vw] h-[340px] bg-emerald-500/[0.05] blur-[150px] rounded-full mt-[180px] -right-20 absolute"></div>
+    <div class="w-[35vw] h-[300px] bg-rose-600/[0.04] blur-[140px] rounded-full top-[500px] left-10 absolute"></div>
+  </div>
+
+  <!-- Interactive Toast Notification Element -->
+  <div id="toast-container" class="fixed top-20 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ==========================================================================
+       STUDIO TREASURY CALIBRATION MODAL (Founder Custom Financial Controls)
+       ========================================================================== -->
+  <div id="treasury-calibration-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-[#060A14]/85 backdrop-blur-md transition-all duration-200" onclick="handleTreasuryCalibrationBackdropClick(event)">
+    <div class="relative w-full max-w-lg bg-[#0F172A] border border-white/20 rounded-2xl p-6 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_35px_rgba(99,102,241,0.25)] text-white space-y-5 animate-in fade-in zoom-in-95 duration-200" onclick="event.stopPropagation()">
+      
+      <!-- Window Header Bar -->
+      <div class="flex items-center justify-between pb-3.5 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.35)]">
+            <span class="material-symbols-outlined text-[20px]">tune</span>
+          </div>
+          <div>
+            <h3 class="font-sans font-bold text-sm text-white flex items-center gap-2">
+              <span>Calibrate Studio Treasury</span>
+              <span class="text-[10px] font-mono text-indigo-300 bg-indigo-500/15 px-2 py-0.5 rounded-full border border-indigo-500/30">CUSTOM DATA</span>
+            </h3>
+            <p class="text-xs text-slate-400">Configure your real liquid reserves, monthly burn, and ledger display</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeTreasuryCalibrationModal()" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/15 border border-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer" title="Close Window (Esc)">
+          <span class="material-symbols-outlined text-[17px]">close</span>
+        </button>
+      </div>
+
+      <!-- Live Dynamic Computed Pill Readout -->
+      <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-white/[0.03] border border-white/10 text-center">
+        <div>
+          <span class="text-[10px] uppercase font-mono text-slate-400 block">Runway</span>
+          <span class="text-base font-extrabold text-emerald-400 font-mono" id="calib-preview-runway">98 Days</span>
+        </div>
+        <div>
+          <span class="text-[10px] uppercase font-mono text-slate-400 block">Safe Spend</span>
+          <span class="text-base font-extrabold text-indigo-300 font-mono" id="calib-preview-safe">$4,120</span>
+        </div>
+        <div>
+          <span class="text-[10px] uppercase font-mono text-slate-400 block">Target Status</span>
+          <span class="text-base font-extrabold text-teal-300 font-mono" id="calib-preview-pct">163%</span>
+        </div>
+      </div>
+
+      <!-- Form Inputs -->
+      <div class="space-y-4 text-xs font-sans">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="calib-cash-input" class="block font-mono text-[11px] text-slate-300 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+              <span>Liquid Cash ($)</span>
+              <span class="text-[10px] text-emerald-400 font-normal">Available in bank</span>
+            </label>
+            <div class="relative">
+              <span class="absolute left-3 top-2.5 text-slate-400 font-mono">$</span>
+              <input 
+                type="number" 
+                id="calib-cash-input" 
+                step="500"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/15 text-white font-mono text-xs pl-7 focus:outline-none focus:border-indigo-400 transition-colors"
+                oninput="updateCalibrationLivePreview()"
+              />
+            </div>
+          </div>
+          <div>
+            <label for="calib-burn-input" class="block font-mono text-[11px] text-slate-300 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+              <span>Monthly Burn ($/mo)</span>
+              <span class="text-[10px] text-slate-400 font-normal">OpEx + Living</span>
+            </label>
+            <div class="relative">
+              <span class="absolute left-3 top-2.5 text-slate-400 font-mono">$</span>
+              <input 
+                type="number" 
+                id="calib-burn-input" 
+                step="250"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/15 text-white font-mono text-xs pl-7 focus:outline-none focus:border-indigo-400 transition-colors"
+                oninput="updateCalibrationLivePreview()"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="calib-target-select" class="block font-mono text-[11px] text-slate-300 uppercase tracking-wider mb-1.5">
+              Runway Safety Target
+            </label>
+            <select id="calib-target-select" onchange="updateCalibrationLivePreview()" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-white/15 text-white text-xs cursor-pointer focus:outline-none focus:border-indigo-400">
+              <option value="60">60 Days Buffer (Standard)</option>
+              <option value="90">90 Days Buffer (Optimal)</option>
+              <option value="120">120 Days Buffer (Fortress)</option>
+            </select>
+          </div>
+          <div>
+            <label for="calib-bank-input" class="block font-mono text-[11px] text-slate-300 uppercase tracking-wider mb-1.5">
+              Primary Bank Name
+            </label>
+            <input 
+              type="text" 
+              id="calib-bank-input" 
+              placeholder="Mercury Checking ···4891"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/15 text-white text-xs focus:outline-none focus:border-indigo-400"
+            />
+          </div>
+        </div>
+
+        <!-- Ledger Mode Choice -->
+        <div>
+          <label class="block font-mono text-[11px] text-slate-300 uppercase tracking-wider mb-1.5">
+            Receivables Ledger Display Mode
+          </label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <label class="flex items-start gap-2.5 p-3 rounded-xl border border-white/15 bg-white/[0.04] cursor-pointer hover:border-indigo-500/50 transition-colors group">
+              <input type="radio" name="calib-ledger-mode" value="demo" class="mt-0.5 text-indigo-500 focus:ring-0">
+              <div>
+                <div class="font-bold text-white text-xs">Interactive Demo Set</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Pre-loaded invoices (Veloce Motors overdue) to test simulations.</div>
+              </div>
+            </label>
+            <label class="flex items-start gap-2.5 p-3 rounded-xl border border-white/15 bg-white/[0.04] cursor-pointer hover:border-indigo-500/50 transition-colors group">
+              <input type="radio" name="calib-ledger-mode" value="clean" class="mt-0.5 text-indigo-500 focus:ring-0">
+              <div>
+                <div class="font-bold text-white text-xs">Fresh Clean Slate</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">Zero demo invoices. Clean ledger ready for your real client milestone billings.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Action Buttons -->
+      <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-white/10">
+        <button type="button" onclick="closeTreasuryCalibrationModal()" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold transition-colors cursor-pointer">
+          Cancel
+        </button>
+        <button type="button" onclick="applyTreasuryCalibration()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+          <span class="material-symbols-outlined text-[15px]">check_circle</span>
+          <span>Save &amp; Recalculate Dashboard</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       WHAT-IF SCENARIOS POPUP WINDOW (Top-Floating Glassmorphic Window)
+       ========================================================================== -->
+  <div id="what-if-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-[#060A14]/75 backdrop-blur-md transition-all duration-200" onclick="handleWhatIfBackdropClick(event)">
+    <div class="relative w-full max-w-md bg-[#131C35] border border-white/20 rounded-2xl p-5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_35px_rgba(16,185,129,0.15)] text-white space-y-4 animate-in fade-in zoom-in-95 duration-200" onclick="event.stopPropagation()">
+      
+      <!-- Window Header Bar -->
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shadow-[0_0_12px_rgba(16,185,129,0.3)]">
+            <span class="material-symbols-outlined text-[18px]">tune</span>
+          </div>
+          <div>
+            <h3 class="font-sans font-bold text-sm text-white flex items-center gap-2">
+              <span>What–If Scenario Simulator</span>
+              <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">LIVE SYNC</span>
+            </h3>
+            <p class="text-[11px] text-slate-400">Stress-test runway buffers &amp; simulate cash events</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeWhatIfModal()" class="w-7 h-7 rounded-lg bg-white/5 hover:bg-white/15 border border-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer" title="Close Window (Esc)">
+          <span class="material-symbols-outlined text-[16px]">close</span>
+        </button>
+      </div>
+
+      <!-- Current Simulation Telemetry Snapshot -->
+      <div class="p-3 rounded-xl bg-slate-900/80 border border-white/10 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Projected Runway</span>
+          <div class="flex items-baseline gap-1.5 mt-0.5">
+            <span class="text-2xl font-extrabold text-white tabular-nums tracking-tight" id="modal-runway-num">98</span>
+            <span class="text-xs font-semibold text-emerald-400" id="modal-runway-unit">Days Safe (Baseline)</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Treasury Buffer</span>
+          <span class="text-xs font-bold text-white tabular-nums mt-0.5 block" id="modal-treasury-val">$14,850.00</span>
+        </div>
+      </div>
+
+      <!-- Financial State Selector -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate-300">
+          <span>1. Select Financial State</span>
+          <span class="text-[10px] font-mono text-slate-400 lowercase">3 presets</span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 p-1.5 rounded-xl bg-slate-950/60 border border-white/10 text-xs font-sans" id="hero-quick-scenarios">
+          <button type="button" onclick="quickSetHeroScenario('worst', this)" class="hero-scenario-btn py-2 px-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 border border-transparent transition-all text-center cursor-pointer">
+            <span class="block text-[10px] text-slate-400 font-medium">Delayed</span>
+            <span class="font-bold text-xs text-rose-400">74d</span>
+          </button>
+          <button type="button" onclick="quickSetHeroScenario('current', this)" class="hero-scenario-btn liquid-glass-emerald py-2 px-2.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold transition-all text-center shadow-[0_0_12px_rgba(16,185,129,0.3)] cursor-pointer">
+            <span class="block text-[10px] text-emerald-400/80 font-medium">Baseline</span>
+            <span class="font-bold text-xs">98d</span>
+          </button>
+          <button type="button" onclick="quickSetHeroScenario('recovery', this)" class="hero-scenario-btn py-2 px-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 border border-transparent transition-all text-center cursor-pointer">
+            <span class="block text-[10px] text-slate-400 font-medium">Recovered</span>
+            <span class="font-bold text-xs text-teal-300">124d</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 1-Click Simulation Triggers -->
+      <div class="space-y-1.5">
+        <div class="text-[11px] font-bold uppercase tracking-wider text-slate-300">
+          2. Instant Cash Injections &amp; Surges
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" onclick="triggerQuickSimulatePaid()" class="p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm hover:shadow-[0_0_12px_rgba(16,185,129,0.25)]">
+            <span class="material-symbols-outlined text-[16px]">paid</span>
+            <span>+ Veloce Paid ($3.2k)</span>
+          </button>
+          <button type="button" onclick="triggerQuickSimulateSpike()" class="p-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm hover:shadow-[0_0_12px_rgba(244,63,94,0.25)]">
+            <span class="material-symbols-outlined text-[16px]">trending_up</span>
+            <span>+ Expense Spike ($1k)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Deep Simulator Link & Done Footer -->
+      <div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
+        <button type="button" onclick="scrollToSimulator()" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1.5 transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[15px]">south</span>
+          <span>Open Deep Simulator Controls</span>
+        </button>
+        <button type="button" onclick="closeWhatIfModal()" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-slate-200 hover:text-white font-medium text-xs transition-colors cursor-pointer">
+          Done
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SIDEBAR BACKDROP (Mobile Drawer Overlay)
+       ========================================================================== -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 hidden md:hidden transition-opacity"></div>
+
+  <!-- ==========================================================================
+       LEFT EXECUTIVE SIDEPANEL (Clean Linear / Stripe Fintech Style)
+       ========================================================================== -->
+  <aside id="app-sidebar" class="fixed inset-y-0 left-0 w-64 xl:w-72 bg-white border-r border-slate-200 flex flex-col justify-between z-50 transition-transform duration-300 -translate-x-full md:translate-x-0 shadow-sm font-sans select-none">
+    
+    <!-- Top Brand, Search & Navigation Block -->
+    <div class="no-scrollbar flex flex-col flex-1 overflow-y-auto px-3.5 py-4">
+      
+      <!-- Workspace Switcher Header -->
+      <div class="pb-3 border-b border-slate-100 shrink-0">
+        <div class="flex items-center justify-between">
+          <div class="sidebar-workspace-btn flex items-center justify-between w-full p-1.5 rounded-xl group cursor-pointer">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center p-0.5 shadow-xs shrink-0">
+                <img src="assets/gigpulse_mark.svg" alt="GigPulse" class="w-full h-full object-contain">
+              </div>
+              <div class="flex flex-col min-w-0 text-left">
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold tracking-tight text-slate-900 text-[13px] truncate">GigPulse Studio</span>
+                  <span class="text-[9px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/60 px-1 py-0.2 rounded shrink-0">PRO</span>
+                </div>
+                <span class="text-[11px] text-slate-500 font-normal truncate">Autonomous Financial OS</span>
+              </div>
+            </div>
+          </div>
+          <button id="close-sidebar-btn" class="md:hidden text-slate-400 hover:text-slate-700 p-1.5 rounded-lg focus:outline-none ml-1">
+            <span class="material-symbols-outlined text-lg">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Nav Section 1: Overview -->
+      <div class="pt-3">
+        <div class="sidebar-section-title px-2 pb-1.5">
+          Overview
+        </div>
+        <nav class="space-y-1">
+          <!-- 02: Pulse Dashboard (ACTIVE) -->
+          <a href="02_pulse_cockpit_dashboard.html" class="sidebar-nav-item active flex items-center justify-between px-3 py-2 rounded-lg" aria-current="page">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">space_dashboard</span>
+              <span>Cockpit Dashboard</span>
+            </div>
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+          </a>
+
+          <!-- 03: Cash Runway Forecaster -->
+          <a href="03_cash_flow_runway_forecaster.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">trending_up</span>
+              <span>Runway Radar</span>
+            </div>
+            <span class="text-[10px] font-medium text-slate-500">8.4m</span>
+          </a>
+
+          <!-- 04: Invoices & Receivables -->
+          <a href="04_invoice_receivables_manager.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+              <span>Receivables Ledger</span>
+            </div>
+            <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200/50 px-1.5 py-0.5 rounded">1 Overdue</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Nav Section 2: Tools & Automation -->
+      <div class="pt-4">
+        <div class="sidebar-section-title px-2 pb-1.5">
+          Tools &amp; Automation
+        </div>
+        <nav class="space-y-1">
+          <!-- 05: Invoice Builder -->
+          <a href="05_dynamic_milestone_invoice_builder.html" class="sidebar-nav-item flex items-center gap-2.5 px-3 py-2 rounded-lg">
+            <span class="material-symbols-outlined text-[18px]">post_add</span>
+            <span>Invoice Builder</span>
+          </a>
+
+          <!-- 06: Smart Chaser -->
+          <a href="06_autonomous_smart_payment_chaser.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">schedule_send</span>
+              <span>Payment Chaser</span>
+            </div>
+          </a>
+
+          <!-- 07: Client Scorecard -->
+          <a href="07_client_reliability_scorecard.html" class="sidebar-nav-item flex items-center gap-2.5 px-3 py-2 rounded-lg">
+            <span class="material-symbols-outlined text-[18px]">verified_user</span>
+            <span>Client Reliability</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Nav Section 3: Studio Settings -->
+      <div class="pt-4">
+        <div class="sidebar-section-title px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+          Settings &amp; Accounts
+        </div>
+        <nav class="space-y-1">
+          <!-- 08: Studio Account & Settings -->
+          <a href="08_studio_account_settings.html" class="sidebar-nav-item flex items-center justify-between px-3 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+            <div class="flex items-center gap-2.5">
+              <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+              <span>My Studio Account</span>
+            </div>
+            <span class="text-[9px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200/60 px-1.5 py-0.2 rounded">SETUP</span>
+          </a>
+        </nav>
+      </div>
+
+    </div>
+
+    <!-- Bottom User Profile Footer -->
+    <div class="p-3 border-t border-slate-100 shrink-0 bg-white">
+      <div class="sidebar-profile-card flex items-center justify-between p-2 cursor-pointer group rounded-lg hover:bg-slate-50 transition-colors">
+        <a href="08_studio_account_settings.html" class="flex items-center gap-2.5 min-w-0 flex-1" title="Open Studio Account Settings">
+          <div class="relative shrink-0">
+            <img src="assets/alex_m_founder_headshot.png" alt="Alex Mercer" class="w-8 h-8 rounded-full object-cover ring-1 ring-slate-200">
+            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="profile-name text-xs truncate">Alex Mercer</span>
+            <span class="profile-role text-[11px] truncate">Studio Founder</span>
+          </div>
+        </a>
+        <div class="flex items-center gap-1 shrink-0 text-slate-400">
+          <a href="08_studio_account_settings.html" title="Studio Account Settings" class="p-1.5 rounded-md hover:bg-slate-100 text-slate-400 hover:text-indigo-600 transition-colors flex items-center">
+            <span class="material-symbols-outlined text-[18px]">settings</span>
+          </a>
+          <a href="00_auth_login_signup.html" title="Log Out / Switch Studio" class="p-1.5 rounded-md hover:bg-rose-500/10 text-slate-400 hover:text-rose-400 transition-colors flex items-center">
+            <span class="material-symbols-outlined text-[18px]">logout</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ==========================================================================
+       TOP STREAMLINED HEADER BAR
+       ========================================================================== -->
+  <header class="fixed top-0 inset-x-0 md:left-64 xl:left-72 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200">
+    <div class="h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      
+      <!-- Mobile Toggle & Page Title -->
+      <div class="flex items-center gap-3">
+        <button id="mobile-sidebar-toggle" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 hover:text-slate-900 transition-colors focus:outline-none cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">menu</span>
+        </button>
+        <div class="flex items-center gap-2.5 font-sans">
+          <span class="text-slate-900 font-bold text-sm tracking-tight">Pulse Cockpit</span>
+          <span class="hidden sm:inline-block w-1 h-1 rounded-full bg-slate-300"></span>
+          <span class="hidden sm:inline-block text-xs text-slate-500 font-medium header-studio-name">Alex Mercer Studio</span>
+          <span class="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[10px] font-bold uppercase tracking-wider">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Live Telemetry</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-2.5">
+        <!-- Interactive Date Selector Pill & Dropdown -->
+        <div class="relative hidden sm:block">
+          <button type="button" id="timeframe-toggle-btn" onclick="toggleTimeframeDropdown()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold cursor-pointer transition-colors shadow-2xs">
+            <span class="material-symbols-outlined text-[15px] text-slate-500">calendar_today</span>
+            <span id="current-timeframe-label">Last 30 Days</span>
+            <span class="material-symbols-outlined text-[14px] text-slate-400">expand_more</span>
+          </button>
+          <div id="timeframe-dropdown" class="hidden absolute right-0 mt-1.5 w-48 rounded-xl bg-white border border-slate-200 shadow-xl py-1 z-50 text-xs font-medium space-y-0.5">
+            <button type="button" onclick="selectTimeframe('Last 30 Days', 98, 14850, 3850)" class="w-full text-left px-3.5 py-2 hover:bg-slate-50 text-slate-700 flex items-center justify-between">
+              <span>Last 30 Days</span>
+              <span class="text-[10px] text-emerald-600 font-bold">Current</span>
+            </button>
+            <button type="button" onclick="selectTimeframe('This Quarter (Q4)', 112, 18200, 3700)" class="w-full text-left px-3.5 py-2 hover:bg-slate-50 text-slate-700 flex items-center justify-between">
+              <span>This Quarter (Q4)</span>
+              <span class="text-[10px] text-slate-400">Oct-Dec</span>
+            </button>
+            <button type="button" onclick="selectTimeframe('Year to Date (2026)', 128, 22400, 3600)" class="w-full text-left px-3.5 py-2 hover:bg-slate-50 text-slate-700 flex items-center justify-between">
+              <span>Year to Date (2026)</span>
+              <span class="text-[10px] text-slate-400">Jan-Oct</span>
+            </button>
+            <button type="button" onclick="selectTimeframe('All Time Horizon', 140, 26000, 3500)" class="w-full text-left px-3.5 py-2 hover:bg-slate-50 text-slate-700 flex items-center justify-between">
+              <span>All Time Horizon</span>
+              <span class="text-[10px] text-slate-400">Lifetime</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mercury Synced Pill -->
+        <div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-200/80 text-[11px] text-slate-600 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span>Mercury Bank Synced</span>
+        </div>
+
+        <!-- Calibrate Treasury Modal Trigger -->
+        <button type="button" onclick="openTreasuryCalibrationModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 font-sans text-xs font-semibold cursor-pointer transition-all shadow-2xs group" title="Calibrate cash balance, burn rate, and ledger display mode">
+          <span class="material-symbols-outlined text-[15px] text-indigo-600 group-hover:rotate-45 transition-transform duration-200">tune</span>
+          <span>Calibrate Treasury</span>
+        </button>
+
+        <!-- Primary CTA -->
+        <a href="05_dynamic_milestone_invoice_builder.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-sans text-xs font-bold transition-all shadow-sm group">
+          <span class="material-symbols-outlined text-sm">add</span>
+          <span>Create Invoice</span>
+          <kbd class="hidden md:inline-block ml-1 px-1.5 py-0.5 text-[10px] bg-indigo-700/80 rounded border border-indigo-500/50 text-indigo-100 font-mono">⌘N</kbd>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN COCKPIT DASHBOARD VIEWPORT
+       ========================================================================== -->
+  <main class="relative z-10 md:pl-64 xl:pl-72 pt-16 pb-28 md:pb-20 w-full min-h-screen bg-void font-sans">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-7">
+
+      <!-- ======================================================================
+           SECTION 0: EXECUTIVE STUDIO MORNING BRIEFING & RAPID ACTIONS (BENTO HUB)
+           ====================================================================== -->
+      <div class="glass-card rounded-2xl relative overflow-hidden shadow-sm border border-slate-200">
+        <!-- Ambient subtle background gradient mesh -->
+        <div class="pointer-events-none absolute -top-24 -right-24 w-96 h-96 bg-indigo-500/5 blur-[100px] rounded-full"></div>
+        <div class="pointer-events-none absolute -bottom-24 -left-24 w-96 h-96 bg-emerald-500/5 blur-[100px] rounded-full"></div>
+
+        <div class="p-6 sm:p-7 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          
+          <!-- Left 8 Cols: Founder Greeting & Integrated Urgent Alert Strip -->
+          <div class="lg:col-span-8 space-y-4">
+            
+            <!-- Metadata Eyebrow -->
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <span class="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-sans text-xs font-semibold flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Financial Health: Optimal</span>
+              </span>
+              <span class="text-slate-300 text-xs">•</span>
+              <span class="text-slate-500 text-xs font-medium flex items-center gap-1">
+                <span class="material-symbols-outlined text-[15px] text-slate-400">sync</span>
+                <span>Mercury synced 2m ago</span>
+              </span>
+              <span class="text-slate-300 text-xs">•</span>
+              <span class="text-slate-500 text-xs font-medium">Burn: $3,850/mo</span>
+            </div>
+
+            <!-- Crisp Hero Headline -->
+            <div>
+              <h1 class="font-sans font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight cockpit-greeting">
+                Good morning, Alex. <span class="gradient-text-iris">Your cash runway is in great shape.</span>
+              </h1>
+              <p class="text-sm text-slate-600 mt-1 font-normal leading-relaxed">
+                Studio treasury holds <strong class="text-slate-900 font-semibold">98 Days of Runway</strong> (<strong class="text-emerald-700 font-semibold">$14,850.00</strong> liquid cash), comfortably funding operations through <strong class="text-slate-900 font-semibold">January 2027</strong> without closing new deals.
+              </p>
+            </div>
+
+            <!-- Integrated Overdue Action Banner -->
+            <div class="p-3.5 rounded-xl bg-rose-50/80 border border-rose-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-8 h-8 rounded-lg bg-rose-100 border border-rose-200 text-rose-600 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[18px]">priority_high</span>
+                </div>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-xs font-bold text-rose-200">Immediate Action Required:</span>
+                    <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">16 Days Overdue</span>
+                  </div>
+                  <p class="text-xs text-rose-200/90 truncate mt-0.5">
+                    Invoice #085 for <strong class="font-semibold text-rose-100">Veloce Motors</strong> is outstanding (<strong class="font-semibold text-rose-100">$3,200.00</strong>).
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                <button onclick="scrollToSimulator()" class="px-2.5 py-1.5 rounded-lg bg-white border border-rose-200 text-rose-700 hover:bg-rose-50 font-medium text-xs transition-all">
+                  Simulate Delay
+                </button>
+                <a href="#urgent-overdue-card" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-sans text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs">
+                  <span>Chase Payment</span>
+                  <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right 4 Cols: Quick Runway Telemetry & Interactive Scenario Switcher -->
+          <div class="lg:col-span-4 bg-slate-900/85 backdrop-blur-2xl border border-emerald-500/30 rounded-2xl p-5 space-y-4 transition-all hover:border-emerald-500/50 shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative overflow-hidden group">
+            
+            <!-- Ambient emerald glow in corner -->
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-8 -left-8 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <!-- Header with pulse radar, title and dynamic percentage badge -->
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+                </span>
+                <span class="material-symbols-outlined text-[17px] text-emerald-400">speed</span>
+                <span class="tracking-widest">RUNWAY STATUS</span>
+              </span>
+              <div class="flex items-center gap-1.5">
+                <span id="hero-runway-percent-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-extrabold text-[10px] uppercase tracking-wider tabular-nums shadow-[0_0_10px_rgba(16,185,129,0.25)]">
+                  163% OF TARGET
+                </span>
+                <button type="button" onclick="refreshHeroTelemetry(this)" class="w-6 h-6 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-400 hover:text-emerald-300 transition-all cursor-pointer" title="Refresh Telemetry">
+                  <span class="material-symbols-outlined text-[13px] transition-transform">sync</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Interactive Metric Readout & Gauge Bar -->
+            <div class="space-y-2.5">
+              <div class="flex items-baseline justify-between">
+                <div class="flex items-baseline gap-1.5 cursor-pointer group/num" onclick="toggleWhatIfDrawer()" title="Click to test scenarios">
+                  <span class="text-4xl font-extrabold text-white tracking-tight tabular-nums transition-all group-hover/num:text-emerald-300" id="hero-runway-num">98</span>
+                  <span class="text-sm font-bold text-slate-300">Days Buffer</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs text-slate-400 font-medium block hero-target-runway">Target: 60 Days</span>
+                  <span id="hero-status-pill" class="text-[10px] font-bold text-emerald-300 bg-emerald-500/15 px-2 py-0.5 rounded-md border border-emerald-500/30 shadow-2xs">Optimal (~3.2 Mo)</span>
+                </div>
+              </div>
+
+              <!-- Animated Multi-layer Progress Track with Target Pin -->
+              <div class="relative pt-1">
+                <div class="w-full h-2.5 rounded-full bg-slate-800/80 overflow-hidden relative border border-white/10 shadow-inner">
+                  <div id="hero-runway-bar" class="h-full bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-300 rounded-full transition-all duration-700 shadow-[0_0_15px_rgba(16,185,129,0.7)]" style="width: 82%;"></div>
+                </div>
+                <!-- 60d Target Marker Pin -->
+                <div class="absolute -top-1 left-[50%] -translate-x-1/2 flex flex-col items-center pointer-events-none group/pin" title="Safety Baseline: 60 Days ($7,700 reserve)">
+                  <span class="w-1.5 h-4.5 bg-amber-400 rounded-full shadow-[0_0_8px_rgba(245,158,11,0.9)]"></span>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-xs text-slate-300 pt-0.5 font-medium">
+                <span class="cursor-pointer hover:text-emerald-300 transition-colors flex items-center gap-1" onclick="scrollToSimulator()" title="Click to inspect monthly expenses">
+                  <span>Monthly Burn:</span>
+                  <strong class="text-white font-bold tabular-nums" id="hero-burn-val">$3,850</strong>
+                </span>
+                <span>Zero-deal zero date: <strong class="text-white font-bold" id="hero-zero-date">Jan 2027</strong></span>
+              </div>
+            </div>
+
+            <!-- Interactive "Test What-If Scenarios" Launcher Button -->
+            <div class="pt-2 border-t border-white/10">
+              <button type="button" id="what-if-toggle-btn" onclick="openWhatIfModal()" class="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 hover:border-emerald-500/30 border border-white/10 text-slate-200 font-sans text-xs font-semibold flex items-center justify-between transition-all cursor-pointer group/wibtn" title="Click to open scenario simulation window">
+                <span class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[16px] text-emerald-400 group-hover/wibtn:rotate-45 transition-transform duration-200">tune</span>
+                  <span>Test What–If Scenarios</span>
+                </span>
+                <span class="flex items-center gap-1 text-[11px] text-emerald-400 font-mono font-medium bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20 group-hover/wibtn:bg-emerald-500/20 transition-all">
+                  <span>Simulate</span>
+                  <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+                </span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SECTION 1: FINANCIAL OVERVIEW SUMMARY CARDS WITH SVG TELEMETRY
+           ====================================================================== -->
+      <div>
+        <div class="flex items-center justify-between mb-3.5 px-1">
+          <div>
+            <h2 class="text-sm font-bold uppercase tracking-wider text-slate-700">
+              Financial Summary
+            </h2>
+            <p class="text-xs text-slate-500 mt-0.5">Live telemetry across connected accounts, burn trajectories, and receivables</p>
+          </div>
+          <span class="text-xs text-slate-500 flex items-center gap-1.5 font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Real-time Sync</span>
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+          
+          <!-- Tile 1: Cash in Bank -->
+          <div class="glass-card rounded-2xl p-5 relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider block">Available Cash</span>
+                <span class="text-[11px] text-slate-400">Mercury Checking ···4891</span>
+              </div>
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-2xs">
+                <span class="material-symbols-outlined text-[18px]">account_balance</span>
+              </div>
+            </div>
+
+            <p class="font-sans text-3xl font-extrabold text-slate-900 tracking-tight tabular-nums" id="tile-treasury-val">
+              $14,850<span class="text-lg text-slate-400 font-normal">.00</span>
+            </p>
+
+            <!-- Embedded SVG Micro Sparkline -->
+            <div class="h-8 w-full mt-3 flex items-end">
+              <svg class="w-full h-8 overflow-visible" viewBox="0 0 100 28" fill="none" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="spark-cash" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#10B981" stop-opacity="0.25"/>
+                    <stop offset="100%" stop-color="#10B981" stop-opacity="0.0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,22 Q15,20 30,16 T60,18 T85,8 T100,4 L100,28 L0,28 Z" fill="url(#spark-cash)" />
+                <path d="M0,22 Q15,20 30,16 T60,18 T85,8 T100,4" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="100" cy="4" r="2.5" fill="#10B981" />
+              </svg>
+            </div>
+
+            <!-- Crisp Delta Indicator -->
+            <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-emerald-700 font-semibold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[15px]">arrow_upward</span>
+                <span>+$1,630 (+12.4%)</span>
+              </span>
+              <span class="text-[11px] text-slate-400 font-medium">30d Trend</span>
+            </div>
+          </div>
+
+          <!-- Tile 2: Cash Runway -->
+          <div class="glass-card rounded-2xl p-5 relative overflow-hidden group border-emerald-200/80">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <span class="text-xs text-emerald-700 font-semibold uppercase tracking-wider block">Cash Runway</span>
+                <span class="text-[11px] text-slate-400">Burn: $3,850/mo</span>
+              </div>
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-2xs">
+                <span class="material-symbols-outlined text-[18px]">trending_up</span>
+              </div>
+            </div>
+
+            <p class="font-sans text-3xl font-extrabold text-slate-900 tracking-tight tabular-nums" id="tile-runway-val">
+              98 <span class="text-xl font-bold text-slate-700">Days</span> <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 ml-1">~3.2 Mo</span>
+            </p>
+
+            <!-- Embedded SVG Micro Sparkline -->
+            <div class="h-8 w-full mt-3 flex items-end">
+              <svg class="w-full h-8 overflow-visible" viewBox="0 0 100 28" fill="none" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="spark-runway" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#059669" stop-opacity="0.2"/>
+                    <stop offset="100%" stop-color="#059669" stop-opacity="0.0"/>
+                  </linearGradient>
+                </defs>
+                <line x1="0" y1="16" x2="100" y2="16" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="2,2"/>
+                <path d="M0,24 Q20,22 40,16 T70,12 T100,5 L100,28 L0,28 Z" fill="url(#spark-runway)" />
+                <path d="M0,24 Q20,22 40,16 T70,12 T100,5" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="100" cy="5" r="2.5" fill="#059669" />
+              </svg>
+            </div>
+
+            <!-- Crisp Delta Indicator -->
+            <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-emerald-700 font-semibold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[15px]">verified</span>
+                <span>+18d buffer gained</span>
+              </span>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold uppercase tracking-wider">Target Met</span>
+            </div>
+          </div>
+
+          <!-- Tile 3: Pending Invoices -->
+          <div class="glass-card rounded-2xl p-5 relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider block">Unpaid Invoices</span>
+                <span class="text-[11px] text-slate-400">2 Active Receivables</span>
+              </div>
+              <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shadow-2xs">
+                <span class="material-symbols-outlined text-[18px]">pending_actions</span>
+              </div>
+            </div>
+
+            <p class="font-sans text-3xl font-extrabold text-slate-900 tracking-tight tabular-nums">
+              $6,200<span class="text-lg text-slate-400 font-normal">.00</span>
+            </p>
+
+            <!-- Dual-segment progress distribution bar -->
+            <div class="h-8 w-full mt-3 flex flex-col justify-end space-y-1">
+              <div class="w-full h-2 rounded-full bg-slate-100 flex overflow-hidden">
+                <div class="bg-rose-500 h-full rounded-l-full" style="width: 52%;" title="Overdue: $3,200"></div>
+                <div class="bg-indigo-500 h-full rounded-r-full" style="width: 48%;" title="Due in 2d: $3,000"></div>
+              </div>
+              <div class="flex items-center justify-between text-[11px] font-medium text-slate-500">
+                <span class="text-rose-700 font-semibold">$3.2k Overdue</span>
+                <span class="text-indigo-700 font-semibold">$3.0k In 2d</span>
+              </div>
+            </div>
+
+            <!-- Crisp Delta Indicator -->
+            <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-rose-600 font-semibold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">warning</span>
+                <span>1 Action Required</span>
+              </span>
+              <a href="#urgent-overdue-card" class="text-indigo-600 hover:text-indigo-700 font-semibold text-xs flex items-center gap-0.5">
+                <span>Resolve</span>
+                <span class="material-symbols-outlined text-[13px]">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Tile 4: Safe-to-Spend -->
+          <div class="glass-card rounded-2xl p-5 relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <span class="text-xs text-slate-500 font-semibold uppercase tracking-wider block">Safe to Spend</span>
+                <span class="text-[11px] text-slate-400">Founder Profit Distribution</span>
+              </div>
+              <div class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shadow-2xs">
+                <span class="material-symbols-outlined text-[18px]">verified_user</span>
+              </div>
+            </div>
+
+            <p class="font-sans text-3xl font-extrabold text-slate-900 tracking-tight tabular-nums">
+              $4,120<span class="text-lg text-slate-400 font-normal">.00</span>
+            </p>
+
+            <!-- Capital protection split meter -->
+            <div class="h-8 w-full mt-3 flex flex-col justify-end space-y-1">
+              <div class="w-full h-2 rounded-full bg-slate-100 flex overflow-hidden">
+                <div class="bg-indigo-600 h-full rounded-l-full" style="width: 75%;" title="Free Cash: $4,120"></div>
+                <div class="bg-amber-400 h-full rounded-r-full" style="width: 25%;" title="Tax Vault: $3,712"></div>
+              </div>
+              <div class="flex items-center justify-between text-[11px] font-medium text-slate-500">
+                <span class="text-indigo-700 font-semibold">$4.1k Free</span>
+                <span class="text-amber-700 font-semibold">$3.7k Tax</span>
+              </div>
+            </div>
+
+            <!-- Crisp Delta Indicator -->
+            <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-slate-600 font-semibold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px] text-indigo-600">lock</span>
+                <span>25% Auto-Locked</span>
+              </span>
+              <span class="text-[11px] text-emerald-700 font-semibold">Zero Rent Risk</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SECTION 2: DUAL CORE COMMAND COCKPIT
+           (LEFT: RUNWAY GAUGE & SCENARIO PLANNER | RIGHT: OVERDUE INVOICE RESOLVER)
+           ====================================================================== -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 w-full items-stretch">
+        
+        <!-- CARD 01: Capital Runway & What-If Scenario Simulator (7 Cols) -->
+        <div id="runway-simulator-section" class="xl:col-span-7 rounded-2xl p-6 lg:p-7 relative overflow-hidden flex flex-col justify-between transition-all bg-gradient-to-b from-[#0F1420] via-[#0B0F17] to-[#080B11] border border-emerald-500/20 hover:border-emerald-500/40 shadow-[0_8px_30px_rgba(16,185,129,0.06)]">
+          <div>
+            <!-- Header Bar -->
+            <div class="flex items-center justify-between gap-4 mb-2">
+              <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-400">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="tracking-widest">RUNWAY &amp; SPENDING ANALYSIS</span>
+              </div>
+              <span class="font-sans text-xs text-slate-400 bg-white/[0.04] px-3 py-1 rounded-full border border-white/10 font-medium flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>Live Synced</span>
+              </span>
+            </div>
+
+            <!-- Title & Subtitle with Clean Breathing Room -->
+            <div class="mb-6">
+              <h3 class="font-sans font-bold text-2xl text-white tracking-tight">
+                Cash Runway &amp; Monthly Spending
+              </h3>
+              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+                Operating buffer calibrated against current burn without new revenue contracts.
+              </p>
+            </div>
+
+            <!-- Core Meter & Streamlined Telemetry Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+              
+              <!-- Circular Arc Meter Gauge with Interactive Mode Switcher -->
+              <div class="md:col-span-5 flex flex-col items-center justify-center relative py-1">
+                <div class="relative w-48 h-48 sm:w-52 sm:h-52 flex items-center justify-center group/dial cursor-pointer" onclick="cycleDialDisplayMode()" title="Click to cycle view: Days / Balance / Horizon">
+                  <svg class="w-full h-full -rotate-90 overflow-visible" viewBox="0 0 100 100">
+                    <defs>
+                      <linearGradient id="cockpitMeterGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#10B981" />
+                        <stop offset="50%" stop-color="#6366F1" />
+                        <stop offset="100%" stop-color="#8B5CF6" />
+                      </linearGradient>
+                      <filter id="dialGlow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#10B981" flood-opacity="0.5"/>
+                      </filter>
+                    </defs>
+                    <!-- Background Track -->
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="#1E293B" stroke-width="6.5" stroke-dasharray="2 3"></circle>
+                    <!-- Active Gradient Arc with Glow -->
+                    <circle id="dash-gauge-circle" class="cockpit-gauge-circle" cx="50" cy="50" r="42" fill="none" stroke="url(#cockpitMeterGrad)" stroke-width="7.5" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="62" style="filter: drop-shadow(0 0 6px rgba(16,185,129,0.4));"></circle>
+                  </svg>
+                  
+                  <!-- Inside Meter Readings (Click to switch display) -->
+                  <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-2 select-none">
+                    <span class="font-sans text-4xl font-extrabold text-white tracking-tight tabular-nums transition-all" id="dash-runway-num">
+                      98 <span class="text-emerald-400 text-xl font-bold">Days</span>
+                    </span>
+                    <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mt-0.5" id="dash-dial-mode-label">RUNWAY BUFFER</span>
+                    <span class="font-sans text-xs text-emerald-400 font-semibold mt-1" id="dash-safe-cushion">
+                      $14,850 Available Balance
+                    </span>
+                    <span class="text-[9px] text-slate-500 mt-1 font-mono">click dial to toggle ↻</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2 mt-2">
+                  <span class="px-3 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-sans text-xs font-semibold shadow-2xs" id="dash-insulation-badge">
+                    ● Healthy Buffer (~3.2 Months)
+                  </span>
+                </div>
+              </div>
+
+              <!-- Streamlined Telemetry Stats & Live Burn Slider (Decluttered Unified Surface) -->
+              <div class="md:col-span-7 flex flex-col justify-between space-y-3">
+                
+                <!-- Telemetry Row 1: Available Cash in Bank -->
+                <div class="p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.05] border border-white/5 transition-all">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+                        <span class="material-symbols-outlined text-[17px]">account_balance_wallet</span>
+                      </div>
+                      <div>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">AVAILABLE CASH IN BANK</span>
+                        <span class="font-sans text-base font-bold text-white tabular-nums" id="dash-cash-val">$14,850.00</span>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md hidden sm:inline-block">
+                        +12.4%
+                      </span>
+                      <button type="button" onclick="syncMercuryBalance(this)" class="font-sans text-[11px] text-emerald-300 hover:text-emerald-200 px-2.5 py-1 rounded-md bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 font-semibold flex items-center gap-1 transition-all cursor-pointer">
+                        <span class="material-symbols-outlined text-[13px] sync-spin-icon">sync</span>
+                        <span>Sync</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="mt-1.5 pt-1.5 border-t border-white/5 flex items-center justify-between text-[10px] text-slate-400">
+                    <span>Mercury Checking: <strong class="text-slate-200 tabular-nums">$11,138</strong></span>
+                    <span>Stripe Treasury: <strong class="text-slate-200 tabular-nums">$3,712</strong></span>
+                  </div>
+                </div>
+
+                <!-- Telemetry Row 2: Average Monthly Spending + Expandable Breakdown -->
+                <div class="p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.05] border border-white/5 transition-all">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+                        <span class="material-symbols-outlined text-[17px]">local_fire_department</span>
+                      </div>
+                      <div>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold flex items-center gap-1">
+                          <span>MONTHLY BURN RATE</span>
+                        </span>
+                        <span class="font-sans text-base font-bold text-white tabular-nums" id="dash-burn-val">$3,850.00 / mo</span>
+                      </div>
+                    </div>
+                    <button type="button" onclick="toggleBurnBreakdown()" class="font-sans text-[11px] text-amber-300 px-2.5 py-1 rounded-md bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 font-semibold transition-all flex items-center gap-1 cursor-pointer">
+                      <span>Steady</span>
+                      <span class="material-symbols-outlined text-[13px]">expand_more</span>
+                    </button>
+                  </div>
+                  <!-- Expandable breakdown drawer with category bars -->
+                  <div id="burn-breakdown-details" class="hidden mt-2.5 pt-2.5 border-t border-white/5 text-xs space-y-1.5 text-slate-300">
+                    <div class="flex justify-between items-center text-[11px]">
+                      <span>Contractors &amp; Talent:</span>
+                      <span class="font-bold text-white tabular-nums">$2,750 (71%)</span>
+                    </div>
+                    <div class="w-full h-1 rounded-full bg-slate-800 overflow-hidden">
+                      <div class="h-full bg-amber-400 rounded-full" style="width: 71%"></div>
+                    </div>
+                    <div class="flex justify-between items-center text-[11px] pt-0.5">
+                      <span>Cloud &amp; AI Infra:</span>
+                      <span class="font-bold text-white tabular-nums">$680 (18%)</span>
+                    </div>
+                    <div class="w-full h-1 rounded-full bg-slate-800 overflow-hidden">
+                      <div class="h-full bg-indigo-400 rounded-full" style="width: 18%"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Telemetry Row 3: Protected Retainers & Escrow (Slim interactive line) -->
+                <div onclick="inspectEscrowDetails()" class="px-3 py-2 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/5 flex items-center justify-between transition-all cursor-pointer group">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-6 h-6 rounded-md bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 shrink-0">
+                      <span class="material-symbols-outlined text-[14px]">shield</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                      <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Escrow Vault:</span>
+                      <span class="font-sans text-xs font-bold text-indigo-300 tabular-nums" id="dash-shield-val">+$4,200.00</span>
+                      <span class="text-[9px] text-indigo-300 font-semibold bg-indigo-500/15 border border-indigo-500/30 px-1.5 py-0.5 rounded">Secured</span>
+                    </div>
+                  </div>
+                  <span class="text-[10px] text-slate-400 group-hover:text-indigo-300 transition-colors hidden sm:flex items-center gap-0.5 font-medium">
+                    <span>Apex ($2.5k) · Nova ($1.7k)</span>
+                    <span class="material-symbols-outlined text-[13px]">chevron_right</span>
+                  </span>
+                </div>
+
+                <!-- Sleek Integrated Live Burn Range Simulator (Seamless inline control) -->
+                <div class="pt-1.5 px-0.5 space-y-1.5">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-300 text-xs font-semibold flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-[14px] text-emerald-400">tune</span>
+                      <span>Simulate Burn Velocity</span>
+                    </span>
+                    <span class="font-mono font-bold text-emerald-400 tabular-nums text-xs" id="live-burn-display">$3,850 / mo</span>
+                  </div>
+                  <input type="range" min="1800" max="6500" step="50" value="3850" id="live-burn-slider" oninput="onLiveBurnChange(this.value)" class="cyber-slider w-full cursor-pointer">
+                  <div class="flex justify-between text-[10px] text-slate-400 font-medium">
+                    <span>Lean ($1.8k)</span>
+                    <span class="text-emerald-400 font-semibold">Baseline ($3.85k)</span>
+                    <span>Spike ($6.5k)</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Scenario Planning Footer (Unified Segmented Control with Clean Breathing Room) -->
+          <div class="pt-4 mt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="text-white font-bold uppercase text-[11px] tracking-wider">SCENARIO PLANNING:</span>
+              <span class="text-xs text-slate-400">Test invoice payment collection timing:</span>
+            </div>
+            
+            <div class="flex items-center gap-1 p-1 bg-black/50 rounded-xl border border-white/10 text-xs font-sans" id="dash-scenarios">
+              <button type="button" onclick="setDashScenario('worst', this)" class="scenario-btn py-1.5 px-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 border border-transparent transition-all font-medium cursor-pointer">
+                Conservative (74d)
+              </button>
+              <button type="button" onclick="setDashScenario('current', this)" class="scenario-btn liquid-glass-emerald py-1.5 px-3 rounded-lg bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.25)] transition-all cursor-pointer">
+                Current (98d)
+              </button>
+              <button type="button" onclick="setDashScenario('recovery', this)" class="scenario-btn py-1.5 px-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 border border-transparent transition-all font-medium cursor-pointer">
+                Optimistic (124d)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 02: Urgent Action Hub · Overdue Payment Resolver (5 Cols) -->
+        <div id="urgent-overdue-card" class="xl:col-span-5 rounded-2xl p-6 lg:p-7 relative overflow-hidden flex flex-col justify-between transition-all bg-gradient-to-b from-[#160B12] via-[#0E0B14] to-[#0A0910] border border-rose-500/30 hover:border-rose-500/50 shadow-[0_8px_32px_rgba(244,63,94,0.1)]">
+          <div>
+            <!-- Clean Header Eyebrow with Integrated Overdue Pill -->
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <div class="flex items-center gap-2 text-xs font-bold text-rose-400 tracking-wider uppercase">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                </span>
+                <span class="tracking-wide">OVERDUE RECEIVABLE</span>
+                <span class="text-rose-500/40 font-normal">|</span>
+                <span class="text-slate-400 font-mono text-[11px] font-normal">INV-085</span>
+              </div>
+              <span class="font-sans text-[11px] text-rose-300 bg-rose-500/15 px-2.5 py-0.5 rounded-full border border-rose-500/30 font-bold flex items-center gap-1 shadow-2xs">
+                <span>16d Past Due</span>
+                <span class="text-rose-400 font-normal">·</span>
+                <span class="text-rose-300 font-normal">+$160 Fee</span>
+              </span>
+            </div>
+
+            <!-- Spotlight Client Overview (Clean, unboxed & spacious) -->
+            <div class="flex items-center justify-between gap-3 mb-4.5 pb-4 border-b border-white/5">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-rose-500/20 to-purple-500/10 border border-rose-500/30 flex items-center justify-center font-sans text-rose-300 font-extrabold text-sm shrink-0 shadow-sm">
+                  VM
+                </div>
+                <div>
+                  <h4 class="font-sans font-bold text-white text-base flex items-center gap-1.5 leading-tight">
+                    <span>Veloce Motors Inc.</span>
+                    <span class="material-symbols-outlined text-[15px] text-rose-400" title="Milestone past due">warning</span>
+                  </h4>
+                  <p class="text-xs text-slate-400 mt-0.5 font-medium">Enterprise Brand System Phase 2</p>
+                  <p class="text-[11px] text-slate-500 mt-0.5">Contact: Marcus Thorne (Procurement)</p>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <span class="font-sans text-2xl sm:text-3xl font-extrabold text-white tabular-nums tracking-tight">$3,200<span class="text-sm text-slate-400 font-normal">.00</span></span>
+                <span class="block text-[10px] text-rose-400 font-semibold tracking-wide uppercase mt-0.5">Action Recommended</span>
+              </div>
+            </div>
+
+            <!-- Streamlined Control Suite (Row 1: Channel & AI Confidence, Row 2: Tone Selector) -->
+            <div class="space-y-2 mb-3.5">
+              <div class="flex items-center justify-between gap-2">
+                <!-- Dispatch Channel Tabs -->
+                <div class="flex items-center gap-1 p-0.5 rounded-lg bg-black/60 border border-white/10 text-[11px]" id="chaser-channel-tabs">
+                  <button type="button" onclick="setChaserChannel('whatsapp', this)" class="chaser-chan-btn liquid-glass-emerald px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30 transition-all cursor-pointer flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[13px]">chat</span>
+                    <span>WhatsApp</span>
+                  </button>
+                  <button type="button" onclick="setChaserChannel('email', this)" class="chaser-chan-btn px-2.5 py-1 rounded text-slate-400 hover:text-white transition-all cursor-pointer flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[13px]">mail</span>
+                    <span>Email</span>
+                  </button>
+                </div>
+
+                <!-- Recovery Rate Tag -->
+                <span id="tone-recovery-rate" class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                  94% typical recovery rate
+                </span>
+              </div>
+
+              <!-- Tone Selector Segmented Control (Full-width 3-way distribution) -->
+              <div class="grid grid-cols-3 gap-1 p-0.5 rounded-lg bg-black/60 border border-white/10 text-[11px] font-sans" id="chaser-tones">
+                <button type="button" onclick="setChaserTone('polite', this)" class="chaser-tone-btn liquid-glass-indigo py-1.5 px-2 rounded-lg bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-bold transition-all text-center cursor-pointer shadow-xs">
+                  🤝 Friendly
+                </button>
+                <button type="button" onclick="setChaserTone('firm', this)" class="chaser-tone-btn py-1.5 px-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 border border-transparent transition-all text-center cursor-pointer">
+                  ⚖ Standard
+                </button>
+                <button type="button" onclick="setChaserTone('urgent', this)" class="chaser-tone-btn py-1.5 px-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 border border-transparent transition-all text-center cursor-pointer">
+                  🚨 Escalated
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Realistic Preview Container (Spacious, modern, realistic) -->
+            <div id="chaser-preview-container" class="p-3.5 rounded-xl bg-black/50 border border-white/10 mb-4 relative">
+              
+              <!-- WhatsApp Message Bubble View -->
+              <div id="whatsapp-preview-view" class="space-y-2">
+                <div class="flex items-center justify-between text-[11px] text-slate-400 pb-1.5 border-b border-white/5">
+                  <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    <span>WhatsApp Cloud API Direct</span>
+                  </span>
+                  <span class="text-slate-500 font-mono">To: +1 (313) 555-0192</span>
+                </div>
+                
+                <div class="whatsapp-bubble p-3 text-xs leading-relaxed max-w-[96%] ml-auto">
+                  <p id="whatsapp-message-text" class="text-white">
+                    Hi Marcus, following up on invoice #085 ($3,200.00) which was due on September 15th. Here is the link to complete payment online, or let us know if you need anything updated.
+                  </p>
+                  <div class="mt-2 pt-2 border-t border-emerald-400/20 flex items-center justify-between">
+                    <a href="#" onclick="showToast('Payment link opened', 'Simulated checkout for INV-085', 'link', '#6366F1'); return false;" class="text-[11px] font-bold text-emerald-200 underline flex items-center gap-1 hover:text-white">
+                      <span>💳 Pay $3,200.00 via Stripe/ACH</span>
+                    </a>
+                    <span class="text-[10px] text-emerald-200/70 flex items-center gap-0.5">
+                      <span>10:42 AM</span>
+                      <span class="material-symbols-outlined text-[13px] text-sky-300">done_all</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Executive Email View (Hidden by default) -->
+              <div id="email-preview-view" class="hidden space-y-2 text-xs">
+                <div class="p-2.5 rounded-lg bg-slate-900/90 border border-white/10 space-y-1 text-[11px]">
+                  <div class="text-slate-400"><span class="text-slate-500">To:</span> Marcus Thorne &lt;m.thorne@velocemotors.com&gt;</div>
+                  <div class="text-slate-400"><span class="text-slate-500">Subject:</span> <strong class="text-white" id="email-subject-line">Follow-up: Invoice #085 Payment Statement ($3,200.00)</strong></div>
+                </div>
+                <p id="email-message-text" class="text-slate-200 p-2.5 leading-relaxed bg-slate-950/60 rounded-lg border border-white/5">
+                  Hi Marcus, following up on invoice #085 ($3,200.00) which was due on September 15th. Here is the link to complete payment online, or let us know if you need anything updated.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Action Buttons Deck -->
+          <div class="space-y-2 pt-1">
+            <div class="flex flex-col sm:flex-row items-stretch gap-2.5">
+              <button onclick="triggerDispatchDemo(this)" class="flex-1 py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-sans text-xs font-bold tracking-normal transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 cursor-pointer group">
+                <span class="material-symbols-outlined text-[16px] text-white group-hover:rotate-45 transition-transform duration-300">send</span>
+                <span id="dispatch-btn-text">Send Payment Reminder</span>
+              </button>
+              <button onclick="triggerAdvanceDemo(this)" class="py-3 px-4 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 font-sans text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+                <span class="material-symbols-outlined text-[16px] text-emerald-400">bolt</span>
+                <span id="advance-btn-text">Get Instant Payout ($3,152)</span>
+              </button>
+            </div>
+            <!-- Quick Helper Actions -->
+            <div class="flex items-center justify-between text-[11px] text-slate-400 px-1 pt-1">
+              <button type="button" onclick="copyReminderText(this)" class="hover:text-indigo-300 flex items-center gap-1 cursor-pointer">
+                <span class="material-symbols-outlined text-[13px]">content_copy</span>
+                <span>Copy Message Body</span>
+              </button>
+              <button type="button" onclick="triggerCopyLink(this, 'https://pay.gigpulse.io/inv-085-veloce')" class="hover:text-emerald-300 flex items-center gap-1 cursor-pointer">
+                <span class="material-symbols-outlined text-[13px]">link</span>
+                <span>Copy Direct Checkout Link</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SECTION 3: ACTIVE RECEIVABLES OPERATIONS LEDGER
+           (Who Owes You What, When It's Due, and 1-Click Collection Actions)
+           ====================================================================== -->
+      <div class="glass-card rounded-2xl p-6 lg:p-7 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-700">
+              <span class="material-symbols-outlined text-base">receipt_long</span>
+              <span>Invoices &amp; Receivables</span>
+            </div>
+            <h3 class="font-sans font-bold text-xl text-slate-900 mt-1">Current Invoices &amp; Expected Payouts</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Track every dollar in flight with automated reliability scores and 1-click reminders.</p>
+          </div>
+
+          <!-- Integrated Cyber Command Toolbar -->
+          <!-- Integrated Cyber Command Toolbar -->
+          <div class="flex flex-col gap-2.5 w-full md:w-auto">
+            
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+              
+              <!-- Live Search Bar with ⌘K Badge and Clear Button -->
+              <div class="relative group min-w-[240px]">
+                <span class="material-symbols-outlined text-[17px] text-slate-400 absolute left-3.5 top-2.5 group-focus-within:text-indigo-400 transition-colors">search</span>
+                <input type="text" id="invoice-filter-input" onkeyup="filterInvoicesBySearch()" placeholder="Search client or invoice..." class="bg-slate-900/90 border border-white/10 rounded-xl pl-10 pr-16 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 font-sans w-full transition-all shadow-sm">
+                <button type="button" id="clear-search-btn" onclick="clearInvoiceSearch()" class="hidden absolute right-8 top-2.5 text-slate-400 hover:text-white text-xs cursor-pointer" title="Clear Search">
+                  <span class="material-symbols-outlined text-[15px]">close</span>
+                </button>
+                <span class="absolute right-2.5 top-2 pointer-events-none px-1.5 py-0.5 rounded text-[10px] bg-white/10 border border-white/10 text-slate-400 font-mono">⌘K</span>
+              </div>
+              
+              <!-- Dropdown List View Filter Trigger & Popover Menu -->
+              <div class="relative" id="invoice-status-dropdown-container">
+                <!-- Dropdown Trigger Button -->
+                <button type="button" 
+                        id="invoice-status-dropdown-btn" 
+                        onclick="toggleInvoiceStatusDropdown(event)" 
+                        class="px-3.5 py-2 rounded-xl bg-slate-900/90 border border-white/10 hover:border-indigo-500/40 text-white text-xs font-semibold flex items-center justify-between gap-2.5 transition-all cursor-pointer shadow-sm min-w-[160px]">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[16px] text-indigo-400">filter_list</span>
+                    <span id="selected-status-label" class="font-medium">All Invoices</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span id="selected-status-badge" class="px-1.5 py-0.2 rounded-full text-[10px] bg-white/20 text-white font-extrabold">4</span>
+                    <span id="invoice-dropdown-chevron" class="material-symbols-outlined text-[16px] text-slate-400 transition-transform duration-200">expand_more</span>
+                  </div>
+                </button>
+
+                <!-- Dropdown List View Menu -->
+                <div id="invoice-status-dropdown-menu" 
+                     class="hidden absolute right-0 sm:right-auto sm:left-0 top-full mt-1.5 w-56 rounded-xl bg-[#0D111A]/95 backdrop-blur-xl border border-white/10 shadow-2xl p-1.5 z-30 font-sans space-y-0.5 animate-in fade-in zoom-in-95 duration-150">
+                  <div class="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider text-slate-400 border-b border-white/5 mb-1 flex items-center justify-between">
+                    <span>Filter by Status</span>
+                    <span class="text-slate-400">4 Total</span>
+                  </div>
+                  
+                  <!-- Option 1: All Invoices -->
+                  <button type="button" 
+                          onclick="selectInvoiceStatusFilter('all', 'All Invoices', '4', 'bg-white/20 text-white', this)" 
+                          class="status-dropdown-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs transition-all text-white bg-white/10 font-semibold cursor-pointer">
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-[16px] text-indigo-400">layers</span>
+                      <span>All Invoices</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-white/20 text-white font-extrabold">4</span>
+                      <span class="material-symbols-outlined text-[15px] text-indigo-400 status-check">check</span>
+                    </div>
+                  </button>
+
+                  <!-- Option 2: Overdue Invoices -->
+                  <button type="button" 
+                          onclick="selectInvoiceStatusFilter('overdue', 'Overdue', '1', 'bg-rose-500/20 text-rose-400 border border-rose-500/30', this)" 
+                          class="status-dropdown-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs text-slate-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                      <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                      </span>
+                      <span>Overdue</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-500/20 text-rose-400 font-extrabold border border-rose-500/30">1</span>
+                      <span class="material-symbols-outlined text-[15px] text-indigo-400 status-check hidden">check</span>
+                    </div>
+                  </button>
+
+                  <!-- Option 3: Upcoming Invoices -->
+                  <button type="button" 
+                          onclick="selectInvoiceStatusFilter('pending', 'Upcoming', '2', 'bg-sky-500/20 text-sky-400 border border-sky-500/30', this)" 
+                          class="status-dropdown-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs text-slate-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                      <span>Upcoming</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-sky-500/20 text-sky-400 font-extrabold border border-sky-500/30">2</span>
+                      <span class="material-symbols-outlined text-[15px] text-indigo-400 status-check hidden">check</span>
+                    </div>
+                  </button>
+
+                  <!-- Option 4: Cleared Invoices -->
+                  <button type="button" 
+                          onclick="selectInvoiceStatusFilter('settled', 'Cleared', '1', 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30', this)" 
+                          class="status-dropdown-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs text-slate-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                      <span>Cleared</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-500/20 text-emerald-400 font-extrabold border border-emerald-500/30">1</span>
+                      <span class="material-symbols-outlined text-[15px] text-indigo-400 status-check hidden">check</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quick Sort Pill Trigger -->
+              <button onclick="toggleInvoiceSort(this)" class="px-3 py-2 rounded-xl bg-slate-900/90 border border-white/10 hover:border-indigo-500/40 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shrink-0 shadow-sm" title="Toggle Sort Order">
+                <span class="material-symbols-outlined text-[16px] text-indigo-400">swap_vert</span>
+                <span id="invoice-sort-label">Amount ↓</span>
+              </button>
+
+            </div>
+
+            <!-- Quick Filter Preset Chips -->
+            <div class="flex items-center gap-1.5 text-[11px] text-slate-400 overflow-x-auto">
+              <span class="text-slate-500">Quick Filters:</span>
+              <button type="button" onclick="quickFilterClient('Veloce')" class="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all cursor-pointer">
+                Veloce Motors
+              </button>
+              <button type="button" onclick="quickFilterClient('Apex')" class="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all cursor-pointer">
+                Apex Labs
+              </button>
+              <button type="button" onclick="quickFilterClient('HyperGrowth')" class="px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-all cursor-pointer">
+                HyperGrowth
+              </button>
+              <button type="button" onclick="clearInvoiceSearch()" class="px-2 py-0.5 rounded-md text-slate-500 hover:text-slate-300 transition-colors cursor-pointer text-[10px]">
+                Reset ✕
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Ledger Table Feed -->
+        <div class="space-y-3" id="invoice-rows-container">
+          
+          <!-- Row 1: Overdue Target (Veloce Motors) -->
+          <div class="invoice-row flex flex-col md:flex-row md:items-center justify-between p-4 rounded-xl bg-white border border-rose-200 hover:border-rose-300 transition-all gap-4 shadow-2xs" data-status="overdue" data-client="Veloce Motors Inc.">
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center font-sans text-rose-700 font-bold shrink-0">
+                VM
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h4 class="font-sans font-bold text-slate-900 truncate">Veloce Motors Inc.</h4>
+                  <span class="px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200 font-sans text-xs text-rose-700 font-bold">16 Days Overdue</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-100 border border-slate-200 font-sans text-[11px] text-slate-600">Needs Follow-up</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5 truncate">INV-2026-085 • Due Sep 15, 2026 • Enterprise Brand System Phase 2</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100">
+              <div class="text-left md:text-right">
+                <span class="font-sans text-base font-bold text-slate-900 tabular-nums">$3,200.00</span>
+                <span class="block font-sans text-[11px] text-rose-700 font-semibold">Overdue</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="triggerRowAction(this, 'Dispatched friendly statement to Veloce Motors', 'Veloce')" class="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 font-sans text-xs flex items-center gap-1.5 transition-all cursor-pointer font-bold">
+                  <span class="material-symbols-outlined text-[15px]">send</span>
+                  <span>Follow Up</span>
+                </button>
+                <button onclick="triggerCopyLink(this, 'https://gigpulse.pay/inv-085')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-all cursor-pointer" title="Copy Payment Link">
+                  <span class="material-symbols-outlined text-[15px]">link</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Apex Digital Labs -->
+          <div class="invoice-row flex flex-col md:flex-row md:items-center justify-between p-4 rounded-xl bg-white border border-slate-200/80 hover:border-emerald-300 transition-all gap-4 shadow-2xs" data-status="pending" data-client="Apex Digital Labs">
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center font-sans text-emerald-700 font-bold shrink-0">
+                AD
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h4 class="font-sans font-bold text-slate-900 truncate">Apex Digital Labs</h4>
+                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 font-sans text-xs text-emerald-700 font-bold">Due in 2d (Oct 9)</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-100 border border-slate-200 font-sans text-[11px] text-slate-600">Prompt Payer (2-day avg)</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5 truncate">INV-2026-089 • Design Systems Sprint 4 • Net-14 Direct ACH</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100">
+              <div class="text-left md:text-right">
+                <span class="font-sans text-base font-bold text-slate-900 tabular-nums">$3,000.00</span>
+                <span class="block font-sans text-[11px] text-emerald-700 font-semibold">Expected Soon</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="triggerRowAction(this, 'Sent polite reminder to Apex Digital Labs', 'Apex')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-slate-900 font-sans text-xs flex items-center gap-1.5 transition-all cursor-pointer font-medium">
+                  <span class="material-symbols-outlined text-[15px]">notifications</span>
+                  <span>Remind</span>
+                </button>
+                <button onclick="triggerCopyLink(this, 'https://gigpulse.pay/inv-089')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-all cursor-pointer" title="Copy Payment Link">
+                  <span class="material-symbols-outlined text-[15px]">link</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3: HyperGrowth Media -->
+          <div class="invoice-row flex flex-col md:flex-row md:items-center justify-between p-4 rounded-xl bg-white border border-slate-200/80 hover:border-indigo-300 transition-all gap-4 shadow-2xs" data-status="pending" data-client="HyperGrowth Media">
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center font-sans text-indigo-700 font-bold shrink-0">
+                HG
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h4 class="font-sans font-bold text-slate-900 truncate">HyperGrowth Media</h4>
+                  <span class="px-2.5 py-0.5 rounded-full bg-slate-100 font-sans text-xs text-slate-600">Due in 10d (Oct 17)</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-100 border border-slate-200 font-sans text-[11px] text-slate-600">Standard Net-14</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5 truncate">INV-2026-091 • Motion Identity Assets • Auto Scheduled</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100">
+              <div class="text-left md:text-right">
+                <span class="font-sans text-base font-bold text-slate-900 tabular-nums">$2,400.00</span>
+                <span class="block font-sans text-[11px] text-slate-500 font-medium">On Schedule</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="triggerRowAction(this, 'Scheduled automatic reminder for HyperGrowth Media', 'HyperGrowth')" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 hover:text-slate-900 font-sans text-xs flex items-center gap-1.5 transition-all cursor-pointer font-medium">
+                  <span class="material-symbols-outlined text-[15px]">schedule</span>
+                  <span>Scheduled</span>
+                </button>
+                <button onclick="triggerCopyLink(this, 'https://gigpulse.pay/inv-091')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-all cursor-pointer" title="Copy Payment Link">
+                  <span class="material-symbols-outlined text-[15px]">link</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 4: Aura Health App (Settled) -->
+          <div class="invoice-row flex flex-col md:flex-row md:items-center justify-between p-4 rounded-xl bg-white border border-slate-200/80 hover:border-emerald-300 transition-all gap-4 shadow-2xs" data-status="settled" data-client="Aura Health App">
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center font-sans text-emerald-700 font-bold shrink-0">
+                AU
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h4 class="font-sans font-bold text-slate-900 truncate">Aura Health App</h4>
+                  <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 font-sans text-xs font-bold border border-emerald-200">Settled Oct 3</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-100 border border-slate-200 font-sans text-[11px] text-emerald-700">Zero Friction</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5 truncate">INV-2026-078 • Mobile UI UX Sprint • Settled via Stripe Instant</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100">
+              <div class="text-left md:text-right">
+                <span class="font-sans text-base font-bold text-slate-900 tabular-nums">$4,800.00</span>
+                <span class="block font-sans text-[11px] text-emerald-700 font-semibold">Cleared into Bank</span>
+              </div>
+              <span class="text-xs font-sans text-slate-500 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md">Receipt #782</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SECTION 4: AUTOMATED FINANCIAL ASSISTANTS
+           (Explaining Exactly What Each Automation Does in Friendly Terms)
+           ====================================================================== -->
+      <div class="glass-card rounded-2xl p-6 lg:p-7 shadow-sm relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-700">
+              <span class="material-symbols-outlined text-base">smart_toy</span>
+              <span>Automated Financial Assistants</span>
+            </div>
+            <h3 class="font-sans font-bold text-xl text-slate-900 mt-1">Smart Background Automations</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Four background services that eliminate invoice anxiety, protect your runway, and set aside taxes.</p>
+          </div>
+          <span id="fleet-active-counter" class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-sans text-xs font-bold self-start sm:self-auto flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>4/4 Active &amp; Guarding</span>
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+          
+          <!-- Agent 1: The Sentinel (Runway Monitor - Emerald Mint Theme) -->
+          <div id="card-agent-1" class="agent-card p-5 rounded-2xl bg-gradient-to-b from-emerald-950/30 via-slate-900/90 to-[#060D0A] border border-emerald-500/30 hover:border-emerald-500/60 hover:shadow-[0_0_25px_rgba(16,185,129,0.18)] transition-all flex flex-col justify-between group relative overflow-hidden">
+            <div class="radar-scan-line hidden" id="radar-beam-1"></div>
+            <div>
+              <div class="flex items-center justify-between mb-3.5">
+                <div class="flex items-center gap-2">
+                  <span id="agent-1-num" class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-sans text-xs font-bold shadow-[0_0_8px_rgba(16,185,129,0.2)]">01</span>
+                  <span id="agent-1-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 font-sans text-[10px] font-extrabold tracking-wider">RUNWAY GUARD</span>
+                </div>
+                <!-- Interactive Power Toggle -->
+                <label class="relative inline-flex items-center cursor-pointer" title="Enable / Pause Agent">
+                  <input type="checkbox" checked onchange="toggleAgent('agent-1', this, 'Runway Monitor')" class="sr-only peer">
+                  <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-4 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500 shadow-inner"></div>
+                </label>
+              </div>
+              <h4 class="font-sans font-bold text-white text-base flex items-center gap-1.5">
+                <span>Runway Monitor</span>
+                <span id="agent-1-icon" class="material-symbols-outlined text-[15px] text-emerald-400">speed</span>
+              </h4>
+              <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                Monitors daily burn velocity against Mercury bank reserves to prevent unexpected cash crunch.
+              </p>
+              
+              <!-- Telemetry Stats Strip -->
+              <div id="agent-1-stats" class="mt-4 p-3 rounded-xl bg-black/60 border border-emerald-500/20 text-xs font-sans text-slate-300 space-y-1.5">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-400">Safe Horizon:</span>
+                  <span class="text-emerald-400 font-extrabold text-sm tabular-nums" id="agent1-horizon-val">98 Days</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400 text-[11px]">
+                  <span>Burn Velocity:</span>
+                  <span class="text-white font-mono font-bold">$3,850 / mo</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-3.5 border-t border-white/10 space-y-2.5">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400">Status:</span>
+                <span id="agent-1-status" class="text-emerald-300 font-semibold flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span>Actively Guarding</span>
+                </span>
+              </div>
+              <!-- Interactive Action Button with Sweep Animation -->
+              <button id="agent-1-btn" type="button" onclick="runAgentScan('agent-1', 'Runway Monitor', 'Audited Mercury reserves. 98 days buffer verified against current burn velocity ($3,850/mo).')" class="w-full py-2 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-[0.98]">
+                <span class="material-symbols-outlined text-[15px] text-emerald-400">radar</span>
+                <span>Run Burn Audit</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Agent 2: The Chaser (Payment Chaser - Rose Crimson Theme) -->
+          <div id="card-agent-2" class="agent-card p-5 rounded-2xl bg-gradient-to-b from-rose-950/30 via-slate-900/90 to-[#12060A] border border-rose-500/30 hover:border-rose-500/60 hover:shadow-[0_0_25px_rgba(244,63,94,0.18)] transition-all flex flex-col justify-between group relative overflow-hidden">
+            <div class="radar-scan-line hidden" id="radar-beam-2"></div>
+            <div>
+              <div class="flex items-center justify-between mb-3.5">
+                <div class="flex items-center gap-2">
+                  <span id="agent-2-num" class="w-8 h-8 rounded-lg bg-rose-500/15 border border-rose-500/40 flex items-center justify-center text-rose-400 font-sans text-xs font-bold shadow-[0_0_8px_rgba(244,63,94,0.2)]">02</span>
+                  <span id="agent-2-badge" class="px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-300 border border-rose-500/40 font-sans text-[10px] font-extrabold tracking-wider">1 OVERDUE</span>
+                </div>
+                <!-- Interactive Power Toggle -->
+                <label class="relative inline-flex items-center cursor-pointer" title="Enable / Pause Agent">
+                  <input type="checkbox" checked onchange="toggleAgent('agent-2', this, 'Payment Chaser')" class="sr-only peer">
+                  <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-4 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500 shadow-inner"></div>
+                </label>
+              </div>
+              <h4 class="font-sans font-bold text-white text-base flex items-center gap-1.5">
+                <span>Payment Chaser</span>
+                <span id="agent-2-icon" class="material-symbols-outlined text-[15px] text-rose-400">schedule_send</span>
+              </h4>
+              <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                Automatically drafts courteous follow-ups on late invoices across WhatsApp and Email.
+              </p>
+              
+              <!-- Telemetry Stats Strip -->
+              <div id="agent-2-stats" class="mt-4 p-3 rounded-xl bg-black/60 border border-rose-500/20 text-xs font-sans text-slate-300 space-y-1.5">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-400">Recovery Rate:</span>
+                  <span class="text-emerald-400 font-extrabold text-sm">94% typical</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400 text-[11px]">
+                  <span>Target Debt:</span>
+                  <span class="text-rose-400 font-bold font-mono">Veloce ($3,200)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-3.5 border-t border-white/10 space-y-2.5">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400">Channels:</span>
+                <span id="agent-2-status" class="text-slate-200 font-semibold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px] text-emerald-400">chat</span>
+                  <span>WhatsApp &amp; Email</span>
+                </span>
+              </div>
+              <!-- Interactive Action Button with Sweep Animation -->
+              <button id="agent-2-btn" type="button" onclick="runAgentScan('agent-2', 'Payment Chaser', 'Scanned overdue queue. Prepared WhatsApp + Email reminder for Veloce Motors (INV-085, $3,200).')" class="w-full py-2 px-3 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/40 text-rose-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-[0.98]">
+                <span class="material-symbols-outlined text-[15px] text-rose-400">outgoing_mail</span>
+                <span>Simulate Chaser</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Agent 3: The Underwriter (Reliability Advisor - Electric Indigo Theme) -->
+          <div id="card-agent-3" class="agent-card p-5 rounded-2xl bg-gradient-to-b from-indigo-950/30 via-slate-900/90 to-[#080A14] border border-indigo-500/30 hover:border-indigo-500/60 hover:shadow-[0_0_25px_rgba(99,102,241,0.18)] transition-all flex flex-col justify-between group relative overflow-hidden">
+            <div class="radar-scan-line hidden" id="radar-beam-3"></div>
+            <div>
+              <div class="flex items-center justify-between mb-3.5">
+                <div class="flex items-center gap-2">
+                  <span id="agent-3-num" class="w-8 h-8 rounded-lg bg-indigo-500/15 border border-indigo-500/40 flex items-center justify-center text-indigo-400 font-sans text-xs font-bold shadow-[0_0_8px_rgba(99,102,241,0.2)]">03</span>
+                  <span id="agent-3-badge" class="px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/40 font-sans text-[10px] font-extrabold tracking-wider">CLIENT SCORE</span>
+                </div>
+                <!-- Interactive Power Toggle -->
+                <label class="relative inline-flex items-center cursor-pointer" title="Enable / Pause Agent">
+                  <input type="checkbox" checked onchange="toggleAgent('agent-3', this, 'Reliability Advisor')" class="sr-only peer">
+                  <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-4 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500 shadow-inner"></div>
+                </label>
+              </div>
+              <h4 class="font-sans font-bold text-white text-base flex items-center gap-1.5">
+                <span>Reliability Advisor</span>
+                <span id="agent-3-icon" class="material-symbols-outlined text-[15px] text-indigo-400">verified_user</span>
+              </h4>
+              <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                Scores client reliability before contract signing and suggests milestone deposits on slow payers.
+              </p>
+              
+              <!-- Telemetry Stats Strip -->
+              <div id="agent-3-stats" class="mt-4 p-3 rounded-xl bg-black/60 border border-indigo-500/20 text-xs font-sans text-slate-300 space-y-1.5">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-400">Deposit Policy:</span>
+                  <span class="text-indigo-300 font-extrabold text-sm">50% Mandate</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400 text-[11px]">
+                  <span>Dispute Rate:</span>
+                  <span class="text-emerald-400 font-semibold font-mono">0.0% Clean</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-3.5 border-t border-white/10 space-y-2.5">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400">Active Scopes:</span>
+                <span id="agent-3-status" class="text-slate-200 font-semibold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px] text-indigo-400">shield</span>
+                  <span>3 Protected</span>
+                </span>
+              </div>
+              <!-- Interactive Action Button with Sweep Animation -->
+              <button id="agent-3-btn" type="button" onclick="runAgentScan('agent-3', 'Reliability Advisor', 'Recalculated client reliability indexes. 3/3 active contracts verified under escrow policy.')" class="w-full py-2 px-3 rounded-xl bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 text-indigo-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-[0.98]">
+                <span class="material-symbols-outlined text-[15px] text-indigo-400">verified_user</span>
+                <span>Audit Risk Scores</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Agent 4: The Conductor (Tax & Advance Vault - Royal Violet Theme) -->
+          <div id="card-agent-4" class="agent-card p-5 rounded-2xl bg-gradient-to-b from-purple-950/30 via-slate-900/90 to-[#0F0718] border border-purple-500/30 hover:border-purple-500/60 hover:shadow-[0_0_25px_rgba(168,85,247,0.18)] transition-all flex flex-col justify-between group relative overflow-hidden">
+            <div class="radar-scan-line hidden" id="radar-beam-4"></div>
+            <div>
+              <div class="flex items-center justify-between mb-3.5">
+                <div class="flex items-center gap-2">
+                  <span id="agent-4-num" class="w-8 h-8 rounded-lg bg-purple-500/15 border border-purple-500/40 flex items-center justify-center text-purple-400 font-sans text-xs font-bold shadow-[0_0_8px_rgba(168,85,247,0.2)]">04</span>
+                  <span id="agent-4-badge" class="px-2.5 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/40 font-sans text-[10px] font-extrabold tracking-wider">TAX VAULT</span>
+                </div>
+                <!-- Interactive Power Toggle -->
+                <label class="relative inline-flex items-center cursor-pointer" title="Enable / Pause Agent">
+                  <input type="checkbox" checked onchange="toggleAgent('agent-4', this, 'Tax Vault')" class="sr-only peer">
+                  <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-4 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500 shadow-inner"></div>
+                </label>
+              </div>
+              <h4 class="font-sans font-bold text-white text-base flex items-center gap-1.5">
+                <span>Tax &amp; Advance Vault</span>
+                <span id="agent-4-icon" class="material-symbols-outlined text-[15px] text-purple-400">account_balance</span>
+              </h4>
+              <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                Locks 25% of all client payouts into a dedicated tax vault and provides instant invoice factoring advances.
+              </p>
+              
+              <!-- Telemetry Stats Strip -->
+              <div id="agent-4-stats" class="mt-4 p-3 rounded-xl bg-black/60 border border-purple-500/20 text-xs font-sans text-slate-300 space-y-1.5">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-400">Instant Advance:</span>
+                  <span class="text-emerald-400 font-extrabold text-sm tabular-nums">$3,152 Avail</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400 text-[11px]">
+                  <span>Tax Shield:</span>
+                  <span class="text-purple-300 font-bold font-mono tabular-nums">$3,712 Safe (25%)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-3.5 border-t border-white/10 space-y-2.5">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400">Connected Rail:</span>
+                <span id="agent-4-status" class="text-slate-200 font-semibold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px] text-purple-400">lock</span>
+                  <span>Stripe Treasury</span>
+                </span>
+              </div>
+              <!-- Interactive Action Button with Sweep Animation -->
+              <button id="agent-4-btn" type="button" onclick="runAgentScan('agent-4', 'Tax & Advance Vault', 'Verified tax insulation: $3,712 locked safe (25% tax rule). Instant advance limit: $3,152 ready.')" class="w-full py-2 px-3 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/40 text-purple-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-[0.98]">
+                <span class="material-symbols-outlined text-[15px] text-purple-400">verified</span>
+                <span>Verify Tax Shield</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SECTION 5: LIVE FLEET AUDIT STREAM & CLIENT RISK MATRIX
+           ====================================================================== -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 w-full">
+        
+        <!-- Left: Client Risk Distribution Matrix (6 Cols) -->
+        <div class="xl:col-span-6 glass-card rounded-2xl p-6 lg:p-7 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-700 flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px]">security</span>
+                  <span>Client Reliability Profile</span>
+                </span>
+                <h3 class="font-sans font-bold text-lg text-slate-900 mt-1">Payment Track Record</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-sans text-xs font-semibold">94/100 Average Score</span>
+            </div>
+
+            <div class="space-y-4">
+              <!-- Grade A -->
+              <div>
+                <div class="flex justify-between text-xs mb-1.5">
+                  <span class="text-slate-800 font-medium flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>Prompt Payers (2.4-Day Average)</span>
+                  </span>
+                  <span class="font-sans text-emerald-700 font-bold tabular-nums">70% of Studio Volume ($14.7k)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full bg-emerald-500 rounded-full" style="width: 70%"></div>
+                </div>
+                <span class="text-xs text-slate-500 mt-1 block">Apex Digital Labs, Aura Health App • Zero payment friction</span>
+              </div>
+
+              <!-- Grade B -->
+              <div>
+                <div class="flex justify-between text-xs mb-1.5">
+                  <span class="text-slate-800 font-medium flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                    <span>Standard Net-14 Cadence</span>
+                  </span>
+                  <span class="font-sans text-indigo-700 font-bold tabular-nums">20% of Volume ($4.2k)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full bg-indigo-500 rounded-full" style="width: 20%"></div>
+                </div>
+                <span class="text-xs text-slate-500 mt-1 block">HyperGrowth Media • Standard payment cycle within terms</span>
+              </div>
+
+              <!-- Grade D -->
+              <div>
+                <div class="flex justify-between text-xs mb-1.5">
+                  <span class="text-slate-800 font-medium flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                    <span>Slow Payers (Follow-up Required)</span>
+                  </span>
+                  <span class="font-sans text-rose-700 font-bold tabular-nums">10% of Volume ($3.2k)</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                  <div class="h-full bg-rose-500 rounded-full" style="width: 10%"></div>
+                </div>
+                <span class="text-xs text-rose-700 mt-1 block">Veloce Motors • 50% upfront deposit suggested for next agreement</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
+            <span class="text-slate-600">Upfront Escrow Protection Policy:</span>
+            <span class="font-sans text-emerald-700 font-bold">100% Protected</span>
+          </div>
+        </div>
+
+        <!-- Right: Autonomous Agent Live Thought & Action Stream (6 Cols) -->
+        <div class="xl:col-span-6 glass-card rounded-2xl p-6 lg:p-7 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+              <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-800">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Recent Activity Log</span>
+              </div>
+              <span class="text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200 text-xs font-sans font-bold">4 ASSISTANTS LOGGED</span>
+            </div>
+
+            <!-- Real-Time Audit Log Cards -->
+            <div class="space-y-2.5" id="agent-thought-stream">
+              
+              <!-- Log 1: Sentinel -->
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-sans">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-emerald-700 font-bold text-xs flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <span>Runway Monitor</span>
+                  </span>
+                  <span class="text-slate-400 text-[11px]">Just now</span>
+                </div>
+                <p class="font-sans text-xs text-slate-600 leading-relaxed">
+                  Audited Mercury checking ($14,850.00). Monthly spending steady at $3,850/mo. Studio safe for 98 days.
+                </p>
+              </div>
+
+              <!-- Log 2: The Chaser -->
+              <div class="p-3 rounded-xl bg-rose-50/70 border border-rose-200 text-xs font-sans">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-rose-700 font-bold text-xs flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                    <span>Payment Chaser</span>
+                  </span>
+                  <span class="text-slate-400 text-[11px]">17:19:42</span>
+                </div>
+                <p class="font-sans text-xs text-slate-600 leading-relaxed">
+                  Calibrated reminder for Marcus Thorne at Veloce Motors (16d overdue). Instant factoring advance link attached.
+                </p>
+              </div>
+
+              <!-- Log 3: Underwriter -->
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-sans">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-indigo-700 font-bold text-xs flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                    <span>Reliability Advisor</span>
+                  </span>
+                  <span class="text-slate-400 text-[11px]">16:58:11</span>
+                </div>
+                <p class="font-sans text-xs text-slate-600 leading-relaxed">
+                  Apex Digital Labs scored high reliability. Net-14 direct ACH approved for upcoming Sprint 5 agreement.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Reasoning Loop Footer -->
+          <div class="mt-4 p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2 text-slate-500 text-xs font-medium">
+              <span class="material-symbols-outlined text-[16px] text-indigo-600">sync</span>
+              <span>All automated assistants active and synchronized</span>
+            </div>
+            <span class="text-emerald-700 font-sans font-bold text-xs">SYNCHRONIZED</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="w-full md:pl-64 xl:pl-72 border-t border-white/[0.08] bg-[#0A0F1D]/95 py-8 relative z-10 font-mono text-xs text-zinc-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 GigPulse OS. Sovereign financial intelligence for independent studios &amp; founders.</div>
+      <div class="flex items-center gap-4">
+        <span class="text-emerald-400 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Live Radar Active</span>
+        <span class="text-zinc-600">·</span>
+        <span>Mercury Bank &amp; Stripe Verified</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MOBILE BOTTOM FLOATING NAVIGATION DOCK (md:hidden)
+       ========================================================================== -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0A0F1D]/95 backdrop-blur-xl border-t border-white/10 px-4 py-2 flex items-center justify-around font-sans">
+    <a href="02_pulse_cockpit_dashboard.html" class="flex flex-col items-center gap-1 text-mint">
+      <span class="material-symbols-outlined text-xl">space_dashboard</span>
+      <span class="text-[10px] font-bold">Cockpit</span>
+    </a>
+    <a href="03_cash_flow_runway_forecaster.html" class="flex flex-col items-center gap-1 text-zinc-400 hover:text-white">
+      <span class="material-symbols-outlined text-xl">trending_up</span>
+      <span class="text-[10px] font-medium">Runway</span>
+    </a>
+    <a href="05_dynamic_milestone_invoice_builder.html" class="flex flex-col items-center -mt-5">
+      <div class="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg shadow-white/20 border-2 border-[#0A0F1D]">
+        <span class="material-symbols-outlined text-2xl">add</span>
+      </div>
+      <span class="text-[10px] font-bold text-white mt-0.5">New</span>
+    </a>
+    <a href="04_invoice_receivables_manager.html" class="flex flex-col items-center gap-1 text-zinc-400 hover:text-white">
+      <span class="material-symbols-outlined text-xl">receipt_long</span>
+      <span class="text-[10px] font-medium">Invoices</span>
+    </a>
+    <a href="06_autonomous_smart_payment_chaser.html" class="flex flex-col items-center gap-1 text-zinc-400 hover:text-white">
+      <span class="material-symbols-outlined text-xl">schedule_send</span>
+      <span class="text-[10px] font-medium">Chaser</span>
+    </a>
+  </div>
+
+  <!-- ==========================================================================
+       INTERACTIVE JAVASCRIPT LOGIC
+       ========================================================================== -->
+  <script>
+    // Smooth Scroll Helper
+    function scrollToSimulator() {
+      if (typeof closeWhatIfModal === 'function') closeWhatIfModal();
+      const el = document.getElementById('runway-simulator-section');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Toast Notification System
+    function showToast(title, message, icon = 'check_circle', color = '#10B981') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = 'liquid-glass-toast pointer-events-auto p-4 rounded-xl flex items-start gap-3 w-80 sm:w-96 transition-all duration-300 transform translate-x-10 opacity-0';
+      toast.innerHTML = `
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style="background: ${color}20; border: 1px solid ${color}40; color: ${color}">
+          <span class="material-symbols-outlined text-[18px]">${icon}</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="font-sans font-bold text-xs text-white">${title}</h4>
+          <p class="text-[11px] text-zinc-300 mt-0.5 leading-snug">${message}</p>
+        </div>
+      `;
+      container.appendChild(toast);
+
+      // Trigger enter animation
+      setTimeout(() => {
+        toast.classList.remove('translate-x-10', 'opacity-0');
+        toast.classList.add('translate-x-0', 'opacity-100');
+      }, 50);
+
+      // Remove after 3.5s
+      setTimeout(() => {
+        toast.classList.add('translate-x-10', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // Quick Hero Scenario Switcher with Liquid Glassmorphism
+    function quickSetHeroScenario(type, btn) {
+      document.querySelectorAll('#hero-quick-scenarios .hero-scenario-btn').forEach(b => {
+        b.className = 'hero-scenario-btn py-2 px-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 border border-transparent transition-all text-center cursor-pointer';
+      });
+      if (btn) {
+        const glassColor = type === 'worst' ? 'liquid-glass-rose' : 'liquid-glass-emerald';
+        btn.className = `hero-scenario-btn ${glassColor} py-2 px-2.5 rounded-lg font-bold transition-all text-center cursor-pointer shadow-sm`;
+      }
+
+      // Also sync Cockpit Scenarios
+      const cockpitBtn = document.querySelector(`#dash-scenarios button[onclick*="${type}"]`);
+      setDashScenario(type, cockpitBtn, false);
+    }
+
+    // Scenario Stress Test Interactive Selector with Liquid Glass Styling
+    function setDashScenario(type, btn, syncHero = true) {
+      document.querySelectorAll('#dash-scenarios .scenario-btn').forEach(b => {
+        b.className = 'scenario-btn py-1.5 px-3 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 border border-transparent transition-all font-medium cursor-pointer';
+      });
+      if (btn) {
+        const glassColor = type === 'worst' ? 'liquid-glass-rose' : 'liquid-glass-emerald';
+        btn.className = `scenario-btn ${glassColor} py-1.5 px-3 rounded-lg font-bold transition-all cursor-pointer`;
+      }
+
+      const numEl = document.getElementById('dash-runway-num');
+      const safeEl = document.getElementById('dash-safe-cushion');
+      const gaugeCircle = document.getElementById('dash-gauge-circle');
+      const badgeEl = document.getElementById('dash-insulation-badge');
+      const topBadge = document.getElementById('top-runway-badge');
+      const tileRunway = document.getElementById('tile-runway-val');
+      const heroNum = document.getElementById('hero-runway-num');
+      const heroBar = document.getElementById('hero-runway-bar');
+      const heroPill = document.getElementById('hero-status-pill');
+      const heroPercent = document.getElementById('hero-runway-percent-badge');
+      const slider = document.getElementById('live-burn-slider');
+      const modalNum = document.getElementById('modal-runway-num');
+      const modalTreasury = document.getElementById('modal-treasury-val');
+      const modalUnit = document.getElementById('modal-runway-unit');
+
+      if (type === 'worst') {
+        if (numEl) numEl.innerHTML = '74 <span class="text-rose-400 text-xl font-bold">Days</span>';
+        if (safeEl) safeEl.textContent = '$11,650 (Conservative)';
+        if (badgeEl) {
+          badgeEl.textContent = '⚠ Reduced Buffer (74 Days)';
+          badgeEl.className = 'mt-3 px-3.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 font-sans text-xs font-semibold';
+        }
+        if (topBadge) topBadge.textContent = '74 Days Runway (Conservative)';
+        if (tileRunway) tileRunway.innerHTML = '74 <span class="text-xl font-bold text-slate-300">Days</span> <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 ml-1">Conservative</span>';
+        if (gaugeCircle) {
+          gaugeCircle.style.strokeDashoffset = '115';
+          gaugeCircle.style.stroke = '#F43F5E';
+        }
+        if (heroNum) heroNum.textContent = '74';
+        if (heroBar) heroBar.style.width = '62%';
+        if (heroPill) {
+          heroPill.textContent = 'Delayed Receivables (2.4 Mo)';
+          heroPill.className = 'text-[10px] font-bold text-rose-300 bg-rose-500/10 px-1.5 py-0.5 rounded border border-rose-500/30';
+        }
+        if (heroPercent) heroPercent.textContent = '123% of Target';
+        if (slider) slider.value = 4600;
+        if (modalNum) modalNum.textContent = '74';
+        if (modalTreasury) modalTreasury.textContent = '$11,650.00';
+        if (modalUnit) {
+          modalUnit.textContent = 'Days Safe (Delayed)';
+          modalUnit.className = 'text-xs font-semibold text-rose-400';
+        }
+        showToast('Conservative Stress Test', 'Simulating 30-day payment lag. Runway holds at 74 days safe.', 'info', '#F43F5E');
+        addAuditLog('Runway Monitor', 'Conservative scenario applied. Minimum runway holds at 74 days without touching tax reserve.', '#F43F5E');
+      } else if (type === 'recovery') {
+        if (numEl) numEl.innerHTML = '124 <span class="text-teal-300 text-xl font-bold">Days</span>';
+        if (safeEl) safeEl.textContent = '$21,050 Fully Cleared';
+        if (badgeEl) {
+          badgeEl.textContent = '● Maximum Protection (+26 Days)';
+          badgeEl.className = 'mt-3 px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-sans text-xs font-semibold';
+        }
+        if (topBadge) topBadge.textContent = '124 Days Runway (Optimistic)';
+        if (tileRunway) tileRunway.innerHTML = '124 <span class="text-xl font-bold text-slate-300">Days</span> <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 ml-1">Optimistic</span>';
+        if (gaugeCircle) {
+          gaugeCircle.style.strokeDashoffset = '20';
+          gaugeCircle.style.stroke = '#10B981';
+        }
+        if (heroNum) heroNum.textContent = '124';
+        if (heroBar) heroBar.style.width = '100%';
+        if (heroPill) {
+          heroPill.textContent = 'Peak Liquidity (~4.1 Mo)';
+          heroPill.className = 'text-[10px] font-bold text-teal-300 bg-teal-500/10 px-1.5 py-0.5 rounded border border-teal-500/30';
+        }
+        if (heroPercent) heroPercent.textContent = '206% of Target';
+        if (slider) slider.value = 3200;
+        if (modalNum) modalNum.textContent = '124';
+        if (modalTreasury) modalTreasury.textContent = '$21,050.00';
+        if (modalUnit) {
+          modalUnit.textContent = 'Days Safe (Peak)';
+          modalUnit.className = 'text-xs font-semibold text-teal-300';
+        }
+        showToast('Optimistic Scenario', 'All pending invoices collected. Runway extends to 124 days (over 4 months).', 'check_circle', '#10B981');
+        addAuditLog('Runway Monitor', 'Projected all receivables collected. Studio runway reaches peak 124 days.', '#10B981');
+      } else {
+        // Current Default
+        if (numEl) numEl.innerHTML = '98 <span class="text-emerald-400 text-xl font-bold">Days</span>';
+        if (safeEl) safeEl.textContent = '$14,850 Available Balance';
+        if (badgeEl) {
+          badgeEl.textContent = '● Healthy Buffer (~3.2 Months)';
+          badgeEl.className = 'mt-3 px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-sans text-xs font-semibold';
+        }
+        if (topBadge) topBadge.textContent = '98 Days Runway';
+        if (tileRunway) tileRunway.innerHTML = '98 <span class="text-xl font-bold text-slate-300">Days</span> <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 ml-1">~3.2 Mo</span>';
+        if (gaugeCircle) {
+          gaugeCircle.style.strokeDashoffset = '62';
+          gaugeCircle.style.stroke = 'url(#cockpitMeterGrad)';
+        }
+        if (heroNum) heroNum.textContent = '98';
+        if (heroBar) heroBar.style.width = '82%';
+        if (heroPill) {
+          heroPill.textContent = 'Optimal (~3.2 Mo)';
+          heroPill.className = 'text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20';
+        }
+        if (heroPercent) heroPercent.textContent = '163% of Target';
+        if (slider) slider.value = 3850;
+        if (modalNum) modalNum.textContent = '98';
+        if (modalTreasury) modalTreasury.textContent = '$14,850.00';
+        if (modalUnit) {
+          modalUnit.textContent = 'Days Safe (Baseline)';
+          modalUnit.className = 'text-xs font-semibold text-emerald-400';
+        }
+        showToast('Current Reality Restored', 'Displaying live synchronized Mercury balance (98 days runway).', 'sync', '#6366F1');
+      }
+
+      // Sync Hero Quick Buttons if needed
+      if (syncHero) {
+        document.querySelectorAll('#hero-quick-scenarios .hero-scenario-btn').forEach(b => {
+          b.className = 'hero-scenario-btn py-2 px-2.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 border border-transparent transition-all text-center cursor-pointer';
+        });
+        const matchedHero = document.querySelector(`#hero-quick-scenarios button[onclick*="${type}"]`);
+        if (matchedHero) {
+          const glassColor = type === 'worst' ? 'liquid-glass-rose' : 'liquid-glass-emerald';
+          matchedHero.className = `hero-scenario-btn ${glassColor} py-2 px-2.5 rounded-lg font-bold transition-all text-center cursor-pointer shadow-sm`;
+        }
+      }
+    }
+
+    // Live Burn Rate Slider Realtime Simulator
+    function onLiveBurnChange(val) {
+      const burn = Number(val);
+      const burnFormatted = `$${burn.toLocaleString()}`;
+      
+      const liveBurnDisplay = document.getElementById('live-burn-display');
+      if (liveBurnDisplay) liveBurnDisplay.textContent = `${burnFormatted} / mo`;
+      
+      const dashBurnVal = document.getElementById('dash-burn-val');
+      if (dashBurnVal) dashBurnVal.textContent = `${burnFormatted}.00 / mo`;
+
+      const heroBurnVal = document.getElementById('hero-burn-val');
+      if (heroBurnVal) heroBurnVal.textContent = burnFormatted;
+
+      // Available Cash in Bank: $14,850
+      const availableCash = 14850;
+      const runwayDays = Math.round((availableCash / burn) * 30);
+
+      const numEl = document.getElementById('dash-runway-num');
+      const heroNum = document.getElementById('hero-runway-num');
+      const gaugeCircle = document.getElementById('dash-gauge-circle');
+      const badgeEl = document.getElementById('dash-insulation-badge');
+      const heroPill = document.getElementById('hero-status-pill');
+      const heroBar = document.getElementById('hero-runway-bar');
+      const heroPercent = document.getElementById('hero-runway-percent-badge');
+
+      if (numEl) {
+        const colorClass = runwayDays >= 85 ? 'text-emerald-400' : runwayDays >= 55 ? 'text-amber-400' : 'text-rose-400';
+        numEl.innerHTML = `${runwayDays} <span class="${colorClass} text-xl font-bold">Days</span>`;
+      }
+      if (heroNum) heroNum.textContent = String(runwayDays);
+
+      // Gauge Offset formula (Track 264)
+      if (gaugeCircle) {
+        const ratio = Math.min(Math.max(runwayDays / 130, 0.15), 1);
+        const offset = Math.round(264 - (264 * ratio * 0.8));
+        gaugeCircle.style.strokeDashoffset = String(offset);
+        if (runwayDays >= 85) gaugeCircle.style.stroke = 'url(#cockpitMeterGrad)';
+        else if (runwayDays >= 55) gaugeCircle.style.stroke = '#F59E0B';
+        else gaugeCircle.style.stroke = '#F43F5E';
+      }
+
+      if (heroBar) {
+        const barWidth = Math.min(100, Math.round((runwayDays / 120) * 100));
+        heroBar.style.width = `${barWidth}%`;
+      }
+
+      const months = (runwayDays / 30).toFixed(1);
+      if (badgeEl) {
+        if (runwayDays >= 85) {
+          badgeEl.textContent = `● Healthy Buffer (~${months} Months)`;
+          badgeEl.className = 'mt-3 px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-sans text-xs font-semibold';
+        } else if (runwayDays >= 55) {
+          badgeEl.textContent = `🟡 Moderate Buffer (~${months} Months)`;
+          badgeEl.className = 'mt-3 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-sans text-xs font-semibold';
+        } else {
+          badgeEl.textContent = `⚠ Critical Crunch (< 2 Months)`;
+          badgeEl.className = 'mt-3 px-3.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 font-sans text-xs font-semibold';
+        }
+      }
+
+      if (heroPill) {
+        heroPill.textContent = `${runwayDays}d Buffer (~${months} Mo)`;
+      }
+      if (heroPercent) {
+        heroPercent.textContent = `${Math.round((runwayDays / 60) * 100)}% of Target`;
+      }
+    }
+
+    // Toggle Burn Breakdown Drawer
+    function toggleBurnBreakdown() {
+      const el = document.getElementById('burn-breakdown-details');
+      if (el) {
+        el.classList.toggle('hidden');
+      }
+    }
+
+    // Sync Mercury Balance Demo
+    function syncMercuryBalance(btn) {
+      const icon = btn.querySelector('.sync-spin-icon');
+      if (icon) icon.classList.add('animate-spin');
+      btn.disabled = true;
+
+      setTimeout(() => {
+        if (icon) icon.classList.remove('animate-spin');
+        btn.disabled = false;
+        showToast('Mercury Bank Synchronized', 'Verified available checking reserves: $14,850.00.', 'sync', '#10B981');
+        addAuditLog('Treasury Connector', 'Synced Mercury checking balance. Zero deviation detected.', '#10B981');
+      }, 700);
+    }
+
+    // Inspect Escrow Details
+    function inspectEscrowDetails() {
+      showToast('Escrow Vault Protected', '$4,200.00 secured across 2 contracts on Stripe Treasury escrow rails.', 'shield', '#6366F1');
+      addAuditLog('Contract Escrow', 'Scanned active escrows: $2,500 Apex Labs milestone + $1,700 Nova Creative retainer active.', '#6366F1');
+    }
+
+    // AI Chaser Tone & Multi-Channel Switcher
+    const chaserMessages = {
+      polite: {
+        text: '"Hi Marcus, following up on invoice #085 ($3,200.00) which was due on September 15th. Here is the link to complete payment online, or let us know if you need anything updated."',
+        subject: 'Courtesy Follow-up: Invoice #085 ($3,200.00) — Veloce Motors',
+        recovery: '94% typical recovery rate'
+      },
+      firm: {
+        text: '"Hi Marcus, invoice INV-085 for $3,200.00 is now 16 days overdue. Please process payment today using the link below to keep our project milestone schedule uninterrupted."',
+        subject: 'Second Notice: Past Due Invoice #085 ($3,200.00) — Veloce Motors',
+        recovery: '89% typical recovery rate'
+      },
+      urgent: {
+        text: '"Marcus, please note invoice INV-085 ($3,200.00) is past due by 16 days. Work suspension and finance collection will initiate in 48 hours unless settled today."',
+        subject: 'URGENT ESCALATION: Final Settlement Notice for INV-085 ($3,200.00)',
+        recovery: '97% typical recovery rate'
+      }
+    };
+
+    let activeChaserTone = 'polite';
+    function setChaserTone(tone, btn) {
+      activeChaserTone = tone;
+      document.querySelectorAll('#chaser-tones .chaser-tone-btn').forEach(b => {
+        b.className = 'chaser-tone-btn py-1.5 px-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 border border-transparent transition-all text-center cursor-pointer';
+      });
+      if (btn) {
+        const glassColor = tone === 'urgent' ? 'liquid-glass-rose' : 'liquid-glass-indigo';
+        btn.className = `chaser-tone-btn ${glassColor} py-1.5 px-2 rounded-lg font-bold transition-all text-center cursor-pointer shadow-xs`;
+      }
+
+      const previewEl = document.getElementById('chaser-message-preview');
+      const waTextEl = document.getElementById('whatsapp-message-text');
+      const emailTextEl = document.getElementById('email-message-text');
+      const emailSubjEl = document.getElementById('email-subject-line');
+      const rateEl = document.getElementById('tone-recovery-rate');
+
+      const data = chaserMessages[tone];
+      if (data) {
+        if (waTextEl) {
+          waTextEl.style.opacity = '0.3';
+          setTimeout(() => {
+            waTextEl.textContent = data.text.replace(/^"|"$/g, '');
+            waTextEl.style.opacity = '1';
+          }, 120);
+        }
+        if (emailTextEl) emailTextEl.textContent = data.text.replace(/^"|"$/g, '');
+        if (emailSubjEl) emailSubjEl.textContent = data.subject;
+        if (previewEl) previewEl.textContent = data.text;
+        if (rateEl) rateEl.textContent = data.recovery;
+      }
+
+      showToast('Tone Updated', `Switched reminder tone to ${tone.toUpperCase()}.`, 'tune', '#818CF8');
+    }
+
+    // Switch Dispatch Channel (WhatsApp vs Email) with Liquid Glassmorphism
+    function setChaserChannel(channel, btn) {
+      document.querySelectorAll('#chaser-channel-tabs .chaser-chan-btn').forEach(b => {
+        b.className = 'chaser-chan-btn px-2 py-1 rounded text-slate-400 hover:text-white transition-all cursor-pointer flex items-center gap-1';
+      });
+      if (btn) {
+        const glassColor = channel === 'whatsapp' ? 'liquid-glass-emerald' : 'liquid-glass-indigo';
+        btn.className = `chaser-chan-btn ${glassColor} px-2 py-1 rounded font-bold transition-all cursor-pointer flex items-center gap-1`;
+      }
+
+      const waView = document.getElementById('whatsapp-preview-view');
+      const emailView = document.getElementById('email-preview-view');
+
+      if (channel === 'whatsapp') {
+        waView?.classList.remove('hidden');
+        emailView?.classList.add('hidden');
+        showToast('Switched Channel', 'Rendering interactive WhatsApp Cloud API chat preview.', 'chat', '#10B981');
+      } else {
+        waView?.classList.add('hidden');
+        emailView?.classList.remove('hidden');
+        showToast('Switched Channel', 'Rendering Executive Statement Email template.', 'mail', '#6366F1');
+      }
+    }
+
+    // Copy Reminder Text
+    function copyReminderText(btn) {
+      const waText = document.getElementById('whatsapp-message-text')?.textContent || '';
+      const emailText = document.getElementById('email-message-text')?.textContent || '';
+      const text = waText.trim() || emailText.trim();
+      navigator.clipboard?.writeText(text).catch(() => {});
+      const orig = btn.innerHTML;
+      btn.innerHTML = `<span class="material-symbols-outlined text-[13px] text-emerald-400">check</span><span class="text-emerald-400">Copied</span>`;
+      showToast('Message Copied', 'Chaser message body copied to clipboard.', 'content_copy', '#10B981');
+      setTimeout(() => {
+        btn.innerHTML = orig;
+      }, 2000);
+    }
+
+    // Toggle Agent Fleet Item
+    function toggleAgent(agentId, checkbox, name) {
+      const card = document.getElementById(`card-${agentId}`);
+      const statusSpan = document.getElementById(`${agentId}-status`);
+      const isChecked = checkbox.checked;
+
+      if (isChecked) {
+        if (card) card.classList.remove('opacity-60', 'grayscale-[0.5]');
+        if (statusSpan) {
+          statusSpan.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span><span>Actively Guarding</span>`;
+          statusSpan.className = 'text-emerald-300 font-semibold flex items-center gap-1.5';
+        }
+        showToast(`${name} Enabled`, `Background automation is actively guarding financial telemetry.`, 'power_settings_new', '#10B981');
+        addAuditLog(name, `Autonomous service re-activated by workspace admin.`, '#10B981');
+      } else {
+        if (card) card.classList.add('opacity-60', 'grayscale-[0.5]');
+        if (statusSpan) {
+          statusSpan.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span><span>Paused</span>`;
+          statusSpan.className = 'text-slate-400 font-medium flex items-center gap-1';
+        }
+        showToast(`${name} Paused`, `Automation temporarily suspended.`, 'pause_circle', '#94A3B8');
+        addAuditLog(name, `Service paused by user command. Monitoring paused.`, '#94A3B8');
+      }
+
+      // Update Fleet Active Count
+      const activeCount = document.querySelectorAll('.agent-card input[type="checkbox"]:checked').length;
+      const counterEl = document.getElementById('fleet-active-counter');
+      if (counterEl) {
+        counterEl.innerHTML = `<span class="w-2 h-2 rounded-full ${activeCount === 4 ? 'bg-emerald-400' : 'bg-amber-400'} animate-pulse"></span><span>${activeCount}/4 Active &amp; Guarding</span>`;
+      }
+    }
+
+    // On-Demand Run Agent Scan Action with Radar Sweep Beam
+    function runAgentScan(agentId, name, logText) {
+      showToast(`${name} Scan Started`, `Running live background diagnostic for ${name}...`, 'radar', '#818CF8');
+      
+      const num = agentId.replace('agent-', '');
+      const beam = document.getElementById(`radar-beam-${num}`);
+      const card = document.getElementById(`card-${agentId}`);
+      if (beam) {
+        beam.className = 'radar-beam-scan';
+        beam.classList.remove('hidden');
+      }
+
+      setTimeout(() => {
+        if (beam) beam.classList.add('hidden');
+        showToast(`${name} Completed`, logText, 'check_circle', '#10B981');
+        addAuditLog(name, logText, '#818CF8');
+      }, 900);
+    }
+
+    // Toggle Invoice Sort
+    let invoiceSortAsc = false;
+    function toggleInvoiceSort(btn) {
+      invoiceSortAsc = !invoiceSortAsc;
+      const label = document.getElementById('invoice-sort-label');
+      if (label) label.textContent = invoiceSortAsc ? 'Amount ↑' : 'Amount ↓';
+
+      const container = document.getElementById('invoice-rows-container');
+      const rows = Array.from(document.querySelectorAll('.invoice-row'));
+      
+      rows.sort((a, b) => {
+        const amtA = parseFloat(a.querySelector('.tabular-nums')?.textContent.replace(/[^0-9.]/g, '') || '0');
+        const amtB = parseFloat(b.querySelector('.tabular-nums')?.textContent.replace(/[^0-9.]/g, '') || '0');
+        return invoiceSortAsc ? amtA - amtB : amtB - amtA;
+      });
+
+      rows.forEach(r => container.appendChild(r));
+      showToast('Invoices Re-sorted', `Sorted by ${invoiceSortAsc ? 'lowest to highest' : 'highest to lowest'} amount.`, 'swap_vert', '#6366F1');
+    }
+
+    // Demo Dispatch Feedback
+    function triggerDispatchDemo(btn) {
+      const textSpan = document.getElementById('dispatch-btn-text');
+      const orig = textSpan ? textSpan.textContent : 'Send Payment Reminder';
+      if (textSpan) textSpan.textContent = 'Transmitting Follow-up...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        if (textSpan) textSpan.textContent = '✓ Sent via WhatsApp & Email';
+        showToast('Payment Reminder Sent', 'Marcus Thorne received a customized follow-up with direct checkout link.', 'send', '#10B981');
+        addAuditLog('Payment Chaser', 'Sent polite payment follow-up to Marcus Thorne (Veloce Motors). Direct card/ACH link included.', '#10B981');
+        
+        setTimeout(() => {
+          if (textSpan) textSpan.textContent = orig;
+          btn.disabled = false;
+        }, 3500);
+      }, 850);
+    }
+
+    // Demo Instant Advance
+    function triggerAdvanceDemo(btn) {
+      const textSpan = document.getElementById('advance-btn-text');
+      const orig = textSpan ? textSpan.textContent : 'Get Instant Payout ($3,152)';
+      if (textSpan) textSpan.textContent = 'Transferring Payout...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        if (textSpan) textSpan.textContent = '✓ $3,152 Deposited to Bank';
+        
+        // Update Treasury Tile visually
+        const treasuryTile = document.getElementById('tile-treasury-val');
+        if (treasuryTile) {
+          treasuryTile.innerHTML = '$18,002<span class="text-lg text-emerald-400 font-bold">.00 (+Advance)</span>';
+        }
+
+        showToast('Payout Deposited', '$3,152.00 transferred directly to your Mercury Checking balance.', 'bolt', '#10B981');
+        addAuditLog('Tax & Payout Vault', 'Instant invoice advance of $3,152.00 approved and transferred to Mercury checking.', '#6366F1');
+
+        setTimeout(() => {
+          if (textSpan) textSpan.textContent = orig;
+          btn.disabled = false;
+        }, 3500);
+      }, 900);
+    }
+
+    // Interactive Action on Row
+    function triggerRowAction(btn, message, clientName) {
+      const orig = btn.innerHTML;
+      btn.innerHTML = `<span class="material-symbols-outlined text-[13px]">check</span><span>Sent ✓</span>`;
+      btn.classList.add('bg-emerald-500/20', 'text-emerald-300');
+      showToast('Action Completed', `Automated notification transmitted to ${clientName}.`, 'check_circle', '#10B981');
+      addAuditLog('GP-CHASER', message, '#10B981');
+
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.classList.remove('bg-emerald-500/20', 'text-emerald-300');
+      }, 2500);
+    }
+
+    // Copy Payment Link Feedback
+    function triggerCopyLink(btn, url) {
+      navigator.clipboard?.writeText(url).catch(() => {});
+      const orig = btn.innerHTML;
+      btn.innerHTML = `<span class="material-symbols-outlined text-[15px] text-emerald-400">check</span>`;
+      showToast('Payment Link Copied', `Copied client checkout link to clipboard: ${url}`, 'content_copy', '#6366F1');
+
+      setTimeout(() => {
+        btn.innerHTML = orig;
+      }, 2000);
+    }
+
+    // Toggle Status Dropdown Open/Close
+    function toggleInvoiceStatusDropdown(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('invoice-status-dropdown-menu');
+      const chevron = document.getElementById('invoice-dropdown-chevron');
+      if (!menu) return;
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+      } else {
+        menu.classList.add('hidden');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // Select Option from Status Dropdown
+    function selectInvoiceStatusFilter(status, label, count, badgeClass, itemEl) {
+      const labelEl = document.getElementById('selected-status-label');
+      const badgeEl = document.getElementById('selected-status-badge');
+      const menu = document.getElementById('invoice-status-dropdown-menu');
+      const chevron = document.getElementById('invoice-dropdown-chevron');
+
+      if (labelEl) labelEl.textContent = label;
+      if (badgeEl) {
+        badgeEl.textContent = count;
+        badgeEl.className = `px-1.5 py-0.2 rounded-full text-[10px] font-extrabold ${badgeClass}`;
+      }
+
+      // Highlight active dropdown item
+      document.querySelectorAll('.status-dropdown-item').forEach(btn => {
+        btn.className = 'status-dropdown-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs text-slate-300 hover:text-white hover:bg-white/5 transition-all cursor-pointer';
+        const check = btn.querySelector('.status-check');
+        if (check) check.classList.add('hidden');
+      });
+
+      if (itemEl) {
+        itemEl.className = 'status-dropdown-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs transition-all text-white bg-white/10 font-semibold cursor-pointer';
+        const check = itemEl.querySelector('.status-check');
+        if (check) check.classList.remove('hidden');
+      }
+
+      // Close dropdown
+      if (menu) menu.classList.add('hidden');
+      if (chevron) chevron.style.transform = 'rotate(0deg)';
+
+      // Filter invoice rows
+      filterInvoiceTab(status);
+      showToast('Status Filter Active', `Filtered view for "${label}" (${count} invoices).`, 'filter_list', '#6366F1');
+    }
+
+    // Close status dropdown on outside click
+    document.addEventListener('click', (e) => {
+      const container = document.getElementById('invoice-status-dropdown-container');
+      const menu = document.getElementById('invoice-status-dropdown-menu');
+      const chevron = document.getElementById('invoice-dropdown-chevron');
+      if (container && !container.contains(e.target)) {
+        if (menu && !menu.classList.contains('hidden')) {
+          menu.classList.add('hidden');
+          if (chevron) chevron.style.transform = 'rotate(0deg)';
+        }
+      }
+    });
+
+    // Tab Filter for Invoices
+    function filterInvoiceTab(status) {
+      const rows = document.querySelectorAll('.invoice-row');
+      rows.forEach(row => {
+        if (status === 'all' || row.dataset.status === status) {
+          row.style.display = 'flex';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    // Live Search Filter for Invoices with Clear Trigger
+    function filterInvoicesBySearch() {
+      const input = document.getElementById('invoice-filter-input');
+      const clearBtn = document.getElementById('clear-search-btn');
+      const query = (input?.value || '').toLowerCase().trim();
+      
+      if (clearBtn) {
+        if (query.length > 0) clearBtn.classList.remove('hidden');
+        else clearBtn.classList.add('hidden');
+      }
+
+      const rows = document.querySelectorAll('.invoice-row');
+      let visibleCount = 0;
+      rows.forEach(row => {
+        const client = (row.dataset.client || '').toLowerCase();
+        const text = row.textContent.toLowerCase();
+        if (client.includes(query) || text.includes(query)) {
+          row.style.display = 'flex';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    // Clear Invoice Search Input
+    function clearInvoiceSearch() {
+      const input = document.getElementById('invoice-filter-input');
+      const clearBtn = document.getElementById('clear-search-btn');
+      if (input) input.value = '';
+      if (clearBtn) clearBtn.classList.add('hidden');
+      
+      // Reset dropdown filter to All
+      const firstItem = document.querySelector('.status-dropdown-item');
+      selectInvoiceStatusFilter('all', 'All Invoices', '4', 'bg-white/20 text-white', firstItem);
+      showToast('Search Reset', 'All client receivables displayed.', 'restart_alt', '#6366F1');
+    }
+
+    // Quick Filter by Client Name Chip
+    function quickFilterClient(clientName) {
+      const input = document.getElementById('invoice-filter-input');
+      const clearBtn = document.getElementById('clear-search-btn');
+      if (input) {
+        input.value = clientName;
+        if (clearBtn) clearBtn.classList.remove('hidden');
+        filterInvoicesBySearch();
+        showToast('Client Filter Active', `Filtered view for "${clientName}".`, 'search', '#6366F1');
+      }
+    }
+
+    // What-If Scenario Modal Popover (Opens cleanly on top)
+    function openWhatIfModal() {
+      const modal = document.getElementById('what-if-modal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeWhatIfModal() {
+      const modal = document.getElementById('what-if-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleWhatIfBackdropClick(e) {
+      if (e.target && e.target.id === 'what-if-modal') {
+        closeWhatIfModal();
+      }
+    }
+
+    function toggleWhatIfDrawer() {
+      const modal = document.getElementById('what-if-modal');
+      if (!modal) return;
+      if (modal.classList.contains('hidden')) {
+        openWhatIfModal();
+      } else {
+        closeWhatIfModal();
+      }
+    }
+
+    // ========================================================================
+    // STUDIO TREASURY CALIBRATION MODAL LOGIC
+    // ========================================================================
+    function openTreasuryCalibrationModal() {
+      const modal = document.getElementById('treasury-calibration-modal');
+      if (!modal) return;
+
+      const user = (window.getActiveGigPulseUser ? window.getActiveGigPulseUser() : null) || {};
+      const cash = (user.liquidCash !== undefined) ? user.liquidCash : 14850;
+      const burn = (user.monthlyBurn !== undefined) ? user.monthlyBurn : 3850;
+      const target = user.runwayGoal || 90;
+      const bank = user.primaryBank || 'Mercury Checking ···4891';
+      const mode = user.ledgerMode || 'demo';
+
+      const cashInp = document.getElementById('calib-cash-input');
+      const burnInp = document.getElementById('calib-burn-input');
+      const targetSel = document.getElementById('calib-target-select');
+      const bankInp = document.getElementById('calib-bank-input');
+      const modeRadio = document.querySelector(`input[name="calib-ledger-mode"][value="${mode}"]`);
+
+      if (cashInp) cashInp.value = cash;
+      if (burnInp) burnInp.value = burn;
+      if (targetSel) targetSel.value = target;
+      if (bankInp) bankInp.value = bank;
+      if (modeRadio) modeRadio.checked = true;
+
+      updateCalibrationLivePreview();
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTreasuryCalibrationModal() {
+      const modal = document.getElementById('treasury-calibration-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleTreasuryCalibrationBackdropClick(e) {
+      if (e.target && e.target.id === 'treasury-calibration-modal') {
+        closeTreasuryCalibrationModal();
+      }
+    }
+
+    function updateCalibrationLivePreview() {
+      const cash = parseFloat(document.getElementById('calib-cash-input')?.value) || 0;
+      const burn = parseFloat(document.getElementById('calib-burn-input')?.value) || 1;
+      const target = parseInt(document.getElementById('calib-target-select')?.value) || 60;
+
+      const daily = Math.max(1, burn / 30);
+      const days = Math.max(1, Math.round(cash / daily));
+      const mo = (days / 30).toFixed(1);
+      const safe = Math.max(0, Math.round(cash - (burn * (target / 30))));
+      const pct = Math.round((days / target) * 100);
+
+      const runwayEl = document.getElementById('calib-preview-runway');
+      const safeEl = document.getElementById('calib-preview-safe');
+      const pctEl = document.getElementById('calib-preview-pct');
+
+      if (runwayEl) runwayEl.textContent = `${days} Days (~${mo}m)`;
+      if (safeEl) safeEl.textContent = `$${safe.toLocaleString()}`;
+      if (pctEl) {
+        pctEl.textContent = `${pct}%`;
+        pctEl.className = pct >= 100 
+          ? 'text-base font-extrabold text-emerald-400 font-mono' 
+          : 'text-base font-extrabold text-amber-400 font-mono';
+      }
+    }
+
+    function applyTreasuryCalibration() {
+      const cash = parseFloat(document.getElementById('calib-cash-input')?.value) || 14850;
+      const burn = parseFloat(document.getElementById('calib-burn-input')?.value) || 3850;
+      const target = parseInt(document.getElementById('calib-target-select')?.value) || 90;
+      const bank = document.getElementById('calib-bank-input')?.value.trim() || 'Mercury Checking ···4891';
+      const mode = document.querySelector('input[name="calib-ledger-mode"]:checked')?.value || 'demo';
+
+      if (window.calibrateStudioTreasury) {
+        window.calibrateStudioTreasury({
+          liquidCash: cash,
+          monthlyBurn: burn,
+          runwayGoal: target,
+          primaryBank: bank,
+          ledgerMode: mode
+        });
+      }
+
+      closeTreasuryCalibrationModal();
+      showToast('Treasury Calibrated', `Reserves: $${cash.toLocaleString()} | Burn: $${burn.toLocaleString()}/mo | Mode: ${mode === 'clean' ? 'Clean Ledger' : 'Demo Set'}`, 'check_circle', '#10B981');
+    }
+
+    // Refresh Hero Telemetry Live Action
+    function refreshHeroTelemetry(btn) {
+      const icon = btn ? btn.querySelector('.material-symbols-outlined') : null;
+      if (icon) icon.classList.add('animate-spin');
+      showToast('Telemetry Synchronized', 'Mercury reserves, burn velocity, and zero date re-calculated.', 'sync', '#10B981');
+      setTimeout(() => {
+        if (icon) icon.classList.remove('animate-spin');
+      }, 650);
+    }
+
+    // Quick Simulator: +$3.2k Veloce Paid Action
+    function triggerQuickSimulatePaid() {
+      quickSetHeroScenario('recovery');
+      showToast('Simulation: Veloce Paid', '+$3,200 deposited. Runway extended to 124 Days peak!', 'paid', '#10B981');
+      addAuditLog('Runway Monitor', 'Simulated invoice INV-085 settlement ($3,200). Cash runway extended from 98d to 124d (+26 Days safe).', '#10B981');
+    }
+
+    // Quick Simulator: +$1k Expense Spike Action
+    function triggerQuickSimulateSpike() {
+      quickSetHeroScenario('worst');
+      showToast('Simulation: Expense Surge', '+$1,000/mo spike simulated. Runway compressed to 74 Days.', 'trending_up', '#F43F5E');
+      addAuditLog('Runway Monitor', 'Stress test: Monthly burn increased by $1,000. Buffer compressed to 74 days safe horizon.', '#F43F5E');
+    }
+
+    // Cycle Display Mode on Circular Dial Gauge (Days -> Cash -> Zero Date)
+    let dialDisplayMode = 0;
+    function cycleDialDisplayMode() {
+      dialDisplayMode = (dialDisplayMode + 1) % 3;
+      const numEl = document.getElementById('dash-runway-num');
+      const labelEl = document.getElementById('dash-dial-mode-label');
+      const safeEl = document.getElementById('dash-safe-cushion');
+      if (!numEl || !labelEl) return;
+
+      if (dialDisplayMode === 0) {
+        numEl.innerHTML = '98 <span class="text-emerald-400 text-xl font-bold">Days</span>';
+        labelEl.textContent = 'RUNWAY BUFFER';
+        if (safeEl) safeEl.textContent = '$14,850 Available Balance';
+        showToast('Gauge View: Days', 'Displaying runway buffer in operational days.', 'speed', '#10B981');
+      } else if (dialDisplayMode === 1) {
+        numEl.innerHTML = '$14,850<span class="text-emerald-400 text-lg font-bold">.00</span>';
+        labelEl.textContent = 'LIQUID CUSHION';
+        if (safeEl) safeEl.textContent = 'Mercury Checking + Stripe Treasury';
+        showToast('Gauge View: Cash Balance', 'Displaying total available treasury reserves.', 'account_balance_wallet', '#6366F1');
+      } else {
+        numEl.innerHTML = 'Jan 2027<span class="text-indigo-300 text-sm font-bold"> (3.2 Mo)</span>';
+        labelEl.textContent = 'ZERO-DEAL HORIZON';
+        if (safeEl) safeEl.textContent = 'Zero-deal baseline survival date';
+        showToast('Gauge View: Survival Horizon', 'Displaying zero-deal zero cash date.', 'calendar_month', '#8B5CF6');
+      }
+    }
+
+    // Interactive Timeframe Switcher
+    function toggleTimeframeDropdown() {
+      const dd = document.getElementById('timeframe-dropdown');
+      if (dd) dd.classList.toggle('hidden');
+    }
+
+    function selectTimeframe(label, days, cash, burn) {
+      const labelEl = document.getElementById('current-timeframe-label');
+      const dd = document.getElementById('timeframe-dropdown');
+      if (labelEl) labelEl.textContent = label;
+      if (dd) dd.classList.add('hidden');
+
+      // Update hero runway readout
+      const heroNum = document.getElementById('hero-runway-num');
+      const heroBurn = document.getElementById('hero-burn-val');
+      const dialNum = document.getElementById('dash-runway-num');
+
+      if (heroNum) heroNum.textContent = days;
+      if (heroBurn) heroBurn.textContent = '$' + burn.toLocaleString();
+      if (dialNum) dialNum.innerHTML = `${days} <span class="text-emerald-400 text-xl font-bold">Days</span>`;
+
+      showToast(`Timeframe: ${label}`, `Cockpit recalculated across ${label} period.`, 'date_range', '#10B981');
+      addAuditLog('Telemetry Engine', `Timeframe switched to "${label}". Operational buffer updated to ${days} Days.`, '#10B981');
+    }
+
+    // Close timeframe dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      const dd = document.getElementById('timeframe-dropdown');
+      const btn = document.getElementById('timeframe-toggle-btn');
+      if (dd && !dd.classList.contains('hidden') && btn && !btn.contains(e.target) && !dd.contains(e.target)) {
+        dd.classList.add('hidden');
+      }
+    });
+
+    // Keyboard Shortcuts: ⌘N / Ctrl+N to Create Invoice, ⌘K / Ctrl+K to Search Invoices, Esc to close modals
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeWhatIfModal();
+        closeTreasuryCalibrationModal();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'n') {
+        e.preventDefault();
+        window.location.href = '05_dynamic_milestone_invoice_builder.html';
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        const searchInput = document.getElementById('invoice-filter-input');
+        if (searchInput) {
+          searchInput.focus();
+          showToast('Search Focused', 'Filter invoices by client or invoice number.', 'search', '#6366F1');
+        }
+      }
+    });
+
+    // Dynamic Log Entry Helper
+    function addAuditLog(agent, text, color) {
+      const stream = document.getElementById('agent-thought-stream');
+      if (!stream) return;
+      const now = new Date();
+      const timeStr = [now.getHours(), now.getMinutes(), now.getSeconds()].map(n => String(n).padStart(2, '0')).join(':');
+      const entry = document.createElement('div');
+      entry.className = 'p-3 rounded-xl bg-white/[0.02] border border-white/10 font-mono text-xs transition-all animate-pulse';
+      entry.innerHTML = `
+        <div class="flex items-center justify-between mb-1">
+          <span style="color: ${color}" class="font-bold text-[11px] flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full" style="background: ${color}"></span>
+            <span>${agent}</span>
+          </span>
+          <span class="text-zinc-500 text-[10px]">${timeStr}</span>
+        </div>
+        <p class="font-sans text-xs text-zinc-300 leading-relaxed">${text}</p>
+      `;
+      stream.insertBefore(entry, stream.firstChild);
+      setTimeout(() => entry.classList.remove('animate-pulse'), 1000);
+    }
+
+    // Mobile Sidebar Drawer Toggle
+    const mobileToggle = document.getElementById('mobile-sidebar-toggle');
+    const appSidebar = document.getElementById('app-sidebar');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+    const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+
+    function toggleMobileSidebar() {
+      if (!appSidebar) return;
+      const isClosed = appSidebar.classList.contains('-translate-x-full');
+      if (isClosed) {
+        appSidebar.classList.remove('-translate-x-full');
+        sidebarBackdrop?.classList.remove('hidden');
+      } else {
+        appSidebar.classList.add('-translate-x-full');
+        sidebarBackdrop?.classList.add('hidden');
+      }
+    }
+
+    if (mobileToggle) mobileToggle.addEventListener('click', toggleMobileSidebar);
+    if (closeSidebarBtn) closeSidebarBtn.addEventListener('click', toggleMobileSidebar);
+    if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', toggleMobileSidebar);
+  </script>
+
+  <!-- Dynamic Active User & Studio Profile Synchronizer -->
+  <script src="assets/gigpulse_session_sync.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,645 @@
+/* ==========================================================================
+   GigPulse Light Mode Luxury Fintech Theme
+   Crafted with Linear / Stripe / Mercury Bank / Ramp design principles
+   ========================================================================== */
+
+:root, html.light {
+  --bg-canvas: #F8FAFC;         /* Soft slate off-white canvas */
+  --bg-surface: #FFFFFF;        /* Pure crisp card white */
+  --bg-elevated: #F1F5F9;       /* Slate-100 for pills/nested containers */
+  --border-subtle: #E2E8F0;     /* Slate-200 for clean micro-borders */
+  --border-strong: #CBD5E1;     /* Slate-300 for active borders */
+  --text-main: #0F172A;         /* Slate-900 pitch ink */
+  --text-dim: #334155;          /* Slate-700 */
+  --text-muted: #64748B;        /* Slate-500 */
+  --accent-iris: #4F46E5;       /* Indigo-600 */
+  --accent-mint: #059669;       /* Emerald-600 */
+  --accent-rose: #E11D48;       /* Rose-600 */
+  --accent-amber: #D97706;      /* Amber-600 */
+}
+
+/* Base Body & Layout Typography */
+html.light body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+html.light main {
+  background-color: #F8FAFC !important;
+}
+
+/* Universal Fintech Typography System */
+html.light,
+html.light body,
+html.light main,
+html.light div,
+html.light p,
+html.light span:not(kbd *),
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6,
+html.light button,
+html.light a,
+html.light input,
+html.light select,
+html.light textarea,
+html.light label {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Transform raw monospace font classes into clean, modern tabular sans-serif figures */
+html.light .font-mono:not(kbd):not(code):not(pre),
+html.light [class*="font-telemetry-"],
+html.light .font-telemetry-hero,
+html.light .font-telemetry-lg,
+html.light .font-telemetry-md,
+html.light .font-telemetry-sm {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-feature-settings: 'tnum' on, 'cv05' on, 'cv08' on !important;
+  font-variant-numeric: tabular-nums !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Fix harsh wide letter-spacing on eyebrows */
+html.light .font-eyebrow-caps {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: 0.05em !important;
+  font-weight: 700 !important;
+}
+
+/* Preserve clean code font strictly for keyboard badges and code blocks */
+html.light kbd,
+html.light code,
+html.light pre {
+  font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+}
+
+/* Modern Fintech Range Sliders */
+html.light input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #E2E8F0 !important;
+  border-radius: 9999px !important;
+  height: 6px !important;
+  outline: none !important;
+}
+html.light input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #4F46E5;
+  cursor: pointer;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+html.light input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.4);
+}
+
+/* Glass Card / Surface Containers */
+html.light .glass-card,
+html.light .surface-card,
+html.light [class*="bg-surface-charcoal"],
+html.light [class*="bg-surface-elevated"],
+html.light [class*="bg-surface"] {
+  background: #FFFFFF !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.02) !important;
+}
+
+html.light .glass-card:hover {
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.06), 0 4px 8px -2px rgba(15, 23, 42, 0.03) !important;
+}
+
+/* Friendly, polished warm alert card */
+html.light .glass-card-alert {
+  background: #FFF8F6 !important;
+  border: 1px solid #FECDD3 !important;
+  box-shadow: 0 2px 10px 0 rgba(225, 29, 72, 0.04) !important;
+}
+
+html.light .glass-card-alert:hover {
+  border-color: #FDA4AF !important;
+  box-shadow: 0 8px 24px -4px rgba(225, 29, 72, 0.08) !important;
+}
+
+/* Eliminate dark black overlay boxes inside cards in light mode */
+html.light [class*="bg-black/"],
+html.light .bg-black\/40,
+html.light .bg-black\/50,
+html.light .bg-black\/60 {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light .glass-card-alert [class*="bg-black/"],
+html.light .glass-card-alert .bg-black\/40 {
+  background-color: #FFFFFF !important;
+  border: 1px solid #FFE4E6 !important;
+  color: #0F172A !important;
+  box-shadow: 0 2px 8px -2px rgba(225, 29, 72, 0.06) !important;
+}
+
+/* ==========================================================================
+   PROFESSIONAL SAAS SIDEBAR DESIGN SYSTEM (LIGHT MODE)
+   ========================================================================== */
+html.light #app-sidebar,
+html.light aside {
+  background-color: #FFFFFF !important;
+  border-right: 1px solid #E2E8F0 !important;
+  box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.02) !important;
+}
+
+html.light header {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+html.light #app-sidebar .border-b,
+html.light #app-sidebar .border-t,
+html.light aside .border-b,
+html.light aside .border-t {
+  border-color: #F1F5F9 !important;
+}
+
+/* Sidebar Workspace Header */
+html.light .sidebar-workspace-btn {
+  background-color: transparent !important;
+  border: 1px solid transparent !important;
+  color: #0F172A !important;
+  transition: all 0.15s ease !important;
+}
+html.light .sidebar-workspace-btn:hover {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* Sidebar Quick Search Button */
+html.light .sidebar-search-btn {
+  background-color: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #64748B !important;
+  transition: all 0.15s ease !important;
+}
+html.light .sidebar-search-btn:hover {
+  background-color: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+html.light .sidebar-search-btn kbd {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #64748B !important;
+}
+
+/* Primary Action Button: + Create Invoice */
+html.light .sidebar-create-btn {
+  background: #4F46E5 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #4338CA !important;
+  box-shadow: 0 1px 3px 0 rgba(79, 70, 229, 0.25) !important;
+  font-weight: 600 !important;
+  transition: all 0.15s ease !important;
+}
+html.light .sidebar-create-btn:hover {
+  background: #4338CA !important;
+  border-color: #3730A3 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px 0 rgba(79, 70, 229, 0.35) !important;
+}
+html.light .sidebar-create-btn span,
+html.light .sidebar-create-btn .material-symbols-outlined,
+html.light .sidebar-create-btn kbd {
+  color: #FFFFFF !important;
+}
+
+/* Navigation Section Titles */
+html.light .sidebar-section-title {
+  color: #94A3B8 !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+}
+
+/* Navigation Items (Inactive Default) */
+html.light .sidebar-nav-item,
+html.light #app-sidebar nav a:not(.active):not([aria-current="page"]):not([class*="bg-white/[0.08]"]):not([class*="bg-white/[0.09]"]),
+html.light aside nav a:not(.active):not([aria-current="page"]):not([class*="bg-white/[0.08]"]):not([class*="bg-white/[0.09]"]) {
+  color: #475569 !important;
+  background-color: transparent !important;
+  border: 1px solid transparent !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+html.light .sidebar-nav-item:hover,
+html.light #app-sidebar nav a:not(.active):not([aria-current="page"]):not([class*="bg-white/[0.08]"]):not([class*="bg-white/[0.09]"]):hover,
+html.light aside nav a:not(.active):not([aria-current="page"]):not([class*="bg-white/[0.08]"]):not([class*="bg-white/[0.09]"]):hover {
+  color: #0F172A !important;
+  background-color: #F1F5F9 !important;
+}
+html.light .sidebar-nav-item .material-symbols-outlined,
+html.light #app-sidebar nav a:not(.active):not([aria-current="page"]) .material-symbols-outlined,
+html.light aside nav a:not(.active):not([aria-current="page"]) .material-symbols-outlined {
+  color: #64748B !important;
+  font-size: 18px !important;
+  transition: color 0.15s ease !important;
+}
+html.light .sidebar-nav-item:hover .material-symbols-outlined,
+html.light #app-sidebar nav a:not(.active):not([aria-current="page"]):hover .material-symbols-outlined,
+html.light aside nav a:not(.active):not([aria-current="page"]):hover .material-symbols-outlined {
+  color: #0F172A !important;
+}
+
+/* Navigation Items (Active State - Linear / Stripe Style) */
+html.light .sidebar-nav-item.active,
+html.light .sidebar-active-item,
+html.light #app-sidebar nav a.active,
+html.light #app-sidebar nav a[aria-current="page"],
+html.light #app-sidebar a[class*="bg-white/[0.09]"]:not(.sidebar-create-btn),
+html.light #app-sidebar a[class*="bg-white/[0.08]"]:not(.sidebar-create-btn),
+html.light aside a[class*="bg-white/[0.08]"]:not(.sidebar-create-btn),
+html.light aside a[class*="bg-white/[0.09]"]:not(.sidebar-create-btn),
+html.light aside a[class*="bg-primary-container"],
+html.light aside a[class*="border-primary-container"] {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  border: 1px solid #E2E8F0 !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03) !important;
+}
+html.light .sidebar-nav-item.active .material-symbols-outlined,
+html.light .sidebar-active-item .material-symbols-outlined,
+html.light #app-sidebar nav a.active .material-symbols-outlined,
+html.light #app-sidebar nav a[aria-current="page"] .material-symbols-outlined,
+html.light #app-sidebar a[class*="bg-white/[0.09]"]:not(.sidebar-create-btn) .material-symbols-outlined,
+html.light #app-sidebar a[class*="bg-white/[0.08]"]:not(.sidebar-create-btn) .material-symbols-outlined,
+html.light aside a[class*="bg-white/[0.08]"]:not(.sidebar-create-btn) .material-symbols-outlined,
+html.light aside a[class*="bg-white/[0.09]"]:not(.sidebar-create-btn) .material-symbols-outlined {
+  color: #4F46E5 !important;
+  font-size: 18px !important;
+}
+
+/* Sidebar Runway Mini Widget */
+html.light .sidebar-widget-card {
+  background-color: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 12px !important;
+}
+
+/* Sidebar User Profile Footer */
+html.light .sidebar-profile-card {
+  background-color: transparent !important;
+  border-radius: 10px !important;
+  transition: background-color 0.15s ease !important;
+}
+html.light .sidebar-profile-card:hover {
+  background-color: #F1F5F9 !important;
+}
+html.light .sidebar-profile-card .profile-name {
+  color: #0F172A !important;
+  font-weight: 600 !important;
+}
+html.light .sidebar-profile-card .profile-role {
+  color: #64748B !important;
+}
+
+/* Brand text in sidebar */
+html.light #app-sidebar .text-white,
+html.light aside .text-white {
+  color: #0F172A !important;
+}
+
+/* Headings and Main Text */
+html.light h1, 
+html.light h2, 
+html.light h3, 
+html.light h4, 
+html.light h5, 
+html.light h6 {
+  color: #0F172A !important;
+}
+
+/* Text overrides for slate typography (preserving button & badge text) */
+html.light p.text-white,
+html.light h1.text-white,
+html.light h2.text-white,
+html.light h3.text-white,
+html.light h4.text-white,
+html.light div.text-white:not([class*="bg-"]):not(button *):not(a *) {
+  color: #0F172A !important;
+}
+
+/* Ensure buttons, pills, and dark/vibrant elements ALWAYS keep crisp white text */
+html.light button,
+html.light a.inline-flex,
+html.light [class*="bg-indigo-"],
+html.light [class*="bg-slate-9"],
+html.light [class*="bg-slate-8"],
+html.light [class*="bg-emerald-6"],
+html.light [class*="bg-amber-6"] {
+  /* allow custom button styling */
+}
+html.light button.text-white,
+html.light button .text-white,
+html.light button span.text-white,
+html.light a.text-white,
+html.light a .text-white,
+html.light [class*="bg-indigo-"] .text-white,
+html.light [class*="bg-indigo-"] span,
+html.light [class*="bg-slate-9"] .text-white,
+html.light [class*="bg-slate-9"] span,
+html.light [class*="bg-emerald-6"] .text-white,
+html.light [class*="bg-emerald-6"] span,
+html.light [class*="bg-amber-6"] .text-white,
+html.light [class*="bg-amber-6"] span,
+html.light .pill-cta,
+html.light .pill-cta * {
+  color: #FFFFFF !important;
+}
+
+html.light .text-zinc-100,
+html.light .text-zinc-200 {
+  color: #1E293B !important;
+}
+
+html.light .text-zinc-300 {
+  color: #334155 !important;
+}
+
+html.light .text-zinc-400 {
+  color: #64748B !important;
+}
+
+html.light .text-zinc-500 {
+  color: #94A3B8 !important;
+}
+
+/* Background resets for dark hex classes */
+html.light .bg-void,
+html.light .bg-\[\#06070B\],
+html.light .bg-\[\#020202\],
+html.light .bg-\[\#08090E\],
+html.light .bg-\[\#09090D\],
+html.light .bg-\[\#0A0A0F\],
+html.light .bg-\[\#131318\] {
+  background-color: #F8FAFC !important;
+}
+
+html.light .bg-\[\#11131E\],
+html.light .bg-\[\#12121A\],
+html.light .bg-\[\#151726\],
+html.light .bg-\[\#1F1F25\] {
+  background-color: #F1F5F9 !important;
+}
+
+/* Border overrides */
+html.light .border-white\/\[0\.04\],
+html.light .border-white\/\[0\.05\],
+html.light .border-white\/\[0\.06\],
+html.light .border-white\/\[0\.08\],
+html.light .border-white\/10,
+html.light .border-white\/15,
+html.light .border-white\/20,
+html.light .border-slate-800,
+html.light .border-zinc-800,
+html.light .border-zinc-700 {
+  border-color: #E2E8F0 !important;
+}
+
+/* Semi-transparent dark surfaces -> light clean surfaces */
+html.light .bg-white\/\[0\.02\],
+html.light .bg-white\/\[0\.03\],
+html.light .bg-white\/\[0\.04\],
+html.light .bg-white\/\[0\.05\],
+html.light .bg-white\/\[0\.06\],
+html.light .bg-white\/\[0\.08\],
+html.light .bg-white\/\[0\.09\],
+html.light .bg-white\/10 {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+html.light .hover\:bg-white\/\[0\.04\]:hover,
+html.light .hover\:bg-white\/\[0\.08\]:hover,
+html.light .hover\:bg-white\/10:hover {
+  background-color: #F1F5F9 !important;
+}
+
+/* Gradient Iris text in Light mode */
+html.light .gradient-text-iris {
+  background: linear-gradient(120deg, #0F172A 20%, #4F46E5 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Primary Call to Action buttons */
+html.light .pill-cta {
+  background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.28) !important;
+}
+html.light .pill-cta:hover {
+  background: linear-gradient(135deg, #4338CA 0%, #3730A3 100%) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.38) !important;
+}
+html.light .pill-cta span,
+html.light .pill-cta .material-symbols-outlined {
+  color: #FFFFFF !important;
+}
+
+/* Secondary CTA / Actions */
+html.light a[href*="invoice_builder"].pill-cta,
+html.light button.pill-cta {
+  background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%) !important;
+  color: #FFFFFF !important;
+}
+
+
+/* Status Badges */
+html.light .bg-emerald-500\/10,
+html.light .bg-emerald-500\/15 {
+  background-color: #ECFDF5 !important;
+  border-color: #A7F3D0 !important;
+  color: #059669 !important;
+}
+
+html.light .text-emerald-400 {
+  color: #059669 !important;
+}
+
+html.light .bg-rose-500\/10,
+html.light .bg-rose-500\/15 {
+  background-color: #FEF2F2 !important;
+  border-color: #FECDD3 !important;
+  color: #E11D48 !important;
+}
+
+html.light .text-rose-400,
+html.light .text-rose-300 {
+  color: #E11D48 !important;
+}
+
+html.light .bg-indigo-500\/10,
+html.light .bg-indigo-500\/15 {
+  background-color: #EEF2FF !important;
+  border-color: #C7D2FE !important;
+  color: #4F46E5 !important;
+}
+
+html.light .text-indigo-400,
+html.light .text-indigo-300 {
+  color: #4F46E5 !important;
+}
+
+html.light .bg-purple-500\/10,
+html.light .bg-purple-500\/15 {
+  background-color: #FAF5FF !important;
+  border-color: #E9D5FF !important;
+  color: #7E22CE !important;
+}
+
+html.light .text-purple-400,
+html.light .text-purple-300 {
+  color: #7E22CE !important;
+}
+
+html.light .bg-amber-500\/10,
+html.light .bg-amber-500\/15 {
+  background-color: #FFFBEB !important;
+  border-color: #FDE68A !important;
+  color: #D97706 !important;
+}
+
+html.light .text-amber-400,
+html.light .text-amber-300 {
+  color: #D97706 !important;
+}
+
+/* Ambient glow subtle adjustment */
+html.light .pointer-events-none .blur-\[160px\],
+html.light .pointer-events-none .blur-\[150px\],
+html.light .pointer-events-none .blur-\[140px\],
+html.light .pointer-events-none .blur-\[90px\] {
+  opacity: 0.20 !important;
+}
+
+/* Cockpit Gauge track in light mode */
+html.light circle[stroke="rgba(255,255,255,0.06)"],
+html.light circle[stroke="rgba(255,255,255,0.08)"] {
+  stroke: #E2E8F0 !important;
+}
+
+/* Form inputs & tables */
+html.light input,
+html.light select,
+html.light textarea {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+}
+
+html.light input:focus,
+html.light select:focus,
+html.light textarea:focus {
+  border-color: #4F46E5 !important;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12) !important;
+}
+
+html.light table thead {
+  background-color: #F8FAFC !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+
+html.light table tbody tr {
+  border-bottom: 1px solid #F1F5F9 !important;
+}
+
+html.light table tbody tr:hover {
+  background-color: #F8FAFC !important;
+}
+
+/* User profile footer */
+html.light #app-sidebar .bg-\[\#08090E\],
+html.light #app-sidebar .bg-\[\#09090D\],
+html.light aside .bg-\[\#08090E\],
+html.light aside .bg-\[\#09090D\] {
+  background-color: #FAFAFA !important;
+  border-top: 1px solid #E2E8F0 !important;
+}
+
+/* Footer in Light Mode */
+html.light footer {
+  background-color: #FFFFFF !important;
+  border-top: 1px solid #E2E8F0 !important;
+  color: #64748B !important;
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif !important;
+}
+
+/* ==========================================================================
+   Modern Fintech Scrollbar System (Cross-Browser & Sidebar Clean Scroll)
+   ========================================================================== */
+
+/* Universal subtle thin scrollbars for light mode pages */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E1 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1 !important;
+  border-radius: 9999px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8 !important;
+}
+
+/* Sidebar Clean Scroll: Completely remove ugly scrollbars in sidebar while preserving 100% smooth mousewheel/trackpad scrolling */
+#app-sidebar,
+#app-sidebar *,
+.sidebar-scroll-clean,
+.no-scrollbar {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+
+#app-sidebar::-webkit-scrollbar,
+#app-sidebar *::-webkit-scrollbar,
+.sidebar-scroll-clean::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera, Edge */
+  width: 0 !important;
+  height: 0 !important;
+}
+
+

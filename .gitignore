@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +26,15 @@ dist-ssr
 *.sln
 *.sw?
 _backup_gigpulse_v1/
+
+# Internal Hackathon / Dev Scratchpads (Keep strictly local)
+DEVPOST_SUBMISSION_GUIDE.md
+STITCH_GROWTHSPHERE_PROMPTS.md
+**/STITCH_GROWTHSPHERE_PROMPTS.md
+
+# External Scraping & Unused Large Bundles
+noema_main.js
+noema_raw.html
+noema_*
+**/noema_*
+**/assets/noema_*
