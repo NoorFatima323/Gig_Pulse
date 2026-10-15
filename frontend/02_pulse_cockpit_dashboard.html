@@ -2825,11 +2825,13 @@
     }
 
     function applyTreasuryCalibration() {
-      const cash = parseFloat(document.getElementById('calib-cash-input')?.value) || 14850;
-      const burn = parseFloat(document.getElementById('calib-burn-input')?.value) || 3850;
+      const mode = document.querySelector('input[name="calib-ledger-mode"]:checked')?.value || 'demo';
+      const rawCash = document.getElementById('calib-cash-input')?.value;
+      const cash = (rawCash !== '' && !isNaN(parseFloat(rawCash))) ? parseFloat(rawCash) : (mode === 'clean' ? 0 : 14850);
+      const rawBurn = document.getElementById('calib-burn-input')?.value;
+      const burn = (rawBurn !== '' && !isNaN(parseFloat(rawBurn))) ? parseFloat(rawBurn) : (mode === 'clean' ? 0 : 3850);
       const target = parseInt(document.getElementById('calib-target-select')?.value) || 90;
       const bank = document.getElementById('calib-bank-input')?.value.trim() || 'Mercury Checking ···4891';
-      const mode = document.querySelector('input[name="calib-ledger-mode"]:checked')?.value || 'demo';
 
       if (window.calibrateStudioTreasury) {
         window.calibrateStudioTreasury({

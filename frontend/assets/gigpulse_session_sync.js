@@ -2,6 +2,7 @@
  * GigPulse Sovereign Session & Financial Telemetry Synchronizer
  * Automatically hydrates active registered founder, studio profile, 
  * liquid cash reserves, monthly burn rate, and ledger display mode across all screens.
+ * Fully supports clean slate (0,0 empty state) across all 8 web app modules.
  */
 (function() {
   function getActiveUser() {
@@ -89,25 +90,37 @@
     const runwayGoal = parseInt(user.runwayGoal) || 90;
     const initials = getInitials(fullName);
     const isCustomUser = fullName.toLowerCase() !== 'alex mercer';
+    const ledgerMode = user.ledgerMode || 'demo';
+    const isCleanMode = ledgerMode === 'clean';
 
     // Financial core metrics
-    const liquidCash = (user.liquidCash !== undefined && user.liquidCash !== null) ? parseFloat(user.liquidCash) : 14850;
-    const monthlyBurn = (user.monthlyBurn !== undefined && user.monthlyBurn !== null) ? parseFloat(user.monthlyBurn) : 3850;
-    const primaryBank = user.primaryBank || 'Mercury Checking ···4891';
-    const ledgerMode = user.ledgerMode || 'demo';
+    let liquidCash = (user.liquidCash !== undefined && user.liquidCash !== null) ? parseFloat(user.liquidCash) : (isCleanMode ? 0 : 14850);
+    let monthlyBurn = (user.monthlyBurn !== undefined && user.monthlyBurn !== null) ? parseFloat(user.monthlyBurn) : (isCleanMode ? 0 : 3850);
+    
+    if (isCleanMode && (user.liquidCash === undefined || user.liquidCash === null || isNaN(liquidCash))) {
+      liquidCash = 0;
+    }
+    if (isCleanMode && (user.monthlyBurn === undefined || user.monthlyBurn === null || isNaN(monthlyBurn))) {
+      monthlyBurn = 0;
+    }
+
+    const primaryBank = user.primaryBank || (isCleanMode ? 'Primary Bank (Pending Sync)' : 'Mercury Checking ···4891');
 
     // Computed financial runway
-    const dailyBurn = Math.max(1, monthlyBurn / 30);
-    const runwayDays = Math.max(1, Math.round(liquidCash / dailyBurn));
+    const dailyBurn = monthlyBurn > 0 ? (monthlyBurn / 30) : 0;
+    const runwayDays = (liquidCash > 0 && dailyBurn > 0) ? Math.round(liquidCash / dailyBurn) : 0;
     const runwayMo = (runwayDays / 30).toFixed(1);
     const requiredReserve = monthlyBurn * (runwayGoal / 30);
     const safeToSpend = Math.max(0, Math.round(liquidCash - requiredReserve));
-    const runwayPct = Math.round((runwayDays / runwayGoal) * 100);
+    const runwayPct = runwayGoal > 0 ? Math.round((runwayDays / runwayGoal) * 100) : 0;
 
-    // Calculate zero-runway date
-    const zeroDateObj = new Date(Date.now() + runwayDays * 86400000);
-    const zeroMonthYear = zeroDateObj.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-    const zeroMonthFullYear = zeroDateObj.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    // Zero-runway date
+    const zeroMonthYear = runwayDays > 0 
+      ? new Date(Date.now() + runwayDays * 86400000).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) 
+      : 'N/A (0d)';
+    const zeroMonthFullYear = runwayDays > 0 
+      ? new Date(Date.now() + runwayDays * 86400000).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) 
+      : 'N/A';
 
     // 1. Sidebar Profile Badges (across all screens: 02, 03, 04, 05, 06, 07)
     document.querySelectorAll('.profile-name, [data-user-name]').forEach(el => {
@@ -136,7 +149,7 @@
       });
     }
 
-    // 2. Top Header Breadcrumb Studio Name (e.g. in 02_pulse_cockpit_dashboard.html line 470)
+    // 2. Top Header Breadcrumb Studio Name
     const headerBreadcrumbStudio = document.querySelector('header span.text-slate-500.font-medium, .header-studio-name');
     if (headerBreadcrumbStudio && !headerBreadcrumbStudio.textContent.includes('Synced')) {
       headerBreadcrumbStudio.textContent = studioName;
@@ -150,25 +163,35 @@
       if (hour >= 12 && hour < 17) timeGreeting = 'Good afternoon';
       else if (hour >= 17) timeGreeting = 'Good evening';
 
-      let greetingSpan = heroH1.querySelector('.greeting-founder-name');
-      if (!greetingSpan) {
-        heroH1.innerHTML = `<span class="greeting-founder-name">${timeGreeting}, ${firstName}.</span> <span class="gradient-text-iris">Your cash runway is in great shape.</span>`;
+      if (isCleanMode && runwayDays === 0) {
+        heroH1.innerHTML = `<span class="greeting-founder-name">${timeGreeting}, ${firstName}.</span> <span class="gradient-text-iris">Your clean studio workspace is ready.</span>`;
       } else {
-        greetingSpan.textContent = `${timeGreeting}, ${firstName}.`;
+        let greetingSpan = heroH1.querySelector('.greeting-founder-name');
+        if (!greetingSpan) {
+          heroH1.innerHTML = `<span class="greeting-founder-name">${timeGreeting}, ${firstName}.</span> <span class="gradient-text-iris">Your cash runway is in great shape.</span>`;
+        } else {
+          greetingSpan.textContent = `${timeGreeting}, ${firstName}.`;
+        }
       }
     }
 
     // 4. Hero Greeting Paragraph Text (Runway Days, Cash, Zero Date)
     const heroDescP = document.querySelector('main h1 ~ p, .cockpit-greeting ~ p');
-    if (heroDescP && heroDescP.textContent.includes('Studio treasury holds')) {
-      heroDescP.innerHTML = `Studio treasury holds <strong class="text-slate-900 font-semibold">${runwayDays} Days of Runway</strong> (<strong class="text-emerald-700 font-semibold">${formatCurrency(liquidCash)}</strong> liquid cash), comfortably funding operations through <strong class="text-slate-900 font-semibold">${zeroMonthFullYear}</strong> without closing new deals.`;
+    if (heroDescP) {
+      if (isCleanMode && liquidCash === 0) {
+        heroDescP.innerHTML = `Studio treasury holds <strong class="text-slate-900 font-semibold">0 Days of Runway</strong> (<strong class="text-emerald-700 font-semibold">$0.00</strong> liquid cash). <span class="text-emerald-600 font-semibold">Clean Slate</span> — Ready to issue your first milestone contract.`;
+      } else if (heroDescP.textContent.includes('Studio treasury holds') || heroDescP.textContent.includes('Days of Runway')) {
+        heroDescP.innerHTML = `Studio treasury holds <strong class="text-slate-900 font-semibold">${runwayDays} Days of Runway</strong> (<strong class="text-emerald-700 font-semibold">${formatCurrency(liquidCash)}</strong> liquid cash), comfortably funding operations through <strong class="text-slate-900 font-semibold">${zeroMonthFullYear}</strong> without closing new deals.`;
+      }
     }
 
     // 5. Target Days Metric Gauge & Badge (02_pulse_cockpit_dashboard.html)
     const runwayPercentBadge = document.getElementById('hero-runway-percent-badge');
     if (runwayPercentBadge) {
       runwayPercentBadge.textContent = `${runwayPct}% OF TARGET`;
-      if (runwayPct >= 100) {
+      if (isCleanMode && runwayDays === 0) {
+        runwayPercentBadge.className = 'px-2.5 py-0.5 rounded-full bg-slate-500/15 border border-slate-500/40 text-slate-300 font-extrabold text-[10px] uppercase tracking-wider tabular-nums';
+      } else if (runwayPct >= 100) {
         runwayPercentBadge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-extrabold text-[10px] uppercase tracking-wider tabular-nums shadow-[0_0_10px_rgba(16,185,129,0.25)]';
       } else {
         runwayPercentBadge.className = 'px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 font-extrabold text-[10px] uppercase tracking-wider tabular-nums shadow-[0_0_10px_rgba(245,158,11,0.25)]';
@@ -180,21 +203,71 @@
     if (heroRunwayNum) heroRunwayNum.textContent = runwayDays;
 
     const heroBurnVal = document.getElementById('hero-burn-val');
-    if (heroBurnVal) heroBurnVal.textContent = formatShort(monthlyBurn);
+    if (heroBurnVal) heroBurnVal.textContent = formatShort(monthlyBurn) + (monthlyBurn > 0 ? '/mo' : '');
 
     const heroZeroDate = document.getElementById('hero-zero-date');
     if (heroZeroDate) heroZeroDate.textContent = zeroMonthYear;
 
     const heroStatusPill = document.getElementById('hero-status-pill');
-    if (heroStatusPill) heroStatusPill.textContent = `~${runwayMo} Mo Buffer`;
+    if (heroStatusPill) heroStatusPill.textContent = `${runwayDays}d Buffer (~${runwayMo} Mo)`;
 
     const heroRunwayBar = document.getElementById('hero-runway-bar');
     if (heroRunwayBar) {
-      const barPct = Math.min(100, Math.max(15, Math.round((runwayDays / (runwayGoal * 1.4)) * 100)));
+      const barPct = (runwayGoal > 0 && runwayDays > 0) ? Math.min(100, Math.round((runwayDays / (runwayGoal * 1.4)) * 100)) : 0;
       heroRunwayBar.style.width = barPct + '%';
     }
 
-    // Target label in hero card (e.g., Target: 60 Days / Target: 90 Days)
+    // CENTRAL CIRCULAR COCKPIT GAUGE (Screen 02)
+    const dashGaugeCircle = document.getElementById('dash-gauge-circle');
+    const dashRunwayNum = document.getElementById('dash-runway-num');
+    const dashInsulationBadge = document.getElementById('dash-insulation-badge');
+    const dashCashVal = document.getElementById('dash-cash-val');
+    const dashBurnVal = document.getElementById('dash-burn-val');
+    const liveBurnDisplay = document.getElementById('live-burn-display');
+    const liveBurnSlider = document.getElementById('live-burn-slider');
+
+    if (dashGaugeCircle) {
+      if (runwayDays <= 0) {
+        dashGaugeCircle.style.strokeDashoffset = '264'; // completely empty stroke track
+        dashGaugeCircle.style.stroke = '#475569';
+      } else {
+        const ratio = Math.min(Math.max(runwayDays / 130, 0.15), 1);
+        const offset = Math.round(264 - (264 * ratio * 0.8));
+        dashGaugeCircle.style.strokeDashoffset = String(offset);
+        if (runwayDays >= 85) dashGaugeCircle.style.stroke = 'url(#cockpitMeterGrad)';
+        else if (runwayDays >= 55) dashGaugeCircle.style.stroke = '#F59E0B';
+        else dashGaugeCircle.style.stroke = '#F43F5E';
+      }
+    }
+
+    if (dashRunwayNum) {
+      if (runwayDays <= 0) {
+        dashRunwayNum.innerHTML = `0 <span class="text-slate-400 text-xl font-bold">Days</span>`;
+      } else {
+        const colorClass = runwayDays >= 85 ? 'text-emerald-400' : (runwayDays >= 55 ? 'text-amber-400' : 'text-rose-400');
+        dashRunwayNum.innerHTML = `${runwayDays} <span class="${colorClass} text-xl font-bold">Days</span>`;
+      }
+    }
+
+    if (dashInsulationBadge) {
+      if (isCleanMode && runwayDays === 0) {
+        dashInsulationBadge.textContent = `● Clean Slate (0 Mo Buffer)`;
+        dashInsulationBadge.className = 'mt-3 px-3.5 py-1 rounded-full bg-slate-500/15 border border-slate-500/30 text-slate-300 font-sans text-xs font-semibold';
+      } else if (runwayDays >= 85) {
+        dashInsulationBadge.textContent = `● Healthy Buffer (~${runwayMo} Months)`;
+        dashInsulationBadge.className = 'mt-3 px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-sans text-xs font-semibold';
+      } else {
+        dashInsulationBadge.textContent = `🟡 Low Buffer (~${runwayMo} Months)`;
+        dashInsulationBadge.className = 'mt-3 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-sans text-xs font-semibold';
+      }
+    }
+
+    if (dashCashVal) dashCashVal.textContent = formatCurrency(liquidCash);
+    if (dashBurnVal) dashBurnVal.textContent = formatShort(monthlyBurn) + '.00 / mo';
+    if (liveBurnDisplay) liveBurnDisplay.textContent = formatShort(monthlyBurn) + ' / mo';
+    if (liveBurnSlider && isCleanMode && monthlyBurn === 0) liveBurnSlider.value = 0;
+
+    // Target label in hero card
     document.querySelectorAll('.hero-target-runway').forEach(el => {
       el.textContent = `Target: ${runwayGoal} Days`;
     });
@@ -211,8 +284,6 @@
     }
     const modalTreasury = document.getElementById('modal-treasury-val');
     if (modalTreasury) modalTreasury.textContent = formatCurrency(liquidCash);
-    const dashCash = document.getElementById('dash-cash-val');
-    if (dashCash) dashCash.textContent = formatCurrency(liquidCash);
 
     // Section 2 Available Cash text
     document.querySelectorAll('span, div, p').forEach(el => {
@@ -224,7 +295,7 @@
     // 7. Bento Card 2: Cash Runway
     const tileRunway = document.getElementById('tile-runway-val');
     if (tileRunway) {
-      tileRunway.innerHTML = `${runwayDays} <span class="text-xl font-bold text-slate-700">Days</span> <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 ml-1">~${runwayMo} Mo</span>`;
+      tileRunway.innerHTML = `${runwayDays} <span class="text-xl font-bold text-slate-700">Days</span> <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${runwayDays >= 60 ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'} ml-1">~${runwayMo} Mo</span>`;
     }
 
     // Tile 2 burn subtitle
@@ -236,7 +307,7 @@
 
     // 8. Bento Card 4: Safe to Spend
     const tileSafe = document.querySelector('.glass-card:nth-of-type(4) p.font-sans, #tile-safe-to-spend');
-    if (tileSafe && tileSafe.textContent.includes('$')) {
+    if (tileSafe) {
       tileSafe.innerHTML = `${formatShort(safeToSpend)}<span class="text-lg text-slate-400 font-normal">.00</span>`;
     }
 
@@ -245,6 +316,8 @@
     if (headerRunway) headerRunway.textContent = `${runwayDays} Days`;
     const headerBurn = document.getElementById('header-burn');
     if (headerBurn) headerBurn.textContent = formatShort(monthlyBurn);
+    const fcCurrentCash = document.getElementById('current-cash-display');
+    if (fcCurrentCash) fcCurrentCash.textContent = formatCurrency(liquidCash);
 
     // 10. Primary Bank Account text
     document.querySelectorAll('span, div, p').forEach(el => {
@@ -254,24 +327,28 @@
     });
 
     // 10b. Dynamic Freelance Escrow Vault Telemetry (Screen 02 Cockpit)
-    let totalEscrowInflow = 0;
-    if (user.integrations && typeof user.integrations === 'object') {
-      Object.values(user.integrations).forEach(integ => {
-        if (integ && integ.connected && integ.balance) {
-          totalEscrowInflow += parseFloat(integ.balance) || 0;
-        }
-      });
-    } else {
-      if (user.upworkConnected) totalEscrowInflow += parseFloat(user.upworkBalance || 4500);
-      if (user.fiverrConnected) totalEscrowInflow += parseFloat(user.fiverrBalance || 1800);
-    }
     const dashShield = document.getElementById('dash-shield-val');
-    if (dashShield && totalEscrowInflow > 0) {
-      dashShield.textContent = `+${formatCurrency(totalEscrowInflow)}`;
+    if (dashShield) {
+      if (isCleanMode) {
+        dashShield.textContent = '$0.00';
+      } else {
+        let totalEscrowInflow = 0;
+        if (user.integrations && typeof user.integrations === 'object') {
+          Object.values(user.integrations).forEach(integ => {
+            if (integ && integ.connected && integ.balance) {
+              totalEscrowInflow += parseFloat(integ.balance) || 0;
+            }
+          });
+        } else {
+          if (user.upworkConnected) totalEscrowInflow += parseFloat(user.upworkBalance || 4500);
+          if (user.fiverrConnected) totalEscrowInflow += parseFloat(user.fiverrBalance || 1800);
+        }
+        if (totalEscrowInflow > 0) dashShield.textContent = `+${formatCurrency(totalEscrowInflow)}`;
+      }
     }
 
     // 11. Clean Slate vs Demo Invoices Mode
-    if (ledgerMode === 'clean') {
+    if (isCleanMode) {
       // In Screen 02 Cockpit:
       // Tile 3 (Unpaid Invoices)
       const unpaidCard = document.querySelector('.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(3)');
@@ -282,7 +359,7 @@
         if (subEl) subEl.textContent = '0 Active Receivables';
         const actionEl = unpaidCard.querySelector('.mt-3.pt-2\\.5');
         if (actionEl) {
-          actionEl.innerHTML = `<span class="text-emerald-600 font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">verified</span><span>All Invoices Settled</span></span><span class="text-xs text-slate-400 font-medium">Clean Slate</span>`;
+          actionEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">verified</span><span>All Invoices Settled</span></span><span class="text-xs text-slate-400 font-medium">Clean Slate</span>`;
         }
       }
 
@@ -312,17 +389,18 @@
         `;
       }
 
-      // Urgent Overdue Card in Screen 02
+      // Urgent Overdue Card in Screen 02 Cockpit
       const overdueCard = document.getElementById('urgent-overdue-card');
       if (overdueCard) {
+        overdueCard.className = 'xl:col-span-5 rounded-2xl p-6 lg:p-7 relative overflow-hidden flex flex-col justify-between transition-all bg-gradient-to-b from-[#0F172A] via-[#0B0F1C] to-[#0A0D18] border border-emerald-500/30 shadow-[0_8px_32px_rgba(16,185,129,0.1)]';
         overdueCard.innerHTML = `
-          <div class="p-8 text-center flex flex-col items-center justify-center space-y-3">
+          <div class="p-4 sm:p-6 text-center flex flex-col items-center justify-center space-y-3 my-auto">
             <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
               <span class="material-symbols-outlined text-2xl">verified_user</span>
             </div>
-            <h4 class="text-base font-bold text-white">No Overdue Invoices</h4>
+            <h4 class="text-base font-bold text-white">Clean Receivables Ledger</h4>
             <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
-              Studio treasury is in optimal balance with 100% on-time counterparty status. Use the invoice builder to deploy milestones with automated escrow protection.
+              Studio treasury is in optimal balance with zero overdue invoices for <strong class="text-white">${studioName}</strong>. Issue your first milestone contract to activate automated escrow protection.
             </p>
             <div class="pt-2">
               <a href="05_dynamic_milestone_invoice_builder.html" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition-all shadow-sm">
@@ -332,6 +410,14 @@
             </div>
           </div>
         `;
+      }
+
+      // Scenario planning buttons in Screen 02
+      const scenarioBtns = document.querySelectorAll('#dash-scenarios button');
+      if (scenarioBtns.length >= 3) {
+        scenarioBtns[0].textContent = 'Conservative (0d)';
+        scenarioBtns[1].textContent = 'Current (0d)';
+        scenarioBtns[2].textContent = 'Optimistic (0d)';
       }
 
       // Screen 04 Invoices & Receivables Manager clean slate handling
@@ -358,21 +444,47 @@
               </a>
             </div>
           `;
-          const totalOutCard = document.querySelector('.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 > div:first-child');
-          if (totalOutCard) {
-            const num = totalOutCard.querySelector('.text-3xl.font-extrabold');
-            if (num) num.textContent = '$0.00';
-            const sub = totalOutCard.querySelector('.text-slate-500');
-            if (sub) sub.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>0 open client invoices</span>';
-          }
-          const overdueCard04 = document.querySelector('.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(2)');
-          if (overdueCard04) {
-            const num = overdueCard04.querySelector('.text-3xl.font-extrabold');
-            if (num) num.textContent = '$0.00';
-            const sub = overdueCard04.querySelector('.text-rose-600');
-            if (sub) sub.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>0 invoices require follow-up</span>';
-          }
+          const statTotalOut = document.getElementById('stat-total-outstanding') || document.querySelector('.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 > div:first-child .text-3xl.font-extrabold');
+          if (statTotalOut) statTotalOut.textContent = '$0.00';
+          
+          const statOverdue = document.getElementById('stat-overdue-total') || document.querySelector('.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(2) .text-3xl.font-extrabold');
+          if (statOverdue) statOverdue.textContent = '$0.00';
+
+          const statPaid = document.getElementById('stat-paid-30d') || document.querySelector('.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(3) .text-3xl.font-extrabold');
+          if (statPaid) statPaid.textContent = '$0.00';
         }
+      }
+
+      // Screen 06 Payment Chaser clean slate handling
+      const chaserOverdueCount = document.getElementById('chaser-overdue-count');
+      if (chaserOverdueCount) chaserOverdueCount.textContent = '0';
+
+      const chaserTotalDebt = document.getElementById('chaser-total-debt');
+      if (chaserTotalDebt) chaserTotalDebt.textContent = '$0.00';
+
+      const chaserSelect = document.getElementById('target-invoice-select');
+      if (chaserSelect) {
+        chaserSelect.innerHTML = `<option value="" selected>No Overdue Invoices · Clean Ledger</option>`;
+      }
+
+      const chaserClient = document.getElementById('target-client-name');
+      if (chaserClient) chaserClient.textContent = 'All Invoices Settled';
+
+      const chaserChannelEmail = document.getElementById('channel-email-display');
+      if (chaserChannelEmail) chaserChannelEmail.textContent = 'Clean Ledger · No Action Required';
+
+      // Screen 07 Client Reliability Scorecard clean slate handling
+      const scorecardContainer = document.getElementById('scorecard-clients-grid');
+      if (scorecardContainer) {
+        scorecardContainer.innerHTML = `
+          <div class="col-span-full p-12 text-center rounded-2xl bg-white border border-slate-200/80 space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 mx-auto">
+              <span class="material-symbols-outlined text-2xl">shield_person</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">Clean Counterparty Ledger</h4>
+            <p class="text-xs text-slate-500 max-w-sm mx-auto">No clients have been audited yet for ${studioName}. Click 'Audit New Client' above to run an AI risk assessment.</p>
+          </div>
+        `;
       }
     }
 
@@ -383,7 +495,7 @@
       }
     });
 
-    // 13. Payment Chaser (06_autonomous_smart_payment_chaser.html)
+    // 13. Payment Chaser Personalization
     document.querySelectorAll('div, span, p').forEach(el => {
       if (el.textContent.includes('Alex Mercer · Alex Mercer LLC')) {
         el.innerHTML = el.innerHTML.replace('Alex Mercer · Alex Mercer LLC', `${fullName} · ${studioName}`);

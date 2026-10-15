@@ -481,14 +481,15 @@
                   </label>
                   <div class="grid grid-cols-2 gap-1.5">
                     <label class="flex items-center gap-1.5 p-2 rounded-xl border border-white/10 bg-white/5 cursor-pointer hover:border-signal/50 transition-colors">
-                      <input type="radio" name="ledger-mode" value="demo" checked class="text-signal focus:ring-0">
+                      <input type="radio" name="ledger-mode" value="demo" checked onchange="onLedgerModeToggle('demo')" class="text-signal focus:ring-0">
                       <div class="text-[10px] leading-tight font-medium text-white">Demo Data</div>
                     </label>
                     <label class="flex items-center gap-1.5 p-2 rounded-xl border border-white/10 bg-white/5 cursor-pointer hover:border-signal/50 transition-colors">
-                      <input type="radio" name="ledger-mode" value="clean" class="text-signal focus:ring-0">
+                      <input type="radio" name="ledger-mode" value="clean" onchange="onLedgerModeToggle('clean')" class="text-signal focus:ring-0">
                       <div class="text-[10px] leading-tight font-medium text-white">Clean Slate</div>
                     </label>
                   </div>
+                  <span id="ledger-mode-helper" class="text-[10px] text-signal/70 font-mono mt-1 block">Starts with $15k demo telemetry &amp; active accounts</span>
                 </div>
               </div>
             </div>
@@ -809,6 +810,28 @@
       }
     }
 
+    // Toggle clean vs demo inputs
+    window.onLedgerModeToggle = function(mode) {
+      const cashInp = document.getElementById('initial-cash');
+      const burnInp = document.getElementById('monthly-burn');
+      const helper = document.getElementById('ledger-mode-helper');
+      if (mode === 'clean') {
+        if (cashInp) cashInp.value = '0';
+        if (burnInp) burnInp.value = '0';
+        if (helper) {
+          helper.textContent = 'Clean Slate: Starts with $0 balance, 0 days runway, and clean accounting ledger.';
+          helper.className = 'text-[10px] text-emerald-400 font-mono mt-1 block';
+        }
+      } else {
+        if (cashInp) cashInp.value = '15000';
+        if (burnInp) burnInp.value = '3500';
+        if (helper) {
+          helper.textContent = 'Demo Data: Starts with $15k demo telemetry & active accounts.';
+          helper.className = 'text-[10px] text-signal/70 font-mono mt-1 block';
+        }
+      }
+    };
+
     // ========================================================================
     // SUPABASE CLIENT & STUDIO ACCOUNT REGISTRY
     // ========================================================================
@@ -963,10 +986,24 @@
           const founderName = document.getElementById('founder-name')?.value.trim() || 'Alex Mercer';
           const studioName = document.getElementById('studio-name')?.value.trim() || 'Mercer Design Co.';
           const runwayGoal = document.getElementById('runway-target')?.value || '90';
-          const initialCash = parseFloat(document.getElementById('initial-cash')?.value) || 15000;
-          const monthlyBurn = parseFloat(document.getElementById('monthly-burn')?.value) || 3500;
           const primaryBank = document.getElementById('primary-bank')?.value || 'Mercury Checking ···4891';
           const ledgerMode = document.querySelector('input[name="ledger-mode"]:checked')?.value || 'demo';
+
+          let initialCash = 0;
+          let monthlyBurn = 0;
+          if (ledgerMode === 'clean') {
+            const rawCash = document.getElementById('initial-cash')?.value;
+            initialCash = (rawCash !== '' && !isNaN(parseFloat(rawCash))) ? parseFloat(rawCash) : 0;
+            const rawBurn = document.getElementById('monthly-burn')?.value;
+            monthlyBurn = (rawBurn !== '' && !isNaN(parseFloat(rawBurn))) ? parseFloat(rawBurn) : 0;
+            try {
+              localStorage.setItem('gigpulse_custom_invoices', '[]');
+              localStorage.setItem('gigpulse_custom_counterparties', '[]');
+            } catch (e) {}
+          } else {
+            initialCash = parseFloat(document.getElementById('initial-cash')?.value) || 15000;
+            monthlyBurn = parseFloat(document.getElementById('monthly-burn')?.value) || 3500;
+          }
 
           // Check if email is already registered
           const existingIdx = accounts.findIndex(a => a && a.email && a.email.toLowerCase() === email.toLowerCase());
