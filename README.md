@@ -4,11 +4,12 @@
 ### Sovereign Autonomous Financial OS for Independent Founders & Studios
 **Built for the Next Founders International Hackathon (Devpost)**
 
-[![Status](https://img.shields.io/badge/Status-Fully%20Operational-10B981?style=for-the-badge)](http://localhost:3000/gig_pulse_web_app_screens/01_landing_page_full.html)
-[![Aesthetics](https://img.shields.io/badge/Theme-Deep%20Midnight%20Navy%20%7C%20Liquid%20Glass-6366F1?style=for-the-badge)](http://localhost:3000/gig_pulse_web_app_screens/00_auth_login_signup.html)
+[![Status](https://img.shields.io/badge/Status-Fully%20Operational-10B981?style=for-the-badge)](https://gig-pulse-zeta.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-gig--pulse--zeta.vercel.app-6366F1?style=for-the-badge&logo=vercel)](https://gig-pulse-zeta.vercel.app)
 [![License](https://img.shields.io/badge/License-MIT-38BDF8?style=for-the-badge)](LICENSE)
 
-[**Explore Screen Hub Navigator**](http://localhost:3000/gig_pulse_web_app_screens/) • [**Live Marketing Showcase**](http://localhost:3000/gig_pulse_web_app_screens/01_landing_page_full.html) • [**Launch Studio Cockpit**](http://localhost:3000/gig_pulse_web_app_screens/00_auth_login_signup.html)
+[**Live Production Web App**](https://gig-pulse-zeta.vercel.app) • [**Launch Studio Cockpit**](https://gig-pulse-zeta.vercel.app/02_pulse_cockpit_dashboard) • [**Interactive Screens Hub**](https://gig-pulse-zeta.vercel.app/screens_hub.html)
+
 
 </div>
 
